@@ -702,6 +702,16 @@ class PlayerViewModel(
         }
     }
 
+    /**
+     * The reminder card is itself the button: OK (or a tap) while it is on screen opens the OK menu
+     * straight on the Café section, instead of making the user find it.
+     */
+    fun openCoffeeSection() {
+        coffeeJob?.cancel()
+        _ui.update { it.copy(showCoffeeBug = false) }
+        showSection(MenuSection.COFFEE)
+    }
+
     /** Slides the Ko-fi bug away (any remote key dismisses it for this appearance). */
     fun dismissCoffeeBug() {
         if (_ui.value.showCoffeeBug) {

@@ -141,8 +141,20 @@ fun PlayerScreen(
             .focusRequester(focusRequester)
             .focusable()
             .onKeyEvent { event ->
-                // Any key press slides the Ko-fi "bug" away; the key still does its normal job.
-                if (ui.showCoffeeBug && event.type == KeyEventType.KeyDown) viewModel.dismissCoffeeBug()
+                // While the reminder card is on screen it acts as a button: OK opens the Café section
+                // right away. Any other key just slides it away and then does its normal job.
+                if (ui.showCoffeeBug && event.type == KeyEventType.KeyDown) {
+                    val okOnBug = !ui.menuOpen &&
+                        (event.key == Key.DirectionCenter || event.key == Key.Enter) &&
+                        !event.nativeKeyEvent.isLongPress
+                    viewModel.dismissCoffeeBug()
+                    if (okOnBug) {
+                        viewModel.openCoffeeSection()
+                        // Swallow the key-up of this same press so it doesn't also toggle the favorite.
+                        okDownAt[0] = -1L
+                        return@onKeyEvent true
+                    }
+                }
                 // Media keys of TV remotes work whether or not the OK menu is open. Stop leaves the
                 // player; the channel keys zap only while the menu is closed (▲▼ drive the menu there).
                 if (event.type == KeyEventType.KeyDown) {
@@ -409,7 +421,10 @@ fun PlayerScreen(
             exit = slideOutVertically(animationSpec = tween(350)) { it } + fadeOut(tween(350)),
             modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
         ) {
-            CoffeeCard(showQr = !ui.coffeeViaBilling)
+            CoffeeCard(
+                showQr = !ui.coffeeViaBilling,
+                onOpenCoffee = viewModel::openCoffeeSection,
+            )
         }
     }
 }
@@ -637,12 +652,15 @@ private fun CoffeeMenuPanel(section: String, modifier: Modifier = Modifier) {
 /** Shared Ko-fi card (QR + invite + thanks) used by both the timed reminder "bug" and the OK-menu
  *  "Café" section, so they look and animate identically. */
 @Composable
-private fun CoffeeCard(showQr: Boolean, modifier: Modifier = Modifier) {
+private fun CoffeeCard(showQr: Boolean, onOpenCoffee: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xE60A0E12)) // same opacity as the OK menu
+            // With Play billing the whole card is the button (tap on a phone, OK on TV — see the key
+            // handler). With the QR there is nothing to open: the QR keeps its own tap → Ko-fi.
+            .then(if (showQr) Modifier else Modifier.clickable { onOpenCoffee() })
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -669,15 +687,16 @@ private fun CoffeeCard(showQr: Boolean, modifier: Modifier = Modifier) {
                     .padding(5.dp),
             )
         } else {
-            // With Google Play billing the coffee is bought from the OK menu: say how to get there.
-            Text(
-                text = "☕",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(horizontal = 8.dp),
+            // One coffee mark per card: a drawn cup, not another ☕ in the text.
+            Image(
+                painter = painterResource(R.drawable.ic_coffee),
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                modifier = Modifier.padding(horizontal = 6.dp).size(56.dp),
             )
         }
         Column(
-            modifier = Modifier.width(160.dp),
+            modifier = Modifier.widthIn(min = 160.dp, max = 220.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
@@ -686,20 +705,16 @@ private fun CoffeeCard(showQr: Boolean, modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.primary,
             )
             Text(
-                text = stringResource(R.string.support_entry),
+                text = stringResource(
+                    when {
+                        showQr -> R.string.support_entry
+                        isTv() -> R.string.coffee_bug_action_tv
+                        else -> R.string.coffee_bug_action_touch
+                    },
+                ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
-            if (!showQr) {
-                Text(
-                    text = stringResource(
-                        if (isTv()) R.string.coffee_open_menu_hint_tv else R.string.coffee_open_menu_hint_touch,
-                        stringResource(R.string.support_entry),
-                    ),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = Color(0xCCE6EAEE),
-                )
-            }
             Text(
                 text = stringResource(R.string.coffee_thanks),
                 style = MaterialTheme.typography.labelMedium,

@@ -181,7 +181,7 @@ private fun SupportOverlay(
             if (coffees.isNotEmpty()) {
                 coffees.forEachIndexed { index, coffee ->
                     SettingsAction(
-                        label = "☕  ${coffee.name}  ·  ${coffee.price}",
+                        label = "${coffee.name}  ·  ${coffee.price}",
                         modifier = if (index == 0) Modifier.focusRequester(toggleFocus) else Modifier,
                         onClick = { onBuy(coffee) },
                     )

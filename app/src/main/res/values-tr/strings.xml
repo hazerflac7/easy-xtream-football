@@ -125,9 +125,10 @@
     <string name="coffee_dismiss">Bu hatırlatmayı bir daha gösterme</string>
     <string name="coffee_reenable">Hatırlatmayı tekrar göster</string>
     <string name="coffee_thanks">Teşekkürler! Jorge ❤️</string>
+    <string name="coffee_bug_action_tv">Bana kahve ısmarlamak için OK\'a bas</string>
+    <string name="coffee_bug_action_touch">Bana kahve ısmarlamak için buraya dokun</string>
     <string name="coffee_disable_hint">Bu hatırlatmayı ana ekrandaki Ayarlar\'dan kapatabilirsin ⚙️</string>
     <string name="support_message_billing">Bu uygulama ücretsiz ve açık kaynaklıdır. Faydalı bulduysan bana bir kahve ısmarlayabilirsin — dilediğin kadar. Çok teşekkürler!</string>
     <string name="coffee_thanks_purchase">Kahve için teşekkürler! ❤️</string>
-    <string name="coffee_open_menu_hint_touch">Dokun → ‹ %1$s ›</string>
     <string name="coffee_purchase_failed">Satın alma tamamlanamadı</string>
 </resources>
