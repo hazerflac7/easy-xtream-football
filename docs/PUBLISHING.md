@@ -393,7 +393,9 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   sección Café abierta el QR sube a 148 dp y la taza no sale; **Ajustes ya no muestra el QR cuando hay
   precios** (solo sin facturación, Fire TV), lo que además resuelve el desbordamiento de la vc12. QR
   regenerado con corrección **L** (29 módulos en vez de 33, cuadros 14 % más grandes; decodifica hasta
-  130 px). ⏳ Pendiente de verla en el Chromecast.
+  130 px). ✅ **Publicada en Prueba interna el 2026-09-27 (05:35)**. ⏳ Pendiente de verla en el Chromecast:
+  instalar el APK universal firmado por Google desde Explorador de app bundles → 13 → Descargas, con
+  `adb install -r -i com.android.vending`, y comprobar si el QR a 88 dp se escanea desde el sofá.
 
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
