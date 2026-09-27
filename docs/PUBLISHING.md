@@ -529,8 +529,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
 
 9. ✅ **0.1.8 ENVIADA A REVISIÓN el 2026-09-26 (00:05)**: Producción 9 (0.1.8), lanzamiento completo, notas es/en,
    junto con la ficha es-ES con el párrafo nuevo y "24 idiomas" (decía "8"). ⏳ Esperando a Google (hasta 7 días).
-   ⚠️ Descubierto al hacerlo: **la ficha de Play solo existe en español (es-ES)**; no hay traducción en-US. Añadirla
-   (textos en `docs/store-listing.md`) es tarea pendiente. La 0.1.6 se publicó el 2026-09-25. En Amazon: *Add upcoming version*
+   ⚠️ **La ficha de Play solo existe en español (es-ES)**: quien la abre desde fuera la ve en español aunque la app
+   tenga 24 idiomas. **Acordado con el usuario el 2026-09-27: crear la ficha en-US en cuanto Google apruebe la
+   0.1.8** (no antes, para no alargar la revisión en curso, que ya incluye el cambio de la ficha es-ES).
+   Cómo: Fichas de Play Store → *Gestionar traducciones* → añadir Inglés (EE. UU.) → pegar nombre, descripción
+   breve y completa de `docs/store-listing.md` (con el párrafo IMPORTANTE nuevo). Los gráficos se heredan. La 0.1.6 se publicó el 2026-09-25. En Amazon: *Add upcoming version*
    con el APK universal. En ambas tiendas **cambiar la frase "NO incluye ningún canal"** por el texto nuevo de
    `docs/store-listing.md`.
 
