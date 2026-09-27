@@ -393,9 +393,13 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   sección Café abierta el QR sube a 148 dp y la taza no sale; **Ajustes ya no muestra el QR cuando hay
   precios** (solo sin facturación, Fire TV), lo que además resuelve el desbordamiento de la vc12. QR
   regenerado con corrección **L** (29 módulos en vez de 33, cuadros 14 % más grandes; decodifica hasta
-  130 px). ✅ **Publicada en Prueba interna el 2026-09-27 (05:35)**. ⏳ Pendiente de verla en el Chromecast:
-  instalar el APK universal firmado por Google desde Explorador de app bundles → 13 → Descargas, con
-  `adb install -r -i com.android.vending`, y comprobar si el QR a 88 dp se escanea desde el sofá.
+  130 px). ✅ **Publicada en Prueba interna el 2026-09-27 (05:35)**.
+  ✅ **Verificada en el Chromecast el 2026-09-27 (13:55)** con el APK universal firmado por Google
+  (`~/Downloads/13.apk`, Explorador de app bundles → 13 → Descargas → *APK firmado y universal*, instalado con
+  `adb install -r -i com.android.vending`). La tarjeta sale con el QR a la izquierda y la taza a su derecha,
+  sin URL debajo, y el QR **decodifica desde la captura de 1080p** (`https://easy-xtream-football-web.vercel.app`),
+  tanto recortado como en el fotograma completo: a 176 px de 1920 (≈9 % del ancho) se escanea sin problema.
+  ✅ Rama `feature/qr-landing` fusionada en `main` (bdfa1c3) ese mismo día.
 
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
@@ -557,3 +561,5 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
 - (Opcional) Subir **símbolos de depuración nativos** para mejores informes de fallos.
 - ✅ Microsite (`easy-xtream-football-web`) subido a GitHub y desplegado en Vercel:
   https://easy-xtream-football-web.vercel.app (auto-deploy en cada push).
+  ✅ **2026-09-27**: enlace a la web personal del autor (https://martinez.place, `/es/` en español) en el pie,
+  detrás de "Hecho por Jorge Mtnez" / "Made by Jorge Mtnez". Rama `feature/author-link` fusionada en `main`.
