@@ -610,10 +610,14 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   Producción y se salta la 0.1.9**: una revisión en vez de dos. Si algo falla, se publica la vc13,
   que está probada de punta a punta con una compra real. En cualquier caso, **lanzamiento por fases
   al 20 %**, por ser la primera versión en producción con pagos.
-  ⏳ Pendiente de probar con el APK firmado por Google (`~/Downloads/14.apk`, ya instalado en el
-  Chromecast con `-i com.android.vending`): **falta el móvil**, que se desconectó. Lo importante es
-  probar la **compra**, porque los cambios tocan la tarjeta del café y el menú y las builds `.debug`
-  no pueden hacerlo.
+  ✅ **Verificada en el móvil el 2026-09-28** con la build firmada por Google, instalada desde el
+  enlace de la prueba interna (el usuario: *"en móvil funciona como espero"*). Instalarla por USB no
+  se pudo: HyperOS bloquea instalar un paquete **nuevo** por `adb` (actualizar uno ya instalado sí),
+  y además tocando el APK el instalador quedaría como la app de Archivos y la facturación podría no
+  encontrar los productos; **desde la Play Store queda `installerPackageName=com.android.vending`**,
+  que es lo que hace falta. Ojo: Play tardó unos minutos en servir la 14, primero seguía dando la 13.
+  ⏳ **Falta probarla en el Chromecast** (ya instalada con `-i com.android.vending`), sobre todo la
+  **compra**, porque los cambios tocan la tarjeta del café y el menú.
 
   ⚠️ Al reinstalar la build `.debug` en el Chromecast se perdieron los perfiles (la base de datos
   aparece recreada y vacía). Hay que volver a pulsar "Probar con listas de ejemplo" tras cada
