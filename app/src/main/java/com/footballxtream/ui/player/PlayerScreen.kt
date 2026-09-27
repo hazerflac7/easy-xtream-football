@@ -727,23 +727,23 @@ private fun HintChips(legend: String, maxWidth: Dp, modifier: Modifier = Modifie
             }
         }
     }
+    // Deliberately the same recipe as StatsOverlay (the channel info): 8 dp corners, the same
+    // translucent black, the same 10/5 padding and the same labelSmall body with the accent in
+    // labelMedium green. Each fragment is its own pill, with no card around them, so a hint sitting
+    // next to the channel info reads as the same kind of object instead of a heavier, darker block.
     FlowRow(
-        modifier = modifier
-            .widthIn(max = maxWidth)
-            .clip(RoundedCornerShape(14.dp))
-            .background(Color(0xE60A0E12))
-            .padding(10.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.widthIn(max = maxWidth),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         items.forEach { (gesture, action) ->
             Row(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(50))
-                    .background(Color(0x14FFFFFF))
-                    .padding(horizontal = 12.dp, vertical = 7.dp),
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color(0x990A0E12))
+                    .padding(horizontal = 10.dp, vertical = 5.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
             ) {
                 if (gesture.isNotEmpty()) {
                     Text(
@@ -755,8 +755,8 @@ private fun HintChips(legend: String, maxWidth: Dp, modifier: Modifier = Modifie
                 }
                 Text(
                     text = action,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = Color(0xFFE6EAEE),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = Color(0xCCE6EAEE),
                     maxLines = 1,
                 )
             }
