@@ -425,7 +425,14 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Lo que tiene que hacer el usuario en Play Console** (cuenta contact@nezor.es, `/console/u/1/`):
   1. ✅ **Perfil de pagos creado el 2026-09-25** (Ajustes → Perfil de pagos; perfil "JORGE MARTINEZ ORTIZ",
      Google Play Apps, 1 usuario). La **cuenta bancaria está "Pendiente de verificar"**: Google hace un
-     microingreso y hay que confirmar el importe en "Gestionar métodos de pago". ⚠️ Arriba de esa página hay un
+     microingreso y hay que confirmar el importe en "Gestionar métodos de pago".
+     **2026-09-27:** el diálogo *Verificar* dice que el ingreso con concepto **"GOOGLE"** se hizo **en torno al
+     viernes 25 de septiembre** en la cuenta acabada en **6844**, y pide teclear el importe exacto. El usuario
+     dice que **todavía no le ha llegado** (normal: el 25 fue viernes y el 27 es domingo, así que solo ha pasado
+     un día hábil; las transferencias SEPA de Google suelen tardar 2-5 días hábiles → esperar al lunes 28 o
+     martes 29). Camino: Ajustes → Perfil de pagos → *Gestionar métodos de pago* → **Verificar**.
+     ⚠️ Con tres importes erróneos Google anula el ingreso y hay que pedir otro, así que **lo teclea el usuario**
+     leyendo el extracto, no a ojo. ⚠️ Arriba de esa página hay un
      aviso para **registrarse en la cuota de servicio del 15 %** ("Gestionar grupo de cuentas" + aceptar
      condiciones); sin hacerlo Google aplica el 30 %.
      **2026-09-27: paso 1 HECHO** — el usuario creó el *grupo de cuentas* en Cuenta de desarrollador →
