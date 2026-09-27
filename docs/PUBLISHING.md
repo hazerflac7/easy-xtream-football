@@ -587,6 +587,23 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   mando abajo a la derecha y la radio centrada, sin solapes. De paso se arregló un solape que **ya
   existía antes** en la tele: con la sección Café abierta, la tarjeta del QR se dibuja sobre la ayuda
   de navegación y la dejaba medio tapada; ahora esa ayuda se oculta mientras el QR está en pantalla.
+  ✅ **Segunda tanda del 2026-09-28**, con el usuario mirando móvil y tele a la vez:
+  1. **La ayuda en fichas también en la tele y en el menú.** El componente pasa a ser genérico
+     (`HintChips`) y lo usan la leyenda táctil, la de mando y la ayuda de navegación.
+  2. **El icono de la radio dejaba de medir 168 dp** cuando subía la hoja: el área centrada se
+     reducía y las constraints lo comprimían. Ahora se mide con `wrapContentSize(unbounded = true)`,
+     conserva su tamaño y solo se desplaza.
+  3. **La columna inferior se dibuja DESPUÉS de los elementos centrados**, así el menú queda por
+     encima (lo pidió el usuario) en vez de que la tarjeta de la radio tape las pestañas.
+  4. **En la tele, ficha del canal y ayuda comparten una fila alineada abajo.** Antes la ayuda iba
+     anclada a la esquina y la ficha la subía la tarjeta del menú, así que al abrirlo se desalineaban.
+  5. **Misma receta visual para las dos.** La ayuda usaba 14 dp / 90 % / relleno 10 / labelMedium y la
+     ficha del canal 8 dp / 60 % / 10-5 / labelSmall. Ahora la ayuda copia la de la ficha y cada
+     fragmento es su propia pastilla, sin tarjeta alrededor. **Si se toca `StatsOverlay`, tocar
+     también `HintChips`: van emparejados a propósito.**
+  ⚠️ Al reinstalar la build `.debug` en el Chromecast se perdieron los perfiles (la base de datos
+  aparece recreada y vacía). Hay que volver a pulsar "Probar con listas de ejemplo" tras cada
+  reinstalación en esa tele.
   ⚠️ Para probar en el Xiaomi: HyperOS **bloquea `adb install` y la inyección de toques** (pide cuenta
   Xiaomi para "Instalar vía USB"). Se resuelve con `applicationIdSuffix = ".debug"` (nuevo en
   `build.gradle.kts`): la build de pruebas entra **al lado** de la de Play, sin desinstalar nada ni
