@@ -601,6 +601,20 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
      ficha del canal 8 dp / 60 % / 10-5 / labelSmall. Ahora la ayuda copia la de la ficha y cada
      fragmento es su propia pastilla, sin tarjeta alrededor. **Si se toca `StatsOverlay`, tocar
      también `HintChips`: van emparejados a propósito.**
+- ✅ **2026-09-28 · versionCode 14 (0.1.10) PUBLICADA EN PRUEBA INTERNA (19:28)**. AAB firmado en
+  `~/Downloads/easy-xtream-0.1.10-vc14/`. Lleva todo el rediseño del reproductor en móvil y los
+  ajustes de la tele. Única advertencia: la de siempre, símbolos de depuración nativos (opcional).
+  **Decisión de estrategia, acordada con el usuario:** no elegir todavía entre 0.1.9 y 0.1.10. La
+  0.1.10 va a Prueba interna ya (se puede aunque la 0.1.8 siga en revisión, como se hizo ayer con
+  vc11-13) y, cuando Google apruebe la 0.1.8, **si la 0.1.10 va limpia se manda ella directa a
+  Producción y se salta la 0.1.9**: una revisión en vez de dos. Si algo falla, se publica la vc13,
+  que está probada de punta a punta con una compra real. En cualquier caso, **lanzamiento por fases
+  al 20 %**, por ser la primera versión en producción con pagos.
+  ⏳ Pendiente de probar con el APK firmado por Google (`~/Downloads/14.apk`, ya instalado en el
+  Chromecast con `-i com.android.vending`): **falta el móvil**, que se desconectó. Lo importante es
+  probar la **compra**, porque los cambios tocan la tarjeta del café y el menú y las builds `.debug`
+  no pueden hacerlo.
+
   ⚠️ Al reinstalar la build `.debug` en el Chromecast se perdieron los perfiles (la base de datos
   aparece recreada y vacía). Hay que volver a pulsar "Probar con listas de ejemplo" tras cada
   reinstalación en esa tele.
