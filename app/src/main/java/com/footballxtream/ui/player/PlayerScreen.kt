@@ -325,10 +325,68 @@ fun PlayerScreen(
                 },
         )
 
+        val touch = !isTv()
+
+        ui.errorMessage?.let { msg ->
+            Text(
+                text = stringResource(R.string.player_error_with_hint, msg),
+                style = MaterialTheme.typography.titleMedium,
+                color = Color(0xFFE6EAEE),
+                textAlign = TextAlign.Center,
+                // Same dark pill as the rest: an error printed straight onto the video was the one
+                // message you most need to read and the hardest one to read.
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = 24.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xE60A0E12))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+            )
+        }
+
+        // Centre of the screen: the radio view (there is no picture to show) and the paused label.
+        val radioView = (ui.isRadio || ui.audioOnly) && ui.errorMessage == null
+        if (radioView || ui.paused) {
+            Column(
+                // Centred in whatever is left above the sheet, not in the whole screen: in landscape
+                // the sheet takes the lower half and the radio card used to sit right on top of the
+                // section tabs.
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = centreInset)
+                    // unbounded: the card keeps its natural size and just moves up. Without this the
+                    // reduced area squeezed it and the radio glyph visibly shrank when the menu rose.
+                    .wrapContentSize(Alignment.Center, unbounded = true),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                if (radioView) {
+                    RadioOverlay(
+                        name = ui.channelName,
+                        iconUrl = ui.channelIconUrl,
+                        nowPlaying = ui.nowPlaying,
+                        isBuffering = ui.isBuffering,
+                    )
+                }
+                if (ui.paused) {
+                    Text(
+                        text = stringResource(R.string.player_paused),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color(0xFFE6EAEE),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color(0xE60A0E12))
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                    )
+                }
+            }
+        }
+
         // Everything that lives along the bottom edge, stacked in one column so nothing can land on
         // top of anything else. On a phone the menu is a full-width sheet at the very bottom and the
         // channel info rides above it; on TV the info and the 280 dp menu card keep the old layout.
-        val touch = !isTv()
+        // Drawn *after* the centred overlays on purpose: when the radio card does not fit above the
+        // sheet, the sheet covers it instead of the card covering the section tabs.
         Column(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -415,59 +473,6 @@ fun PlayerScreen(
                     onStepSection = viewModel::moveMenuSection,
                     onOpenCoffee = viewModel::openCoffeeSection,
                 )
-            }
-        }
-
-        ui.errorMessage?.let { msg ->
-            Text(
-                text = stringResource(R.string.player_error_with_hint, msg),
-                style = MaterialTheme.typography.titleMedium,
-                color = Color(0xFFE6EAEE),
-                textAlign = TextAlign.Center,
-                // Same dark pill as the rest: an error printed straight onto the video was the one
-                // message you most need to read and the hardest one to read.
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(horizontal = 24.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xE60A0E12))
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-            )
-        }
-
-        // Centre of the screen: the radio view (there is no picture to show) and the paused label.
-        val radioView = (ui.isRadio || ui.audioOnly) && ui.errorMessage == null
-        if (radioView || ui.paused) {
-            Column(
-                // Centred in whatever is left above the sheet, not in the whole screen: in landscape
-                // the sheet takes the lower half and the radio card used to sit right on top of the
-                // section tabs.
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = centreInset)
-                    .wrapContentSize(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                if (radioView) {
-                    RadioOverlay(
-                        name = ui.channelName,
-                        iconUrl = ui.channelIconUrl,
-                        nowPlaying = ui.nowPlaying,
-                        isBuffering = ui.isBuffering,
-                    )
-                }
-                if (ui.paused) {
-                    Text(
-                        text = stringResource(R.string.player_paused),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color(0xFFE6EAEE),
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xE60A0E12))
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                    )
-                }
             }
         }
 
