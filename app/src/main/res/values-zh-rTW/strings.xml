@@ -119,7 +119,7 @@
     <string name="support_entry">請我喝杯咖啡 ☕</string>
     <string name="support_title">喜歡這個 App 嗎？</string>
     <string name="support_message">這個 App 免費且開放原始碼。如果對您有幫助，可以請我喝杯咖啡 — 金額隨意。非常感謝！用手機掃描這個條碼：</string>
-    <string name="support_qr_desc">在 Ko-fi 贊助的 QR 碼</string>
+    <string name="support_qr_desc">應用程式網站的 QR code</string>
     <string name="coffee_bug_text">喜歡這個 App 嗎？請我喝杯咖啡</string>
     <string name="coffee_dismiss">不再顯示此提醒</string>
     <string name="coffee_reenable">再次顯示提醒</string>

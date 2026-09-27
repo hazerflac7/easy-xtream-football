@@ -120,7 +120,7 @@
     <string name="support_entry">Më bli një kafe ☕</string>
     <string name="support_title">Të pëlqen aplikacioni?</string>
     <string name="support_message">Ky aplikacion është falas dhe me burim të hapur. Nëse të hyn në punë, mund të më blesh një kafe — sa të duash. Faleminderit shumë! Skano kodin me telefonin:</string>
-    <string name="support_qr_desc">Kod QR për dhurim në Ko-fi</string>
+    <string name="support_qr_desc">Kodi QR i faqes së aplikacionit</string>
     <string name="coffee_bug_text">Të pëlqen aplikacioni? Më bli një kafe</string>
     <string name="coffee_dismiss">Mos e shfaq më këtë kujtesë</string>
     <string name="coffee_reenable">Shfaqe sërish kujtesën</string>

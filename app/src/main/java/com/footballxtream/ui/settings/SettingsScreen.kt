@@ -8,11 +8,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -35,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.tv.material3.MaterialTheme
@@ -163,6 +167,8 @@ private fun SupportOverlay(
                 .widthIn(max = 560.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(colors.surface)
+                // Safety net for small screens and large font scales.
+                .verticalScroll(rememberScrollState())
                 .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -178,7 +184,45 @@ private fun SupportOverlay(
                 color = colors.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )
-            if (coffees.isNotEmpty()) {
+            // The QR goes to the app's own site (which invites to Ko-fi). Tapping it opens the site,
+            // which is what makes sense on a phone, where you can't scan your own screen.
+            val qr: @Composable (Dp) -> Unit = { size ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.qr_site),
+                        contentDescription = stringResource(R.string.support_qr_desc),
+                        modifier = Modifier
+                            .size(size)
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable {
+                                runCatching {
+                                    context.startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse(context.getString(R.string.support_site_url)),
+                                        ),
+                                    )
+                                }
+                            }
+                            .background(Color.White)
+                            .padding(10.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.support_site_handle),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = colors.primary,
+                    )
+                }
+            }
+            // With Play billing this panel is for buying, not for scanning: the QR lives in the player,
+            // where the viewer is sitting back with a phone at hand. Without billing it is the only way
+            // to give, so it stays here.
+            if (coffees.isEmpty()) {
+                qr(220.dp)
+            } else {
                 coffees.forEachIndexed { index, coffee ->
                     SettingsAction(
                         label = "${coffee.name}  ·  ${coffee.price}",
@@ -186,34 +230,6 @@ private fun SupportOverlay(
                         onClick = { onBuy(coffee) },
                     )
                 }
-            } else {
-            Image(
-                painter = painterResource(R.drawable.qr_kofi),
-                contentDescription = stringResource(R.string.support_qr_desc),
-                modifier = Modifier
-                    .size(220.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    // On a phone, scanning your own screen makes no sense — tapping the QR opens Ko-fi
-                    // directly. On TV (no browser) the runCatching just swallows it, so scanning stays
-                    // the way to donate.
-                    .clickable {
-                        runCatching {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://" + context.getString(R.string.support_kofi_handle)),
-                                ),
-                            )
-                        }
-                    }
-                    .background(Color.White)
-                    .padding(10.dp),
-            )
-            Text(
-                text = stringResource(R.string.support_kofi_handle),
-                style = MaterialTheme.typography.titleMedium,
-                color = colors.primary,
-            )
             }
             SettingsAction(
                 label = stringResource(

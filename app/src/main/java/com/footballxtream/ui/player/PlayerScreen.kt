@@ -325,7 +325,7 @@ fun PlayerScreen(
                 }
             }
             if (ui.menuOpen) {
-                if (ui.menuCoffee) {
+                if (ui.menuCoffee && !ui.coffeeViaBilling) {
                     CoffeeMenuPanel(section = ui.menuSection)
                 } else {
                     OptionsMenu(
@@ -423,6 +423,8 @@ fun PlayerScreen(
         ) {
             CoffeeCard(
                 showQr = !ui.coffeeViaBilling,
+                // Small QR in the floating reminder; a scannable one when the Café section is open.
+                compact = !ui.menuOpen,
                 onOpenCoffee = viewModel::openCoffeeSection,
             )
         }
@@ -652,47 +654,55 @@ private fun CoffeeMenuPanel(section: String, modifier: Modifier = Modifier) {
 /** Shared Ko-fi card (QR + invite + thanks) used by both the timed reminder "bug" and the OK-menu
  *  "Café" section, so they look and animate identically. */
 @Composable
-private fun CoffeeCard(showQr: Boolean, onOpenCoffee: () -> Unit, modifier: Modifier = Modifier) {
+private fun CoffeeCard(
+    showQr: Boolean,
+    compact: Boolean,
+    onOpenCoffee: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
+    val openSite = {
+        runCatching {
+            context.startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.support_site_url))),
+            )
+        }
+        Unit
+    }
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xE60A0E12)) // same opacity as the OK menu
             // With Play billing the whole card is the button (tap on a phone, OK on TV — see the key
             // handler). With the QR there is nothing to open: the QR keeps its own tap → Ko-fi.
-            .then(if (showQr) Modifier else Modifier.clickable { onOpenCoffee() })
+            .then(if (showQr || !compact) Modifier else Modifier.clickable { onOpenCoffee() })
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        if (showQr) {
+        // The QR comes first: it is what the viewer is meant to scan with a phone. It opens the app's
+        // own site (which invites to Ko-fi), never a payment page. On a phone you can't scan your own
+        // screen, so it only shows where it is the only way to give, and a tap opens the site instead.
+        if (showQr || isTv()) {
             Image(
-                painter = painterResource(R.drawable.qr_kofi),
+                painter = painterResource(R.drawable.qr_site),
                 contentDescription = stringResource(R.string.support_qr_desc),
                 modifier = Modifier
-                    .size(96.dp)
+                    .size(if (compact) 88.dp else 148.dp)
                     .clip(RoundedCornerShape(6.dp))
-                    // Tapping the QR opens Ko-fi directly (handy on a phone; harmless on TV — no browser).
-                    .clickable {
-                        runCatching {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://" + context.getString(R.string.support_kofi_handle)),
-                                ),
-                            )
-                        }
-                    }
+                    .clickable { openSite() }
                     .background(Color.White)
                     .padding(5.dp),
             )
-        } else {
-            // One coffee mark per card: a drawn cup, not another ☕ in the text.
+        }
+        // The cup rides along only in the floating reminder, at the QR's size so neither dwarfs the
+        // other. In the open Café section the prices are already on screen next to it.
+        if (!showQr && compact) {
             Image(
                 painter = painterResource(R.drawable.ic_coffee),
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                modifier = Modifier.padding(horizontal = 6.dp).size(56.dp),
+                modifier = Modifier.size(88.dp),
             )
         }
         Column(
@@ -708,6 +718,7 @@ private fun CoffeeCard(showQr: Boolean, onOpenCoffee: () -> Unit, modifier: Modi
                 text = stringResource(
                     when {
                         showQr -> R.string.support_entry
+                        !compact -> R.string.support_entry // the prices are already on screen
                         isTv() -> R.string.coffee_bug_action_tv
                         else -> R.string.coffee_bug_action_touch
                     },

@@ -124,7 +124,7 @@
     <string name="support_entry">اشترِ لي قهوة ☕</string>
     <string name="support_title">هل يعجبك التطبيق؟</string>
     <string name="support_message">هذا التطبيق مجاني ومفتوح المصدر. إذا وجدته مفيدًا، يمكنك أن تشتري لي قهوة — بالقدر الذي تريد. شكرًا جزيلًا! امسح الرمز بهاتفك:</string>
-    <string name="support_qr_desc">رمز QR للتبرع على Ko-fi</string>
+    <string name="support_qr_desc">رمز QR لموقع التطبيق</string>
     <string name="coffee_bug_text">هل يعجبك التطبيق؟ اشترِ لي قهوة</string>
     <string name="coffee_dismiss">عدم إظهار هذا التذكير مجددًا</string>
     <string name="coffee_reenable">إظهار التذكير مجددًا</string>

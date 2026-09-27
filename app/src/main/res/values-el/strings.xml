@@ -120,7 +120,7 @@
     <string name="support_entry">Κέρασέ με έναν καφέ ☕</string>
     <string name="support_title">Σου αρέσει η εφαρμογή;</string>
     <string name="support_message">Η εφαρμογή είναι δωρεάν και ανοιχτού κώδικα. Αν σου είναι χρήσιμη, μπορείς να με κεράσεις έναν καφέ — όσο θέλεις. Ευχαριστώ πολύ! Σάρωσε τον κωδικό με το κινητό σου:</string>
-    <string name="support_qr_desc">Κωδικός QR για δωρεά στο Ko-fi</string>
+    <string name="support_qr_desc">Κωδικός QR του ιστότοπου της εφαρμογής</string>
     <string name="coffee_bug_text">Σου αρέσει η εφαρμογή; Κέρασέ με έναν καφέ</string>
     <string name="coffee_dismiss">Να μην εμφανιστεί ξανά αυτή η υπενθύμιση</string>
     <string name="coffee_reenable">Εμφάνιση της υπενθύμισης ξανά</string>

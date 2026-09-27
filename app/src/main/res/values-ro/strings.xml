@@ -121,7 +121,7 @@
     <string name="support_entry">Dă-mi o cafea ☕</string>
     <string name="support_title">Îți place aplicația?</string>
     <string name="support_message">Aplicația e gratuită și open source. Dacă ți-e utilă, îmi poți face cinste cu o cafea — cât vrei tu. Mulțumesc mult! Scanează codul cu telefonul:</string>
-    <string name="support_qr_desc">Cod QR pentru donații pe Ko-fi</string>
+    <string name="support_qr_desc">Cod QR al site-ului aplicației</string>
     <string name="coffee_bug_text">Îți place aplicația? Dă-mi o cafea</string>
     <string name="coffee_dismiss">Nu mai arăta acest memento</string>
     <string name="coffee_reenable">Arată memento-ul din nou</string>

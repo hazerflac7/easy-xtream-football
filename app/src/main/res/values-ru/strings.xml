@@ -122,7 +122,7 @@
     <string name="support_entry">Угостить меня кофе ☕</string>
     <string name="support_title">Нравится приложение?</string>
     <string name="support_message">Приложение бесплатное и с открытым исходным кодом. Если оно вам полезно, можете угостить меня кофе — на любую сумму. Большое спасибо! Отсканируйте код телефоном:</string>
-    <string name="support_qr_desc">QR-код для пожертвования на Ko-fi</string>
+    <string name="support_qr_desc">QR-код сайта приложения</string>
     <string name="coffee_bug_text">Нравится приложение? Угостите меня кофе</string>
     <string name="coffee_dismiss">Больше не показывать это напоминание</string>
     <string name="coffee_reenable">Показывать напоминание снова</string>

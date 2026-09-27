@@ -119,7 +119,7 @@
     <string name="support_entry">Mời tôi một ly cà phê ☕</string>
     <string name="support_title">Bạn thích ứng dụng chứ?</string>
     <string name="support_message">Ứng dụng này miễn phí và mã nguồn mở. Nếu thấy hữu ích, bạn có thể mời tôi một ly cà phê — tùy tâm. Cảm ơn bạn rất nhiều! Quét mã bằng điện thoại:</string>
-    <string name="support_qr_desc">Mã QR để ủng hộ trên Ko-fi</string>
+    <string name="support_qr_desc">Mã QR của trang web ứng dụng</string>
     <string name="coffee_bug_text">Bạn thích ứng dụng chứ? Mời tôi một ly cà phê</string>
     <string name="coffee_dismiss">Không hiện lời nhắc này nữa</string>
     <string name="coffee_reenable">Hiện lại lời nhắc</string>

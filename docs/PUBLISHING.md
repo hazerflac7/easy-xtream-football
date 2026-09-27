@@ -382,6 +382,21 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   (pendiente crearla). Amazon (ES/EN): cambiar el párrafo al subir la 0.1.8 allí.
 
 ## 0.1.9 — Play Billing para el café (código listo el 2026-09-25, rama `feature/play-billing-coffee`)
+- **2026-09-27 · versionCode 12** en Prueba interna: vuelve el **QR**, ahora hacia la landing
+  (`qr_site.png` → https://easy-xtream-football-web.vercel.app, que desde ese día tiene sección propia de
+  "Invítame a un café"). En la tarjeta del reproductor va al lado de la taza con el dominio debajo; en la
+  sección Café crece a 148 dp; en Ajustes va junto a los precios. Verificado en el Chromecast con el APK
+  firmado por Google. ⚠️ Con la vc12 el QR de 220 dp apilado dejaba el interruptor del recordatorio fuera
+  de pantalla en Ajustes.
+- **2026-09-27 · versionCode 13** (AAB firmado en `~/Downloads/easy-xtream-0.1.9-vc13/`), tras ver la vc12 en
+  la tele: el **QR va primero** y la **taza a su derecha, ambos a 88 dp**, sin la URL escrita debajo; en la
+  sección Café abierta el QR sube a 148 dp y la taza no sale; **Ajustes ya no muestra el QR cuando hay
+  precios** (solo sin facturación, Fire TV), lo que además resuelve el desbordamiento de la vc12. QR
+  regenerado con corrección **L** (29 módulos en vez de 33, cuadros 14 % más grandes; decodifica hasta
+  130 px). ✅ **Publicada en Prueba interna el 2026-09-27 (05:35)**. ⏳ Pendiente de verla en el Chromecast:
+  instalar el APK universal firmado por Google desde Explorador de app bundles → 13 → Descargas, con
+  `adb install -r -i com.android.vending`, y comprobar si el QR a 88 dp se escanea desde el sofá.
+
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
   del ☕ repetido tres veces en la tarjeta y tres más en los botones de Ajustes. Verificado en el Chromecast con el
@@ -514,8 +529,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
 
 9. ✅ **0.1.8 ENVIADA A REVISIÓN el 2026-09-26 (00:05)**: Producción 9 (0.1.8), lanzamiento completo, notas es/en,
    junto con la ficha es-ES con el párrafo nuevo y "24 idiomas" (decía "8"). ⏳ Esperando a Google (hasta 7 días).
-   ⚠️ Descubierto al hacerlo: **la ficha de Play solo existe en español (es-ES)**; no hay traducción en-US. Añadirla
-   (textos en `docs/store-listing.md`) es tarea pendiente. La 0.1.6 se publicó el 2026-09-25. En Amazon: *Add upcoming version*
+   ⚠️ **La ficha de Play solo existe en español (es-ES)**: quien la abre desde fuera la ve en español aunque la app
+   tenga 24 idiomas. **Acordado con el usuario el 2026-09-27: crear la ficha en-US en cuanto Google apruebe la
+   0.1.8** (no antes, para no alargar la revisión en curso, que ya incluye el cambio de la ficha es-ES).
+   Cómo: Fichas de Play Store → *Gestionar traducciones* → añadir Inglés (EE. UU.) → pegar nombre, descripción
+   breve y completa de `docs/store-listing.md` (con el párrafo IMPORTANTE nuevo). Los gráficos se heredan. La 0.1.6 se publicó el 2026-09-25. En Amazon: *Add upcoming version*
    con el APK universal. En ambas tiendas **cambiar la frase "NO incluye ningún canal"** por el texto nuevo de
    `docs/store-listing.md`.
 
@@ -527,6 +545,13 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     política de pagos de Play.
 
 ## Otros TODO de calidad (no bloquean la publicación)
+- ⏳ **Móvil: el menú y su desplazamiento horizontal entre secciones no convencen** (dicho por el usuario el
+  2026-09-27: *"a la hora de mostrar el menú y hacer scroll horizontal con las diferentes opciones no me acaba
+  de gustar o no funciona del todo bien"*). Sin diagnosticar todavía. Dónde mirar: en `PlayerScreen.kt`, el
+  `detectDragGestures` que cambia de sección con un deslizamiento horizontal de 64 dp compite con el
+  `clickable` de cada opción del menú (`OptionsMenu`), y con el menú abierto el deslizamiento vertical no hace
+  nada. Probar en el Xiaomi y decidir: ¿pestañas tocables en la cabecera de sección en vez de deslizar?
+  ¿Flechas ‹ › tocables? ¿Lista vertical con todas las secciones seguidas?
 - Prueba en **hardware flojo** compatible (Fire TV Stick 3ª gen/Lite/4K con Fire OS 7, o Android TV
   reciente). El Fire Stick 2ª gen (Fire OS 5 / Android 5.1, API 22) **no es compatible** (< minSdk 24).
 - (Opcional) Subir **símbolos de depuración nativos** para mejores informes de fallos.

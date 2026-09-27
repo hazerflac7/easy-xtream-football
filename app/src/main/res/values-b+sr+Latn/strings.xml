@@ -121,7 +121,7 @@
     <string name="support_entry">Časti me kafom ☕</string>
     <string name="support_title">Sviđa ti se aplikacija?</string>
     <string name="support_message">Aplikacija je besplatna i otvorenog koda. Ako ti je korisna, možeš da me počastiš kafom — koliko god želiš. Hvala puno! Skeniraj kod telefonom:</string>
-    <string name="support_qr_desc">QR kod za donaciju na Ko-fi</string>
+    <string name="support_qr_desc">QR kod veb-sajta aplikacije</string>
     <string name="coffee_bug_text">Sviđa ti se aplikacija? Časti me kafom</string>
     <string name="coffee_dismiss">Ne prikazuj više ovaj podsetnik</string>
     <string name="coffee_reenable">Ponovo prikaži podsetnik</string>
