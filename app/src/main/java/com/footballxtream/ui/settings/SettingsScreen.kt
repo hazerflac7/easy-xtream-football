@@ -217,28 +217,18 @@ private fun SupportOverlay(
                     )
                 }
             }
+            // With Play billing this panel is for buying, not for scanning: the QR lives in the player,
+            // where the viewer is sitting back with a phone at hand. Without billing it is the only way
+            // to give, so it stays here.
             if (coffees.isEmpty()) {
                 qr(220.dp)
             } else {
-                // Prices and QR side by side: stacked they pushed the reminder toggle off a TV screen.
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                    ) {
-                        coffees.forEachIndexed { index, coffee ->
-                            SettingsAction(
-                                label = "${coffee.name}  ·  ${coffee.price}",
-                                modifier = if (index == 0) Modifier.focusRequester(toggleFocus) else Modifier,
-                                onClick = { onBuy(coffee) },
-                            )
-                        }
-                    }
-                    qr(150.dp)
+                coffees.forEachIndexed { index, coffee ->
+                    SettingsAction(
+                        label = "${coffee.name}  ·  ${coffee.price}",
+                        modifier = if (index == 0) Modifier.focusRequester(toggleFocus) else Modifier,
+                        onClick = { onBuy(coffee) },
+                    )
                 }
             }
             SettingsAction(

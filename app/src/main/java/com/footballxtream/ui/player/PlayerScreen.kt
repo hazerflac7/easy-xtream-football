@@ -680,40 +680,30 @@ private fun CoffeeCard(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        // One coffee mark per card: a drawn cup, not another ☕ in the text. Without billing the QR is
-        // the only way to give, so the cup gives way to it.
-        if (!showQr) {
+        // The QR comes first: it is what the viewer is meant to scan with a phone. It opens the app's
+        // own site (which invites to Ko-fi), never a payment page. On a phone you can't scan your own
+        // screen, so it only shows where it is the only way to give, and a tap opens the site instead.
+        if (showQr || isTv()) {
+            Image(
+                painter = painterResource(R.drawable.qr_site),
+                contentDescription = stringResource(R.string.support_qr_desc),
+                modifier = Modifier
+                    .size(if (compact) 88.dp else 148.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .clickable { openSite() }
+                    .background(Color.White)
+                    .padding(5.dp),
+            )
+        }
+        // The cup rides along only in the floating reminder, at the QR's size so neither dwarfs the
+        // other. In the open Café section the prices are already on screen next to it.
+        if (!showQr && compact) {
             Image(
                 painter = painterResource(R.drawable.ic_coffee),
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                modifier = Modifier.padding(horizontal = 6.dp).size(56.dp),
+                modifier = Modifier.size(88.dp),
             )
-        }
-        // The QR goes to the app's own site (which links to Ko-fi), never to a payment page. On a phone
-        // you can't scan your own screen, so there it is only shown when it is the only way to give, and
-        // tapping it opens the site.
-        if (showQr || isTv()) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.qr_site),
-                    contentDescription = stringResource(R.string.support_qr_desc),
-                    modifier = Modifier
-                        .size(if (compact) 96.dp else 148.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .clickable { openSite() }
-                        .background(Color.White)
-                        .padding(5.dp),
-                )
-                Text(
-                    text = stringResource(R.string.support_site_handle),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color(0xCCE6EAEE),
-                )
-            }
         }
         Column(
             modifier = Modifier.widthIn(min = 160.dp, max = 220.dp),
