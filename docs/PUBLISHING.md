@@ -568,13 +568,29 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     política de pagos de Play.
 
 ## Otros TODO de calidad (no bloquean la publicación)
-- ⏳ **Móvil: el menú y su desplazamiento horizontal entre secciones no convencen** (dicho por el usuario el
-  2026-09-27: *"a la hora de mostrar el menú y hacer scroll horizontal con las diferentes opciones no me acaba
-  de gustar o no funciona del todo bien"*). Sin diagnosticar todavía. Dónde mirar: en `PlayerScreen.kt`, el
-  `detectDragGestures` que cambia de sección con un deslizamiento horizontal de 64 dp compite con el
-  `clickable` de cada opción del menú (`OptionsMenu`), y con el menú abierto el deslizamiento vertical no hace
-  nada. Probar en el Xiaomi y decidir: ¿pestañas tocables en la cabecera de sección en vez de deslizar?
-  ¿Flechas ‹ › tocables? ¿Lista vertical con todas las secciones seguidas?
+- ✅ **Móvil: menú y mensajes rediseñados (2026-09-27).** Lo que fallaba: la capa de gestos a pantalla
+  completa está por debajo de los overlays y Compose para el hit-test en el hermano de arriba, así que
+  un deslizamiento que empezaba sobre la tarjeta del menú no llegaba nunca a esa capa; en vertical esa
+  tarjeta de 280 dp ocupaba casi todo el ancho abajo a la izquierda y dejaba la ayuda de navegación y
+  la leyenda de controles peleando por la esquina inferior derecha, donde además se ancla la tarjeta
+  del café, que al dibujarse después las tapaba; y los mensajes de ayuda iban en texto pelado sobre el
+  vídeo, sin la caja oscura del resto. Qué se hizo (rama `feature/mobile-menu-swipe`, 3 commits):
+  **hoja inferior** a todo el ancho con asa, pestañas tocables (`menuSections` / `menuSectionIndex` /
+  `selectMenuSection` nuevos en el ViewModel) y filas de 48 dp; el **Café** va dentro de la hoja; todo
+  lo del borde inferior cuelga de **una sola columna**, así que no puede solaparse; los elementos
+  centrados (radio, pausa) se centran en el hueco libre **medido** por encima de la hoja; la lista se
+  limita al 40 % de la altura; la **leyenda pasa a fichas**, troceando la cadena existente por el
+  separador `·` y pintando el gesto en verde (sin cadenas nuevas que traducir en los 24 idiomas); el
+  mensaje de error también lleva caja. **La tele no cambia.** Verificado por el usuario en el Xiaomi.
+  ⚠️ Para probar en el Xiaomi: HyperOS **bloquea `adb install` y la inyección de toques** (pide cuenta
+  Xiaomi para "Instalar vía USB"). Se resuelve con `applicationIdSuffix = ".debug"` (nuevo en
+  `build.gradle.kts`): la build de pruebas entra **al lado** de la de Play, sin desinstalar nada ni
+  perder perfiles. El APK se pasa con `adb push` a `/sdcard/Download` **y hay que indexarlo**
+  (`content call --uri content://media/external/file --method scan_file --arg <ruta>`) o la app
+  Archivos no lo ve. La leyenda solo sale 3 veces: se reinicia con
+  `adb shell run-as com.footballxtream.debug rm files/datastore/settings.preferences_pb`.
+  ⚠️ Un `adb install` puede decir *Success* y dejar un APK viejo: **comparar `md5sum` del APK local con
+  el de `pm path`** antes de dar por buena una prueba.
 - Prueba en **hardware flojo** compatible (Fire TV Stick 3ª gen/Lite/4K con Fire OS 7, o Android TV
   reciente). El Fire Stick 2ª gen (Fire OS 5 / Android 5.1, API 22) **no es compatible** (< minSdk 24).
 - (Opcional) Subir **símbolos de depuración nativos** para mejores informes de fallos.

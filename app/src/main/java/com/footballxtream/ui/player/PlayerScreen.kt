@@ -18,18 +18,29 @@ import kotlin.math.abs
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalViewConfiguration
@@ -133,6 +144,16 @@ fun PlayerScreen(
 
     // Overlays sit 20 dp from the edges on a phone; on TV they stay inside the overscan-safe area.
     val overlayPadding = if (isTv()) PaddingValues(horizontal = 48.dp, vertical = 28.dp) else PaddingValues(20.dp)
+
+    // Measured height of everything stacked along the bottom edge (channel info + the touch menu
+    // sheet). The centred overlays keep out of it, so in landscape — where the sheet takes the lower
+    // half — the radio card no longer sits on top of the section tabs.
+    var bottomStackPx by remember { mutableStateOf(0) }
+    val centreInset = if (!isTv() && ui.menuOpen) {
+        with(LocalDensity.current) { bottomStackPx.toDp() }
+    } else {
+        0.dp
+    }
 
     Box(
         modifier = Modifier
@@ -303,38 +324,92 @@ fun PlayerScreen(
                 },
         )
 
+        // Everything that lives along the bottom edge, stacked in one column so nothing can land on
+        // top of anything else. On a phone the menu is a full-width sheet at the very bottom and the
+        // channel info rides above it; on TV the info and the 280 dp menu card keep the old layout.
+        val touch = !isTv()
         Column(
-            modifier = Modifier.align(Alignment.BottomStart).padding(overlayPadding),
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .fillMaxWidth()
+                .onSizeChanged { bottomStackPx = it.height },
             verticalArrangement = Arrangement.spacedBy(6.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // The channel info (stats + now/next) can be hidden globally from the OK menu for a clean
-            // view; the OK menu itself stays available regardless. On a zap it's briefly revealed even
-            // when hidden ([infoFlash]) so you always see what channel you landed on.
-            if (ui.infoVisible || ui.infoFlash) {
-                StatsOverlay(
-                    channelName = ui.channelName,
-                    channelPosition = ui.channelPosition,
-                    emissionLabel = ui.emissionLabel,
-                    throughputMbps = ui.throughputMbps,
-                    resolution = ui.resolution,
-                    isBuffering = ui.isBuffering,
-                    isFavorite = ui.isFavorite,
-                )
-                ui.nowProgram?.let { now ->
-                    EpgOverlay(now = now, next = ui.nextProgram)
-                }
-            }
-            if (ui.menuOpen) {
-                if (ui.menuCoffee && !ui.coffeeViaBilling) {
-                    CoffeeMenuPanel(section = ui.menuSection)
-                } else {
-                    OptionsMenu(
-                        section = ui.menuSection,
-                        options = ui.menuOptions,
-                        selectedIndex = ui.menuSelectedIndex,
-                        onSelect = viewModel::selectMenuOption,
+            if (touch) {
+                // On a phone the coffee reminder and the controls legend join the stack instead of
+                // floating bottom-right: absolutely positioned, they landed on the channel info.
+                // They are never on screen together (the legend hides while the reminder is up).
+                AnimatedVisibility(
+                    visible = ui.showCoffeeBug && !ui.menuOpen,
+                    enter = slideInVertically(animationSpec = tween(450)) { it } + fadeIn(tween(450)),
+                    exit = slideOutVertically(animationSpec = tween(350)) { it } + fadeOut(tween(350)),
+                ) {
+                    CoffeeCard(
+                        showQr = !ui.coffeeViaBilling,
+                        compact = true,
+                        onOpenCoffee = viewModel::openCoffeeSection,
+                        modifier = Modifier.padding(horizontal = 20.dp),
                     )
                 }
+                AnimatedVisibility(
+                    visible = ui.showControlsHint && !ui.menuOpen && !ui.showCoffeeBug,
+                    enter = fadeIn() + slideInVertically { it / 2 },
+                    exit = fadeOut(),
+                ) {
+                    ControlsLegend(modifier = Modifier.padding(horizontal = 20.dp))
+                }
+            }
+            Column(
+                modifier = Modifier.align(Alignment.Start).padding(overlayPadding),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                // The channel info (stats + now/next) can be hidden globally from the OK menu for a clean
+                // view; the OK menu itself stays available regardless. On a zap it's briefly revealed even
+                // when hidden ([infoFlash]) so you always see what channel you landed on.
+                if (ui.infoVisible || ui.infoFlash) {
+                    StatsOverlay(
+                        channelName = ui.channelName,
+                        channelPosition = ui.channelPosition,
+                        emissionLabel = ui.emissionLabel,
+                        throughputMbps = ui.throughputMbps,
+                        resolution = ui.resolution,
+                        isBuffering = ui.isBuffering,
+                        isFavorite = ui.isFavorite,
+                    )
+                    ui.nowProgram?.let { now ->
+                        EpgOverlay(now = now, next = ui.nextProgram)
+                    }
+                }
+                if (ui.menuOpen && !touch) {
+                    if (ui.menuCoffee && !ui.coffeeViaBilling) {
+                        CoffeeMenuPanel(
+                            section = ui.menuSection,
+                            onStepSection = viewModel::moveMenuSection,
+                        )
+                    } else {
+                        OptionsMenu(
+                            section = ui.menuSection,
+                            options = ui.menuOptions,
+                            selectedIndex = ui.menuSelectedIndex,
+                            onSelect = viewModel::selectMenuOption,
+                            onStepSection = viewModel::moveMenuSection,
+                        )
+                    }
+                }
+            }
+            if (ui.menuOpen && touch) {
+                TouchMenuSheet(
+                    sections = ui.menuSections,
+                    sectionIndex = ui.menuSectionIndex,
+                    options = ui.menuOptions,
+                    selectedIndex = ui.menuSelectedIndex,
+                    showCoffeeCard = ui.menuCoffee && !ui.coffeeViaBilling,
+                    onSelectSection = viewModel::selectMenuSection,
+                    onSelectOption = viewModel::selectMenuOption,
+                    onStepSection = viewModel::moveMenuSection,
+                    onOpenCoffee = viewModel::openCoffeeSection,
+                )
             }
         }
 
@@ -343,7 +418,15 @@ fun PlayerScreen(
                 text = stringResource(R.string.player_error_with_hint, msg),
                 style = MaterialTheme.typography.titleMedium,
                 color = Color(0xFFE6EAEE),
-                modifier = Modifier.align(Alignment.Center),
+                textAlign = TextAlign.Center,
+                // Same dark pill as the rest: an error printed straight onto the video was the one
+                // message you most need to read and the hardest one to read.
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = 24.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xE60A0E12))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
             )
         }
 
@@ -351,7 +434,13 @@ fun PlayerScreen(
         val radioView = (ui.isRadio || ui.audioOnly) && ui.errorMessage == null
         if (radioView || ui.paused) {
             Column(
-                modifier = Modifier.align(Alignment.Center),
+                // Centred in whatever is left above the sheet, not in the whole screen: in landscape
+                // the sheet takes the lower half and the radio card used to sit right on top of the
+                // section tabs.
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = centreInset)
+                    .wrapContentSize(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
@@ -391,24 +480,28 @@ fun PlayerScreen(
             )
         }
 
-        // While the menu is open, show its navigation hint.
-        if (ui.menuOpen) {
+        // While the menu is open, show its navigation hint — on TV only: the touch sheet says the same
+        // thing with tappable tabs, and on a phone this line had nowhere to go (the 280 dp card left
+        // it ~60 dp of width in portrait, so it wrapped over the menu).
+        if (ui.menuOpen && !touch) {
             Text(
-                text = stringResource(if (isTv()) R.string.menu_nav_hint else R.string.menu_nav_hint_touch),
+                text = stringResource(R.string.menu_nav_hint),
                 style = MaterialTheme.typography.labelMedium,
                 color = Color(0x99FFFFFF),
                 modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
             )
         }
         // Controls legend: only the first few times — fades in, stays a few seconds, fades out.
+        // Hidden while the coffee reminder is up: both used to be anchored bottom-right, and the card
+        // (drawn later) simply covered the legend.
         AnimatedVisibility(
-            visible = ui.showControlsHint && !ui.menuOpen,
+            visible = ui.showControlsHint && !ui.menuOpen && !touch,
             enter = fadeIn() + slideInVertically { it / 2 },
             exit = fadeOut(),
             modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
         ) {
             Text(
-                text = stringResource(if (isTv()) R.string.controls_legend else R.string.controls_legend_touch),
+                text = stringResource(R.string.controls_legend),
                 style = MaterialTheme.typography.labelMedium,
                 color = Color(0x99FFFFFF),
             )
@@ -416,7 +509,9 @@ fun PlayerScreen(
         // Ko-fi "bug": one shared card (same module) used both for the timed reminder and the OK-menu
         // "Café" section. Slides up from the bottom-right; any key dismisses it (sliding back down).
         AnimatedVisibility(
-            visible = (ui.showCoffeeBug && !ui.menuOpen) || (ui.menuOpen && ui.menuCoffee),
+            // TV only: on a phone the reminder rides in the bottom stack and the Café section lives
+            // inside the sheet, so nothing of this floats over the channel info any more.
+            visible = !touch && ((ui.showCoffeeBug && !ui.menuOpen) || (ui.menuOpen && ui.menuCoffee)),
             enter = slideInVertically(animationSpec = tween(450)) { it } + fadeIn(tween(450)),
             exit = slideOutVertically(animationSpec = tween(350)) { it } + fadeOut(tween(350)),
             modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
@@ -584,12 +679,242 @@ private fun EpgOverlay(now: String, next: String?, modifier: Modifier = Modifier
     }
 }
 
+/**
+ * The touch controls legend, as a card of chips instead of one long line of text.
+ *
+ * It reuses the existing `controls_legend_touch` string rather than adding four new ones to all 24
+ * locales: every translation is written as `gesture: action  ·  gesture: action  …`, so each
+ * "·" fragment becomes a chip and the part before the colon is picked out as the gesture. The chips
+ * match the section tabs of the menu sheet, so the hint looks like part of the app and not like a
+ * debug string printed over the video. A fragment without a colon simply renders whole.
+ */
+@kotlin.OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ControlsLegend(modifier: Modifier = Modifier) {
+    val colors = MaterialTheme.colorScheme
+    val legend = stringResource(R.string.controls_legend_touch)
+    val items = remember(legend) {
+        legend.split('·').mapNotNull { fragment ->
+            val text = fragment.trim()
+            if (text.isEmpty()) return@mapNotNull null
+            // ':' in most locales, '：' in Chinese; French writes " : ", which trim() handles.
+            val halves = text.split(':', '：', limit = 2)
+            if (halves.size == 2 && halves[1].isNotBlank()) {
+                halves[0].trim() to halves[1].trim()
+            } else {
+                "" to text
+            }
+        }
+    }
+    FlowRow(
+        modifier = modifier
+            .clip(RoundedCornerShape(14.dp))
+            .background(Color(0xE60A0E12))
+            .padding(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items.forEach { (gesture, action) ->
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(Color(0x14FFFFFF))
+                    .padding(horizontal = 12.dp, vertical = 7.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                if (gesture.isNotEmpty()) {
+                    Text(
+                        text = gesture,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = colors.primary,
+                        maxLines = 1,
+                    )
+                }
+                Text(
+                    text = action,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = Color(0xFFE6EAEE),
+                    maxLines = 1,
+                )
+            }
+        }
+    }
+}
+
+/**
+ * The touch (phone/tablet) form of the OK menu: a full-width sheet pinned to the bottom edge.
+ *
+ * It replaces the 280 dp card, which in portrait took most of the width and left the help lines and
+ * the coffee card fighting for the same bottom-right corner. Here every section is a tappable tab, so
+ * nothing has to be explained in writing, and the Café section is a row inside the sheet instead of a
+ * card floating over it. Swiping across the sheet still changes section, and so does the D-pad on the
+ * rare touch device that has one, because the key handler is untouched.
+ */
+@Composable
+private fun TouchMenuSheet(
+    sections: List<String>,
+    sectionIndex: Int,
+    options: List<String>,
+    selectedIndex: Int,
+    showCoffeeCard: Boolean,
+    onSelectSection: (Int) -> Unit,
+    onSelectOption: (Int) -> Unit,
+    onStepSection: (Int) -> Unit,
+    onOpenCoffee: () -> Unit,
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(Color(0xF20A0E12))
+            // Swallow taps: without this a tap on the sheet's own background would reach the
+            // full-screen gesture layer underneath and close the menu the user just opened.
+            .pointerInput(Unit) { detectTapGestures { } }
+            .sectionSwipe(onStepSection)
+            .navigationBarsPadding()
+            .padding(bottom = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        // Grabber: says "this panel belongs to the bottom edge" without a word of text.
+        Box(
+            modifier = Modifier
+                .padding(vertical = 10.dp)
+                .size(width = 36.dp, height = 4.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Color(0x66FFFFFF)),
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            sections.forEachIndexed { index, label ->
+                val current = index == sectionIndex
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = if (current) colors.onPrimary else Color(0xFFE6EAEE),
+                    maxLines = 1,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .background(if (current) colors.primary else Color(0x1AFFFFFF))
+                        .clickable { onSelectSection(index) }
+                        .padding(horizontal = 16.dp, vertical = 10.dp),
+                )
+            }
+        }
+        // The list is capped at 40 % of the screen so the sheet never swallows the picture. That
+        // matters in landscape, where 260 dp of options alone is most of the height.
+        val listMax = (LocalConfiguration.current.screenHeightDp * 0.4f).dp.coerceAtMost(260.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = listMax)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+                .padding(top = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            if (showCoffeeCard) {
+                // No billing (Amazon builds, or Play unavailable): the QR is the whole section, so it
+                // rides inside the sheet at full size instead of as a card on top of it.
+                CoffeeCard(
+                    showQr = true,
+                    compact = false,
+                    onOpenCoffee = onOpenCoffee,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            } else {
+                options.forEachIndexed { index, label ->
+                    val selected = index == selectedIndex
+                    Text(
+                        text = (if (selected) "●  " else "○  ") + label,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = if (selected) colors.primary else Color(0xFFE6EAEE),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        // 48 dp-tall rows: the old 2 dp padding gave a target far under the minimum.
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .clickable { onSelectOption(index) }
+                            .padding(horizontal = 12.dp, vertical = 14.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Horizontal swipe on the menu card itself, to change section.
+ *
+ * The full-screen gesture layer lives *below* the overlays in z-order, and Compose stops hit-testing
+ * at the topmost sibling it hits, so a swipe that starts on the menu card never reached it: on a phone
+ * the card covers the bottom-left corner and its option rows are `clickable`, which is exactly where
+ * a thumb lands. The card therefore carries its own detector. It sits on the card (the parent), not on
+ * the rows, so it still sees the drag after the rows decline it: `clickable` cancels its press on slop
+ * without consuming the movement, and the Main pass travels child → parent.
+ */
+private fun Modifier.sectionSwipe(onStepSection: (Int) -> Unit): Modifier = this.pointerInput(Unit) {
+    // PointerInputScope is a Density, so the threshold is resolved here without a composed{} wrapper.
+    val threshold = 40.dp.toPx()
+    var dx = 0f
+    detectHorizontalDragGestures(
+        onDragStart = { dx = 0f },
+        onHorizontalDrag = { change, amount -> change.consume(); dx += amount },
+        onDragEnd = { if (abs(dx) >= threshold) onStepSection(if (dx < 0) 1 else -1) },
+    )
+}
+
+/**
+ * "‹ Sección ›" header. The arrows are real tap targets on touch screens (they looked tappable and
+ * were not, which is half of why the menu felt broken on a phone); on TV they stay decorative so they
+ * never become focusable and steal the D-pad from the player's key handler.
+ */
+@Composable
+private fun SectionHeader(section: String, onStepSection: (Int) -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    val touch = !isTv()
+    val arrow: @Composable (String, Int) -> Unit = { glyph, step ->
+        Text(
+            text = glyph,
+            style = MaterialTheme.typography.titleMedium,
+            color = colors.primary,
+            modifier = Modifier
+                .then(if (touch) Modifier.clickable { onStepSection(step) } else Modifier)
+                .padding(horizontal = 10.dp, vertical = 4.dp),
+        )
+    }
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        arrow("‹", -1)
+        Text(
+            text = section,
+            style = MaterialTheme.typography.labelMedium,
+            color = colors.primary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        arrow("›", 1)
+    }
+}
+
 @Composable
 private fun OptionsMenu(
     section: String,
     options: List<String>,
     selectedIndex: Int,
     onSelect: (Int) -> Unit,
+    onStepSection: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = MaterialTheme.colorScheme
@@ -598,16 +923,11 @@ private fun OptionsMenu(
             .width(280.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xE60A0E12))
+            .sectionSwipe(onStepSection)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        // Section header with ‹ › to hint that left/right switches between Calidad/Audio/Subtítulos.
-        Text(
-            text = "‹ $section ›",
-            style = MaterialTheme.typography.labelMedium,
-            color = colors.primary,
-            modifier = Modifier.padding(bottom = 4.dp),
-        )
+        SectionHeader(section = section, onStepSection = onStepSection)
         options.forEachIndexed { index, label ->
             val selected = index == selectedIndex
             Text(
@@ -627,22 +947,21 @@ private fun OptionsMenu(
  *  carries the section header and how to turn the reminder off — the QR rides in the shared [CoffeeCard]
  *  that slides in bottom-right (see the AnimatedVisibility in the player). */
 @Composable
-private fun CoffeeMenuPanel(section: String, modifier: Modifier = Modifier) {
-    val colors = MaterialTheme.colorScheme
+private fun CoffeeMenuPanel(
+    section: String,
+    onStepSection: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .width(280.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xE60A0E12))
+            .sectionSwipe(onStepSection)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Text(
-            text = "‹ $section ›",
-            style = MaterialTheme.typography.labelMedium,
-            color = colors.primary,
-            modifier = Modifier.padding(bottom = 4.dp),
-        )
+        SectionHeader(section = section, onStepSection = onStepSection)
         Text(
             text = stringResource(R.string.coffee_disable_hint),
             style = MaterialTheme.typography.bodySmall,
