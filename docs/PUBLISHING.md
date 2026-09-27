@@ -469,7 +469,8 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   Validation en PASS. Enviada el 2026-09-23 (13:10) desde la máquina Linux con el navegador guiado por Claude.
   Cuenta de desarrollador de Amazon aprobada ese mismo día. ⏳ Pendiente: **subir la 0.1.8** (APK universal vc9,
   `~/Downloads/easy-xtream-0.1.8/`) como *Add upcoming version* y cambiar el párrafo IMPORTANTE (ES/EN) de la ficha;
-  anotar aquí la URL de la ficha en amazon.es. Consola:
+  ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
+  https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
   - App ID `amzn1.devportal.mobileapp.07ea2808a33b46da999e14dfd0bf5184` · SKU `com.footballxtream` ·
     categoría **Movies & TV** (Amazon no tiene "Entertainment"; sin subcategoría) · gratuita · DRM **No**
