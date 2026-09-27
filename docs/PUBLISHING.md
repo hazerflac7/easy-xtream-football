@@ -545,6 +545,13 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     política de pagos de Play.
 
 ## Otros TODO de calidad (no bloquean la publicación)
+- ⏳ **Móvil: el menú y su desplazamiento horizontal entre secciones no convencen** (dicho por el usuario el
+  2026-09-27: *"a la hora de mostrar el menú y hacer scroll horizontal con las diferentes opciones no me acaba
+  de gustar o no funciona del todo bien"*). Sin diagnosticar todavía. Dónde mirar: en `PlayerScreen.kt`, el
+  `detectDragGestures` que cambia de sección con un deslizamiento horizontal de 64 dp compite con el
+  `clickable` de cada opción del menú (`OptionsMenu`), y con el menú abierto el deslizamiento vertical no hace
+  nada. Probar en el Xiaomi y decidir: ¿pestañas tocables en la cabecera de sección en vez de deslizar?
+  ¿Flechas ‹ › tocables? ¿Lista vertical con todas las secciones seguidas?
 - Prueba en **hardware flojo** compatible (Fire TV Stick 3ª gen/Lite/4K con Fire OS 7, o Android TV
   reciente). El Fire Stick 2ª gen (Fire OS 5 / Android 5.1, API 22) **no es compatible** (< minSdk 24).
 - (Opcional) Subir **símbolos de depuración nativos** para mejores informes de fallos.
