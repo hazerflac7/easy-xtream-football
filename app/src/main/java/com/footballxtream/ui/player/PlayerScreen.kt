@@ -18,6 +18,7 @@ import kotlin.math.abs
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -326,13 +327,17 @@ fun PlayerScreen(
             }
             if (ui.menuOpen) {
                 if (ui.menuCoffee && !ui.coffeeViaBilling) {
-                    CoffeeMenuPanel(section = ui.menuSection)
+                    CoffeeMenuPanel(
+                        section = ui.menuSection,
+                        onStepSection = viewModel::moveMenuSection,
+                    )
                 } else {
                     OptionsMenu(
                         section = ui.menuSection,
                         options = ui.menuOptions,
                         selectedIndex = ui.menuSelectedIndex,
                         onSelect = viewModel::selectMenuOption,
+                        onStepSection = viewModel::moveMenuSection,
                     )
                 }
             }
@@ -584,12 +589,70 @@ private fun EpgOverlay(now: String, next: String?, modifier: Modifier = Modifier
     }
 }
 
+/**
+ * Horizontal swipe on the menu card itself, to change section.
+ *
+ * The full-screen gesture layer lives *below* the overlays in z-order, and Compose stops hit-testing
+ * at the topmost sibling it hits, so a swipe that starts on the menu card never reached it: on a phone
+ * the card covers the bottom-left corner and its option rows are `clickable`, which is exactly where
+ * a thumb lands. The card therefore carries its own detector. It sits on the card (the parent), not on
+ * the rows, so it still sees the drag after the rows decline it: `clickable` cancels its press on slop
+ * without consuming the movement, and the Main pass travels child → parent.
+ */
+private fun Modifier.sectionSwipe(onStepSection: (Int) -> Unit): Modifier = this.pointerInput(Unit) {
+    // PointerInputScope is a Density, so the threshold is resolved here without a composed{} wrapper.
+    val threshold = 40.dp.toPx()
+    var dx = 0f
+    detectHorizontalDragGestures(
+        onDragStart = { dx = 0f },
+        onHorizontalDrag = { change, amount -> change.consume(); dx += amount },
+        onDragEnd = { if (abs(dx) >= threshold) onStepSection(if (dx < 0) 1 else -1) },
+    )
+}
+
+/**
+ * "‹ Sección ›" header. The arrows are real tap targets on touch screens (they looked tappable and
+ * were not, which is half of why the menu felt broken on a phone); on TV they stay decorative so they
+ * never become focusable and steal the D-pad from the player's key handler.
+ */
+@Composable
+private fun SectionHeader(section: String, onStepSection: (Int) -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    val touch = !isTv()
+    val arrow: @Composable (String, Int) -> Unit = { glyph, step ->
+        Text(
+            text = glyph,
+            style = MaterialTheme.typography.titleMedium,
+            color = colors.primary,
+            modifier = Modifier
+                .then(if (touch) Modifier.clickable { onStepSection(step) } else Modifier)
+                .padding(horizontal = 10.dp, vertical = 4.dp),
+        )
+    }
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        arrow("‹", -1)
+        Text(
+            text = section,
+            style = MaterialTheme.typography.labelMedium,
+            color = colors.primary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        arrow("›", 1)
+    }
+}
+
 @Composable
 private fun OptionsMenu(
     section: String,
     options: List<String>,
     selectedIndex: Int,
     onSelect: (Int) -> Unit,
+    onStepSection: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = MaterialTheme.colorScheme
@@ -598,16 +661,11 @@ private fun OptionsMenu(
             .width(280.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xE60A0E12))
+            .sectionSwipe(onStepSection)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        // Section header with ‹ › to hint that left/right switches between Calidad/Audio/Subtítulos.
-        Text(
-            text = "‹ $section ›",
-            style = MaterialTheme.typography.labelMedium,
-            color = colors.primary,
-            modifier = Modifier.padding(bottom = 4.dp),
-        )
+        SectionHeader(section = section, onStepSection = onStepSection)
         options.forEachIndexed { index, label ->
             val selected = index == selectedIndex
             Text(
@@ -627,22 +685,21 @@ private fun OptionsMenu(
  *  carries the section header and how to turn the reminder off — the QR rides in the shared [CoffeeCard]
  *  that slides in bottom-right (see the AnimatedVisibility in the player). */
 @Composable
-private fun CoffeeMenuPanel(section: String, modifier: Modifier = Modifier) {
-    val colors = MaterialTheme.colorScheme
+private fun CoffeeMenuPanel(
+    section: String,
+    onStepSection: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .width(280.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xE60A0E12))
+            .sectionSwipe(onStepSection)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Text(
-            text = "‹ $section ›",
-            style = MaterialTheme.typography.labelMedium,
-            color = colors.primary,
-            modifier = Modifier.padding(bottom = 4.dp),
-        )
+        SectionHeader(section = section, onStepSection = onStepSection)
         Text(
             text = stringResource(R.string.coffee_disable_hint),
             style = MaterialTheme.typography.bodySmall,
