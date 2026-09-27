@@ -619,9 +619,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   ✅ **Verificada también en el Chromecast el 2026-09-27** (*"en la tele también la probé y de momento
   funciona como espero"*). **Las dos plataformas están validadas con la build firmada por Google, así
   que la 0.1.10 es la candidata a Producción y se salta la 0.1.9.**
-  ⏳ Único apartado sin ejercitar a fondo: **completar una compra** en la 0.1.10 (en la 0.1.9 sí se
-  hizo, pedido GPA.3343-1251-1103-24640). El código de facturación no se ha tocado desde entonces;
-  lo que cambió es la interfaz que lo rodea, y esa ya se ha visto funcionando en ambos aparatos.
+  ✅ **Compra de prueba completada en el móvil con la 0.1.10** el 2026-09-27: cuarto pedido en Gestión
+  de pedidos, "Prueba: Un café" (`coffee_small`), 1,99 EUR, Procesado. Al ser tester de licencias,
+  Play sustituye el método de pago por la **tarjeta de prueba que siempre aprueba** y no se cobra
+  nada (existe también la variante que siempre rechaza, para probar pagos fallidos).
+  **La 0.1.10 queda validada de punta a punta en móvil y tele: interfaz y pago.**
 
   ⚠️ Al reinstalar la build `.debug` en el Chromecast se perdieron los perfiles (la base de datos
   aparece recreada y vacía). Hay que volver a pulsar "Probar con listas de ejemplo" tras cada
