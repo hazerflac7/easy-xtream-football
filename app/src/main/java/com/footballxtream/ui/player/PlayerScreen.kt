@@ -424,24 +424,54 @@ fun PlayerScreen(
                 }
             }
             Column(
-                modifier = Modifier.align(Alignment.Start).padding(overlayPadding),
+                modifier = Modifier.fillMaxWidth().padding(overlayPadding),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                // The channel info (stats + now/next) can be hidden globally from the OK menu for a clean
-                // view; the OK menu itself stays available regardless. On a zap it's briefly revealed even
-                // when hidden ([infoFlash]) so you always see what channel you landed on.
-                if (ui.infoVisible || ui.infoFlash) {
-                    StatsOverlay(
-                        channelName = ui.channelName,
-                        channelPosition = ui.channelPosition,
-                        emissionLabel = ui.emissionLabel,
-                        throughputMbps = ui.throughputMbps,
-                        resolution = ui.resolution,
-                        isBuffering = ui.isBuffering,
-                        isFavorite = ui.isFavorite,
-                    )
-                    ui.nowProgram?.let { now ->
-                        EpgOverlay(now = now, next = ui.nextProgram)
+                // On TV the channel info and the remote's help share one row, bottom-aligned. They used
+                // to drift apart: the help was pinned to the bottom-right corner while the info was
+                // pushed up by the menu card underneath it, so opening the menu left them at different
+                // heights.
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Bottom,
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        // The channel info (stats + now/next) can be hidden globally from the OK menu for
+                        // a clean view; the OK menu itself stays available regardless. On a zap it's
+                        // briefly revealed even when hidden ([infoFlash]) so you always see what channel
+                        // you landed on.
+                        if (ui.infoVisible || ui.infoFlash) {
+                            StatsOverlay(
+                                channelName = ui.channelName,
+                                channelPosition = ui.channelPosition,
+                                emissionLabel = ui.emissionLabel,
+                                throughputMbps = ui.throughputMbps,
+                                resolution = ui.resolution,
+                                isBuffering = ui.isBuffering,
+                                isFavorite = ui.isFavorite,
+                            )
+                            ui.nowProgram?.let { now ->
+                                EpgOverlay(now = now, next = ui.nextProgram)
+                            }
+                        }
+                    }
+                    if (!touch) {
+                        // Menu open: how to move around it. Menu closed: the controls legend, only the
+                        // first few times. Never while the coffee card holds that same corner.
+                        if (ui.menuOpen) {
+                            if (!ui.menuCoffee) {
+                                HintChips(legend = stringResource(R.string.menu_nav_hint), maxWidth = 460.dp)
+                            }
+                        } else {
+                            AnimatedVisibility(
+                                visible = ui.showControlsHint && !ui.showCoffeeBug,
+                                enter = fadeIn() + slideInVertically { it / 2 },
+                                exit = fadeOut(),
+                            ) {
+                                HintChips(legend = stringResource(R.string.controls_legend), maxWidth = 620.dp)
+                            }
+                        }
                     }
                 }
                 if (ui.menuOpen && !touch) {
@@ -493,26 +523,9 @@ fun PlayerScreen(
         // While the menu is open, show its navigation hint — on TV only: the touch sheet says the same
         // thing with tappable tabs, and on a phone this line had nowhere to go (the 280 dp card left
         // it ~60 dp of width in portrait, so it wrapped over the menu).
-        // Not while the Café section is open: there the QR card takes the same bottom-right corner
-        // and, being drawn later, left the hint half-covered.
-        if (ui.menuOpen && !touch && !ui.menuCoffee) {
-            HintChips(
-                legend = stringResource(R.string.menu_nav_hint),
-                maxWidth = 460.dp,
-                modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
-            )
-        }
         // Controls legend: only the first few times — fades in, stays a few seconds, fades out.
         // Hidden while the coffee reminder is up: both used to be anchored bottom-right, and the card
         // (drawn later) simply covered the legend.
-        AnimatedVisibility(
-            visible = ui.showControlsHint && !ui.menuOpen && !touch,
-            enter = fadeIn() + slideInVertically { it / 2 },
-            exit = fadeOut(),
-            modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
-        ) {
-            HintChips(legend = stringResource(R.string.controls_legend), maxWidth = 620.dp)
-        }
         // Ko-fi "bug": one shared card (same module) used both for the timed reminder and the OK-menu
         // "Café" section. Slides up from the bottom-right; any key dismisses it (sliding back down).
         AnimatedVisibility(
