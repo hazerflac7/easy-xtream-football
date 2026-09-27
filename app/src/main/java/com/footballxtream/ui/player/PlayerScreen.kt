@@ -69,6 +69,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -357,7 +358,11 @@ fun PlayerScreen(
                     enter = fadeIn() + slideInVertically { it / 2 },
                     exit = fadeOut(),
                 ) {
-                    ControlsLegend(modifier = Modifier.padding(horizontal = 20.dp))
+                    HintChips(
+                        legend = stringResource(R.string.controls_legend_touch),
+                        maxWidth = 520.dp,
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                    )
                 }
             }
             Column(
@@ -486,10 +491,9 @@ fun PlayerScreen(
         // Not while the Café section is open: there the QR card takes the same bottom-right corner
         // and, being drawn later, left the hint half-covered.
         if (ui.menuOpen && !touch && !ui.menuCoffee) {
-            Text(
-                text = stringResource(R.string.menu_nav_hint),
-                style = MaterialTheme.typography.labelMedium,
-                color = Color(0x99FFFFFF),
+            HintChips(
+                legend = stringResource(R.string.menu_nav_hint),
+                maxWidth = 460.dp,
                 modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
             )
         }
@@ -502,11 +506,7 @@ fun PlayerScreen(
             exit = fadeOut(),
             modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
         ) {
-            Text(
-                text = stringResource(R.string.controls_legend),
-                style = MaterialTheme.typography.labelMedium,
-                color = Color(0x99FFFFFF),
-            )
+            HintChips(legend = stringResource(R.string.controls_legend), maxWidth = 620.dp)
         }
         // Ko-fi "bug": one shared card (same module) used both for the timed reminder and the OK-menu
         // "Café" section. Slides up from the bottom-right; any key dismisses it (sliding back down).
@@ -682,19 +682,20 @@ private fun EpgOverlay(now: String, next: String?, modifier: Modifier = Modifier
 }
 
 /**
- * The touch controls legend, as a card of chips instead of one long line of text.
+ * A help line drawn as a card of chips instead of one long string of text. Used for the touch and
+ * the remote control legends and for the menu's navigation hint, so every device gets the same look.
  *
- * It reuses the existing `controls_legend_touch` string rather than adding four new ones to all 24
- * locales: every translation is written as `gesture: action  ·  gesture: action  …`, so each
- * "·" fragment becomes a chip and the part before the colon is picked out as the gesture. The chips
- * match the section tabs of the menu sheet, so the hint looks like part of the app and not like a
- * debug string printed over the video. A fragment without a colon simply renders whole.
+ * It reuses the existing strings rather than adding new ones to all 24 locales: every translation is
+ * written as `gesture: action  ·  gesture: action  …`, so each "·" fragment becomes a chip and the
+ * part before the colon is picked out as the gesture, shown in the brand green. The chips match the
+ * section tabs of the menu sheet, so the hint looks like part of the app and not like a debug string
+ * printed over the video. A fragment without a colon (the navigation hint is written that way in
+ * several locales) simply renders whole.
  */
 @kotlin.OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ControlsLegend(modifier: Modifier = Modifier) {
+private fun HintChips(legend: String, maxWidth: Dp, modifier: Modifier = Modifier) {
     val colors = MaterialTheme.colorScheme
-    val legend = stringResource(R.string.controls_legend_touch)
     val items = remember(legend) {
         legend.split('·').mapNotNull { fragment ->
             val text = fragment.trim()
@@ -710,6 +711,7 @@ private fun ControlsLegend(modifier: Modifier = Modifier) {
     }
     FlowRow(
         modifier = modifier
+            .widthIn(max = maxWidth)
             .clip(RoundedCornerShape(14.dp))
             .background(Color(0xE60A0E12))
             .padding(10.dp),
