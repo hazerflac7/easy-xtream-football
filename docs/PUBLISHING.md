@@ -427,7 +427,17 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
      Google Play Apps, 1 usuario). La **cuenta bancaria está "Pendiente de verificar"**: Google hace un
      microingreso y hay que confirmar el importe en "Gestionar métodos de pago". ⚠️ Arriba de esa página hay un
      aviso para **registrarse en la cuota de servicio del 15 %** ("Gestionar grupo de cuentas" + aceptar
-     condiciones); sin hacerlo Google aplica el 30 %. Pendiente.
+     condiciones); sin hacerlo Google aplica el 30 %.
+     **2026-09-27: paso 1 HECHO** — el usuario creó el *grupo de cuentas* en Cuenta de desarrollador →
+     Cuentas de desarrollador asociadas (`/associated-developer-accounts`), con su cuenta principal sola
+     (no hay cuentas asociadas; la pestaña *Solicitudes* está vacía).
+     ⏳ **Paso 2 pendiente y todavía NO disponible en la consola**: según la ayuda de Google
+     (support.google.com/googleplay/android-developer/answer/10632485) al terminar el grupo debe aparecer al
+     final de esa misma página el aviso *"Cuando termines de configurar tu grupo de cuentas, regístrate en la
+     cuota de servicio del 15 %"* con el botón **"Revisar y registrarme"** → aceptar condiciones →
+     **"Aceptar y registrarme"**. Ese aviso aún no sale (Google tarda en procesar el grupo recién creado) y el
+     banner del Perfil de pagos sigue mostrando los dos requisitos. **Volver a mirar esa página en unas horas
+     o mañana.**
   2. ✅ **0.1.9 (vc10) publicada en Prueba interna el 2026-09-26 11:38** (hacía falta una build con el permiso
      BILLING para poder crear productos). ✅ **Tres productos únicos creados el 2026-09-26 como BORRADOR**
      (`coffee_small` "Un café", `coffee_medium` "Café y tostada", `coffee_large` "Café para el equipo"; opción de
