@@ -20,6 +20,9 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +30,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -304,42 +309,64 @@ fun PlayerScreen(
                 },
         )
 
+        // Everything that lives along the bottom edge, stacked in one column so nothing can land on
+        // top of anything else. On a phone the menu is a full-width sheet at the very bottom and the
+        // channel info rides above it; on TV the info and the 280 dp menu card keep the old layout.
+        val touch = !isTv()
         Column(
-            modifier = Modifier.align(Alignment.BottomStart).padding(overlayPadding),
+            modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            // The channel info (stats + now/next) can be hidden globally from the OK menu for a clean
-            // view; the OK menu itself stays available regardless. On a zap it's briefly revealed even
-            // when hidden ([infoFlash]) so you always see what channel you landed on.
-            if (ui.infoVisible || ui.infoFlash) {
-                StatsOverlay(
-                    channelName = ui.channelName,
-                    channelPosition = ui.channelPosition,
-                    emissionLabel = ui.emissionLabel,
-                    throughputMbps = ui.throughputMbps,
-                    resolution = ui.resolution,
-                    isBuffering = ui.isBuffering,
-                    isFavorite = ui.isFavorite,
-                )
-                ui.nowProgram?.let { now ->
-                    EpgOverlay(now = now, next = ui.nextProgram)
+            Column(
+                modifier = Modifier.padding(overlayPadding),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                // The channel info (stats + now/next) can be hidden globally from the OK menu for a clean
+                // view; the OK menu itself stays available regardless. On a zap it's briefly revealed even
+                // when hidden ([infoFlash]) so you always see what channel you landed on.
+                if (ui.infoVisible || ui.infoFlash) {
+                    StatsOverlay(
+                        channelName = ui.channelName,
+                        channelPosition = ui.channelPosition,
+                        emissionLabel = ui.emissionLabel,
+                        throughputMbps = ui.throughputMbps,
+                        resolution = ui.resolution,
+                        isBuffering = ui.isBuffering,
+                        isFavorite = ui.isFavorite,
+                    )
+                    ui.nowProgram?.let { now ->
+                        EpgOverlay(now = now, next = ui.nextProgram)
+                    }
+                }
+                if (ui.menuOpen && !touch) {
+                    if (ui.menuCoffee && !ui.coffeeViaBilling) {
+                        CoffeeMenuPanel(
+                            section = ui.menuSection,
+                            onStepSection = viewModel::moveMenuSection,
+                        )
+                    } else {
+                        OptionsMenu(
+                            section = ui.menuSection,
+                            options = ui.menuOptions,
+                            selectedIndex = ui.menuSelectedIndex,
+                            onSelect = viewModel::selectMenuOption,
+                            onStepSection = viewModel::moveMenuSection,
+                        )
+                    }
                 }
             }
-            if (ui.menuOpen) {
-                if (ui.menuCoffee && !ui.coffeeViaBilling) {
-                    CoffeeMenuPanel(
-                        section = ui.menuSection,
-                        onStepSection = viewModel::moveMenuSection,
-                    )
-                } else {
-                    OptionsMenu(
-                        section = ui.menuSection,
-                        options = ui.menuOptions,
-                        selectedIndex = ui.menuSelectedIndex,
-                        onSelect = viewModel::selectMenuOption,
-                        onStepSection = viewModel::moveMenuSection,
-                    )
-                }
+            if (ui.menuOpen && touch) {
+                TouchMenuSheet(
+                    sections = ui.menuSections,
+                    sectionIndex = ui.menuSectionIndex,
+                    options = ui.menuOptions,
+                    selectedIndex = ui.menuSelectedIndex,
+                    showCoffeeCard = ui.menuCoffee && !ui.coffeeViaBilling,
+                    onSelectSection = viewModel::selectMenuSection,
+                    onSelectOption = viewModel::selectMenuOption,
+                    onStepSection = viewModel::moveMenuSection,
+                    onOpenCoffee = viewModel::openCoffeeSection,
+                )
             }
         }
 
@@ -348,7 +375,15 @@ fun PlayerScreen(
                 text = stringResource(R.string.player_error_with_hint, msg),
                 style = MaterialTheme.typography.titleMedium,
                 color = Color(0xFFE6EAEE),
-                modifier = Modifier.align(Alignment.Center),
+                textAlign = TextAlign.Center,
+                // Same dark pill as the rest: an error printed straight onto the video was the one
+                // message you most need to read and the hardest one to read.
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = 24.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xE60A0E12))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
             )
         }
 
@@ -396,32 +431,51 @@ fun PlayerScreen(
             )
         }
 
-        // While the menu is open, show its navigation hint.
-        if (ui.menuOpen) {
+        // While the menu is open, show its navigation hint — on TV only: the touch sheet says the same
+        // thing with tappable tabs, and on a phone this line had nowhere to go (the 280 dp card left
+        // it ~60 dp of width in portrait, so it wrapped over the menu).
+        if (ui.menuOpen && !touch) {
             Text(
-                text = stringResource(if (isTv()) R.string.menu_nav_hint else R.string.menu_nav_hint_touch),
+                text = stringResource(R.string.menu_nav_hint),
                 style = MaterialTheme.typography.labelMedium,
                 color = Color(0x99FFFFFF),
                 modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
             )
         }
         // Controls legend: only the first few times — fades in, stays a few seconds, fades out.
+        // Hidden while the coffee reminder is up: both used to be anchored bottom-right, and the card
+        // (drawn later) simply covered the legend.
         AnimatedVisibility(
-            visible = ui.showControlsHint && !ui.menuOpen,
+            visible = ui.showControlsHint && !ui.menuOpen && !ui.showCoffeeBug,
             enter = fadeIn() + slideInVertically { it / 2 },
             exit = fadeOut(),
-            modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
+            modifier = Modifier
+                .align(if (touch) Alignment.BottomCenter else Alignment.BottomEnd)
+                .padding(overlayPadding),
         ) {
             Text(
                 text = stringResource(if (isTv()) R.string.controls_legend else R.string.controls_legend_touch),
                 style = MaterialTheme.typography.labelMedium,
-                color = Color(0x99FFFFFF),
+                color = if (touch) Color(0xFFE6EAEE) else Color(0x99FFFFFF),
+                textAlign = TextAlign.Center,
+                // On a phone it needs the same dark pill as everything else: plain 60 %-white text
+                // over the video was unreadable on a bright scene.
+                modifier = if (touch) {
+                    Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0xE60A0E12))
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
+                } else {
+                    Modifier
+                },
             )
         }
         // Ko-fi "bug": one shared card (same module) used both for the timed reminder and the OK-menu
         // "Café" section. Slides up from the bottom-right; any key dismisses it (sliding back down).
         AnimatedVisibility(
-            visible = (ui.showCoffeeBug && !ui.menuOpen) || (ui.menuOpen && ui.menuCoffee),
+            // On touch the Café section lives inside the bottom sheet, so the floating card is only
+            // the timed reminder there; on TV it still doubles as the open Café section.
+            visible = (ui.showCoffeeBug && !ui.menuOpen) || (ui.menuOpen && ui.menuCoffee && !touch),
             enter = slideInVertically(animationSpec = tween(450)) { it } + fadeIn(tween(450)),
             exit = slideOutVertically(animationSpec = tween(350)) { it } + fadeOut(tween(350)),
             modifier = Modifier.align(Alignment.BottomEnd).padding(overlayPadding),
@@ -586,6 +640,112 @@ private fun EpgOverlay(now: String, next: String?, modifier: Modifier = Modifier
             style = MaterialTheme.typography.labelSmall,
             color = Color(0xCCE6EAEE),
         )
+    }
+}
+
+/**
+ * The touch (phone/tablet) form of the OK menu: a full-width sheet pinned to the bottom edge.
+ *
+ * It replaces the 280 dp card, which in portrait took most of the width and left the help lines and
+ * the coffee card fighting for the same bottom-right corner. Here every section is a tappable tab, so
+ * nothing has to be explained in writing, and the Café section is a row inside the sheet instead of a
+ * card floating over it. Swiping across the sheet still changes section, and so does the D-pad on the
+ * rare touch device that has one, because the key handler is untouched.
+ */
+@Composable
+private fun TouchMenuSheet(
+    sections: List<String>,
+    sectionIndex: Int,
+    options: List<String>,
+    selectedIndex: Int,
+    showCoffeeCard: Boolean,
+    onSelectSection: (Int) -> Unit,
+    onSelectOption: (Int) -> Unit,
+    onStepSection: (Int) -> Unit,
+    onOpenCoffee: () -> Unit,
+) {
+    val colors = MaterialTheme.colorScheme
+    val shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(Color(0xF20A0E12))
+            // Swallow taps: without this a tap on the sheet's own background would reach the
+            // full-screen gesture layer underneath and close the menu the user just opened.
+            .pointerInput(Unit) { detectTapGestures { } }
+            .sectionSwipe(onStepSection)
+            .navigationBarsPadding()
+            .padding(bottom = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        // Grabber: says "this panel belongs to the bottom edge" without a word of text.
+        Box(
+            modifier = Modifier
+                .padding(vertical = 10.dp)
+                .size(width = 36.dp, height = 4.dp)
+                .clip(RoundedCornerShape(2.dp))
+                .background(Color(0x66FFFFFF)),
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            sections.forEachIndexed { index, label ->
+                val current = index == sectionIndex
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = if (current) colors.onPrimary else Color(0xFFE6EAEE),
+                    maxLines = 1,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .background(if (current) colors.primary else Color(0x1AFFFFFF))
+                        .clickable { onSelectSection(index) }
+                        .padding(horizontal = 16.dp, vertical = 10.dp),
+                )
+            }
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 260.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+                .padding(top = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            if (showCoffeeCard) {
+                // No billing (Amazon builds, or Play unavailable): the QR is the whole section, so it
+                // rides inside the sheet at full size instead of as a card on top of it.
+                CoffeeCard(
+                    showQr = true,
+                    compact = false,
+                    onOpenCoffee = onOpenCoffee,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            } else {
+                options.forEachIndexed { index, label ->
+                    val selected = index == selectedIndex
+                    Text(
+                        text = (if (selected) "●  " else "○  ") + label,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = if (selected) colors.primary else Color(0xFFE6EAEE),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        // 48 dp-tall rows: the old 2 dp padding gave a target far under the minimum.
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .clickable { onSelectOption(index) }
+                            .padding(horizontal = 12.dp, vertical = 14.dp),
+                    )
+                }
+            }
+        }
     }
 }
 

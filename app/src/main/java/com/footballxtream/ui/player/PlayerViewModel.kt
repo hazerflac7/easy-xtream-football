@@ -54,6 +54,10 @@ data class PlayerUiState(
     val menuOpen: Boolean = false,
     /** Localized label of the OK-menu section currently shown (Quality / Audio / Subtitles / Guide). */
     val menuSection: String = "",
+    /** Every section label, in order, for the tab row of the touch bottom sheet. */
+    val menuSections: List<String> = emptyList(),
+    /** Index of [menuSection] inside [menuSections]. */
+    val menuSectionIndex: Int = 0,
     val menuOptions: List<String> = emptyList(),
     val menuSelectedIndex: Int = 0,
     /** True when the open OK-menu section is "Café": the screen shows the Ko-fi QR instead of a list. */
@@ -463,6 +467,12 @@ class PlayerViewModel(
         showSection(all[next])
     }
 
+    /** Jumps straight to a section by its position, for the tappable tabs of the touch bottom sheet. */
+    fun selectMenuSection(index: Int) {
+        if (!_ui.value.menuOpen) return
+        MenuSection.entries.getOrNull(index)?.let(::showSection)
+    }
+
     fun moveMenuSelection(delta: Int) {
         _ui.update {
             if (!it.menuOpen || it.menuOptions.isEmpty()) {
@@ -502,6 +512,8 @@ class PlayerViewModel(
             it.copy(
                 menuOpen = true,
                 menuSection = sectionLabel(section),
+                menuSections = MenuSection.entries.map(::sectionLabel),
+                menuSectionIndex = MenuSection.entries.indexOf(section),
                 menuOptions = options.labels,
                 menuSelectedIndex = options.selected,
                 // True while the Café section is open, with or without billing: the screen shows the

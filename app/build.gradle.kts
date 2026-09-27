@@ -69,6 +69,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Its own package id so a test build installs *alongside* the Play one instead of
+            // requiring an uninstall (different signature), which would wipe the profiles and
+            // favourites on the phone. Play Billing does not work under this id — that is fine,
+            // tipping is tested with the Play-signed universal APK.
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
