@@ -504,9 +504,9 @@ class PlayerViewModel(
                 menuSection = sectionLabel(section),
                 menuOptions = options.labels,
                 menuSelectedIndex = options.selected,
-                // Café shows the QR card only while Play billing is not available; otherwise it is a
-                // plain list of purchasable coffees.
-                menuCoffee = section == MenuSection.COFFEE && !it.coffeeViaBilling,
+                // True while the Café section is open, with or without billing: the screen shows the
+                // QR card next to it either way.
+                menuCoffee = section == MenuSection.COFFEE,
             )
         }
     }

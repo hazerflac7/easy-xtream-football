@@ -120,7 +120,7 @@
     <string name="support_entry">मुझे एक कॉफ़ी पिलाएँ ☕</string>
     <string name="support_title">ऐप पसंद आया?</string>
     <string name="support_message">यह ऐप मुफ़्त और ओपन-सोर्स है। अगर यह आपके काम आया, तो मुझे एक कॉफ़ी पिला सकते हैं — जितना चाहें। बहुत-बहुत धन्यवाद! अपने फ़ोन से कोड स्कैन करें:</string>
-    <string name="support_qr_desc">Ko-fi पर दान के लिए QR कोड</string>
+    <string name="support_qr_desc">ऐप की वेबसाइट का QR कोड</string>
     <string name="coffee_bug_text">ऐप पसंद आया? मुझे एक कॉफ़ी पिलाएँ</string>
     <string name="coffee_dismiss">यह रिमाइंडर फिर न दिखाएँ</string>
     <string name="coffee_reenable">रिमाइंडर फिर से दिखाएँ</string>

@@ -120,7 +120,7 @@
     <string name="support_entry">Bana bir kahve ısmarla ☕</string>
     <string name="support_title">Uygulamayı beğendin mi?</string>
     <string name="support_message">Bu uygulama ücretsiz ve açık kaynaklıdır. Faydalı bulduysan bana bir kahve ısmarlayabilirsin — dilediğin kadar. Çok teşekkürler! Kodu telefonunla tara:</string>
-    <string name="support_qr_desc">Ko-fi\'de bağış için QR kodu</string>
+    <string name="support_qr_desc">Uygulamanın web sitesinin QR kodu</string>
     <string name="coffee_bug_text">Uygulamayı beğendin mi? Bana bir kahve ısmarla</string>
     <string name="coffee_dismiss">Bu hatırlatmayı bir daha gösterme</string>
     <string name="coffee_reenable">Hatırlatmayı tekrar göster</string>

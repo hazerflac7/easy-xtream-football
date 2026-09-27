@@ -119,7 +119,7 @@
     <string name="support_entry">เลี้ยงกาแฟฉันสักแก้ว ☕</string>
     <string name="support_title">ชอบแอปนี้ไหม</string>
     <string name="support_message">แอปนี้ฟรีและเป็นโอเพนซอร์ส หากคุณเห็นว่ามีประโยชน์ เลี้ยงกาแฟฉันสักแก้วได้ — ตามใจคุณ ขอบคุณมาก! สแกนรหัสด้วยโทรศัพท์ของคุณ:</string>
-    <string name="support_qr_desc">รหัส QR สำหรับบริจาคบน Ko-fi</string>
+    <string name="support_qr_desc">คิวอาร์โค้ดของเว็บไซต์แอป</string>
     <string name="coffee_bug_text">ชอบแอปนี้ไหม เลี้ยงกาแฟฉันสักแก้ว</string>
     <string name="coffee_dismiss">ไม่ต้องแสดงการเตือนนี้อีก</string>
     <string name="coffee_reenable">แสดงการเตือนอีกครั้ง</string>

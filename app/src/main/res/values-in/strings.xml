@@ -119,7 +119,7 @@
     <string name="support_entry">Traktir saya kopi ☕</string>
     <string name="support_title">Suka aplikasi ini?</string>
     <string name="support_message">Aplikasi ini gratis dan sumber terbuka. Jika bermanfaat, Anda bisa mentraktir saya kopi — seikhlasnya. Terima kasih banyak! Pindai kodenya dengan ponsel Anda:</string>
-    <string name="support_qr_desc">Kode QR untuk donasi di Ko-fi</string>
+    <string name="support_qr_desc">Kode QR situs web aplikasi</string>
     <string name="coffee_bug_text">Suka aplikasi ini? Traktir saya kopi</string>
     <string name="coffee_dismiss">Jangan tampilkan pengingat ini lagi</string>
     <string name="coffee_reenable">Tampilkan pengingat lagi</string>

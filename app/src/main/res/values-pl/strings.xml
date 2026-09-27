@@ -122,7 +122,7 @@
     <string name="support_entry">Postaw mi kawę ☕</string>
     <string name="support_title">Podoba Ci się aplikacja?</string>
     <string name="support_message">Ta aplikacja jest darmowa i open source. Jeśli jest dla Ciebie przydatna, możesz postawić mi kawę — ile tylko chcesz. Bardzo dziękuję! Zeskanuj kod telefonem:</string>
-    <string name="support_qr_desc">Kod QR do wpłaty na Ko-fi</string>
+    <string name="support_qr_desc">Kod QR strony aplikacji</string>
     <string name="coffee_bug_text">Podoba Ci się aplikacja? Postaw mi kawę</string>
     <string name="coffee_dismiss">Nie pokazuj więcej tego przypomnienia</string>
     <string name="coffee_reenable">Pokaż przypomnienie ponownie</string>

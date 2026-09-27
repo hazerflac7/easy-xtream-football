@@ -186,9 +186,9 @@ private fun SupportOverlay(
                         onClick = { onBuy(coffee) },
                     )
                 }
-            } else {
+            }
             Image(
-                painter = painterResource(R.drawable.qr_kofi),
+                painter = painterResource(R.drawable.qr_site),
                 contentDescription = stringResource(R.string.support_qr_desc),
                 modifier = Modifier
                     .size(220.dp)
@@ -201,7 +201,7 @@ private fun SupportOverlay(
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://" + context.getString(R.string.support_kofi_handle)),
+                                    Uri.parse(context.getString(R.string.support_site_url)),
                                 ),
                             )
                         }
@@ -210,11 +210,10 @@ private fun SupportOverlay(
                     .padding(10.dp),
             )
             Text(
-                text = stringResource(R.string.support_kofi_handle),
+                text = stringResource(R.string.support_site_handle),
                 style = MaterialTheme.typography.titleMedium,
                 color = colors.primary,
             )
-            }
             SettingsAction(
                 label = stringResource(
                     if (reminderDismissed) R.string.coffee_reenable else R.string.coffee_dismiss,

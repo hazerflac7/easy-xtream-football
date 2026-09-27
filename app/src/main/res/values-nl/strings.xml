@@ -120,7 +120,7 @@
     <string name="support_entry">Trakteer me op een koffie ☕</string>
     <string name="support_title">Bevalt de app?</string>
     <string name="support_message">Deze app is gratis en open source. Als je er iets aan hebt, kun je me op een koffie trakteren — wat je maar wilt geven. Heel erg bedankt! Scan de code met je telefoon:</string>
-    <string name="support_qr_desc">QR-code om te doneren op Ko-fi</string>
+    <string name="support_qr_desc">QR-code van de website van de app</string>
     <string name="coffee_bug_text">Bevalt de app? Trakteer me op een koffie</string>
     <string name="coffee_dismiss">Deze herinnering niet meer tonen</string>
     <string name="coffee_reenable">Herinnering weer tonen</string>
