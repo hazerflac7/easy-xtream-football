@@ -483,7 +483,9 @@ fun PlayerScreen(
         // While the menu is open, show its navigation hint — on TV only: the touch sheet says the same
         // thing with tappable tabs, and on a phone this line had nowhere to go (the 280 dp card left
         // it ~60 dp of width in portrait, so it wrapped over the menu).
-        if (ui.menuOpen && !touch) {
+        // Not while the Café section is open: there the QR card takes the same bottom-right corner
+        // and, being drawn later, left the hint half-covered.
+        if (ui.menuOpen && !touch && !ui.menuCoffee) {
             Text(
                 text = stringResource(R.string.menu_nav_hint),
                 style = MaterialTheme.typography.labelMedium,

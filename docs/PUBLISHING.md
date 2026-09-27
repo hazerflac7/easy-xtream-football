@@ -582,6 +582,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   limita al 40 % de la altura; la **leyenda pasa a fichas**, troceando la cadena existente por el
   separador `·` y pintando el gesto en verde (sin cadenas nuevas que traducir en los 24 idiomas); el
   mensaje de error también lleva caja. **La tele no cambia.** Verificado por el usuario en el Xiaomi.
+  ✅ **Verificado también en el Chromecast (2026-09-28)** con la build `.debug` instalada al lado de la
+  de Play: ficha del canal abajo a la izquierda, tarjeta del menú con el encabezado nuevo, leyenda de
+  mando abajo a la derecha y la radio centrada, sin solapes. De paso se arregló un solape que **ya
+  existía antes** en la tele: con la sección Café abierta, la tarjeta del QR se dibuja sobre la ayuda
+  de navegación y la dejaba medio tapada; ahora esa ayuda se oculta mientras el QR está en pantalla.
   ⚠️ Para probar en el Xiaomi: HyperOS **bloquea `adb install` y la inyección de toques** (pide cuenta
   Xiaomi para "Instalar vía USB"). Se resuelve con `applicationIdSuffix = ".debug"` (nuevo en
   `build.gradle.kts`): la build de pruebas entra **al lado** de la de Play, sin desinstalar nada ni
