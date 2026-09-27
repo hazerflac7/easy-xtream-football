@@ -387,7 +387,13 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   "Invítame a un café"). En la tarjeta del reproductor va al lado de la taza con el dominio debajo; en la
   sección Café crece a 148 dp; en Ajustes va junto a los precios. Verificado en el Chromecast con el APK
   firmado por Google. ⚠️ Con la vc12 el QR de 220 dp apilado dejaba el interruptor del recordatorio fuera
-  de pantalla en Ajustes: **corregido después** (dos columnas + scroll), pendiente de ver en una vc13.
+  de pantalla en Ajustes.
+- **2026-09-27 · versionCode 13** (AAB firmado en `~/Downloads/easy-xtream-0.1.9-vc13/`), tras ver la vc12 en
+  la tele: el **QR va primero** y la **taza a su derecha, ambos a 88 dp**, sin la URL escrita debajo; en la
+  sección Café abierta el QR sube a 148 dp y la taza no sale; **Ajustes ya no muestra el QR cuando hay
+  precios** (solo sin facturación, Fire TV), lo que además resuelve el desbordamiento de la vc12. QR
+  regenerado con corrección **L** (29 módulos en vez de 33, cuadros 14 % más grandes; decodifica hasta
+  130 px). ⏳ Pendiente de verla en el Chromecast.
 
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
