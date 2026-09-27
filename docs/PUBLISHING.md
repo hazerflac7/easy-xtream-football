@@ -382,6 +382,15 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   (pendiente crearla). Amazon (ES/EN): cambiar el párrafo al subir la 0.1.8 allí.
 
 ## 0.1.9 — Play Billing para el café (código listo el 2026-09-25, rama `feature/play-billing-coffee`)
+- **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
+  un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
+  del ☕ repetido tres veces en la tarjeta y tres más en los botones de Ajustes. Verificado en el Chromecast con el
+  APK firmado por Google (`~/Downloads/11.apk`).
+  ⚠️ **Al probar con `adb shell input keyevent` se completó una compra de prueba no intencionada**
+  (GPA.3330-3201-9075-08273, "Café y tostada", 4,99 EUR, de prueba → 0 €) porque una pulsación de OK cayó sobre la
+  lista de cafés. **No pulsar OK a ciegas en el reproductor**: hacer captura antes de cada OK, o dejar que el
+  usuario haga la interacción final. La cuenta pide además PIN de compra de Play.
+
 - **Qué hace la app.** Al arrancar conecta con Google Play (`CoffeeBilling`, librería `com.android.billingclient:billing`
   8.3.0, la base Java porque la `-ktx` exige Kotlin 2.2 y el proyecto va en 2.0; lee la opción de compra con
   `oneTimePurchaseOfferDetailsList`, el modelo nuevo de Play, con el accesor antiguo de respaldo). Pide los productos consumibles
