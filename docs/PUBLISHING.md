@@ -385,7 +385,8 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
   del ☕ repetido tres veces en la tarjeta y tres más en los botones de Ajustes. Verificado en el Chromecast con el
-  APK firmado por Google (`~/Downloads/11.apk`).
+  APK firmado por Google (`~/Downloads/11.apk`): la tarjeta sale con una sola taza y **OK sobre ella abre la
+  sección Café con los tres precios** (confirmado por el usuario el 2026-09-27).
   ⚠️ **Al probar con `adb shell input keyevent` se completó una compra de prueba no intencionada**
   (GPA.3330-3201-9075-08273, "Café y tostada", 4,99 EUR, de prueba → 0 €) porque una pulsación de OK cayó sobre la
   lista de cafés. **No pulsar OK a ciegas en el reproductor**: hacer captura antes de cada OK, o dejar que el
