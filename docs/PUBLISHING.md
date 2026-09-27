@@ -382,6 +382,13 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   (pendiente crearla). Amazon (ES/EN): cambiar el párrafo al subir la 0.1.8 allí.
 
 ## 0.1.9 — Play Billing para el café (código listo el 2026-09-25, rama `feature/play-billing-coffee`)
+- **2026-09-27 · versionCode 12** en Prueba interna: vuelve el **QR**, ahora hacia la landing
+  (`qr_site.png` → https://easy-xtream-football-web.vercel.app, que desde ese día tiene sección propia de
+  "Invítame a un café"). En la tarjeta del reproductor va al lado de la taza con el dominio debajo; en la
+  sección Café crece a 148 dp; en Ajustes va junto a los precios. Verificado en el Chromecast con el APK
+  firmado por Google. ⚠️ Con la vc12 el QR de 220 dp apilado dejaba el interruptor del recordatorio fuera
+  de pantalla en Ajustes: **corregido después** (dos columnas + scroll), pendiente de ver en una vc13.
+
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
   un toque abre la sección Café con los precios) y lleva **un solo icono**: una taza dibujada (`ic_coffee`) en vez
   del ☕ repetido tres veces en la tarjeta y tres más en los botones de Ajustes. Verificado en el Chromecast con el
