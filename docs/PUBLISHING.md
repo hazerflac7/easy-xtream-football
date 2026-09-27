@@ -616,8 +616,12 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   y además tocando el APK el instalador quedaría como la app de Archivos y la facturación podría no
   encontrar los productos; **desde la Play Store queda `installerPackageName=com.android.vending`**,
   que es lo que hace falta. Ojo: Play tardó unos minutos en servir la 14, primero seguía dando la 13.
-  ⏳ **Falta probarla en el Chromecast** (ya instalada con `-i com.android.vending`), sobre todo la
-  **compra**, porque los cambios tocan la tarjeta del café y el menú.
+  ✅ **Verificada también en el Chromecast el 2026-09-28** (*"en la tele también la probé y de momento
+  funciona como espero"*). **Las dos plataformas están validadas con la build firmada por Google, así
+  que la 0.1.10 es la candidata a Producción y se salta la 0.1.9.**
+  ⏳ Único apartado sin ejercitar a fondo: **completar una compra** en la 0.1.10 (en la 0.1.9 sí se
+  hizo, pedido GPA.3343-1251-1103-24640). El código de facturación no se ha tocado desde entonces;
+  lo que cambió es la interfaz que lo rodea, y esa ya se ha visto funcionando en ambos aparatos.
 
   ⚠️ Al reinstalar la build `.debug` en el Chromecast se perdieron los perfiles (la base de datos
   aparece recreada y vacía). Hay que volver a pulsar "Probar con listas de ejemplo" tras cada
