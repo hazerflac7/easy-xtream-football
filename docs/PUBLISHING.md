@@ -399,6 +399,8 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   `adb install -r -i com.android.vending`). La tarjeta sale con el QR a la izquierda y la taza a su derecha,
   sin URL debajo, y el QR **decodifica desde la captura de 1080p** (`https://easy-xtream-football-web.vercel.app`),
   tanto recortado como en el fotograma completo: a 176 px de 1920 (≈9 % del ancho) se escanea sin problema.
+  ✅ **Confirmado por el usuario en su televisor el 2026-09-27**: *"se ve bien, el QR se escanea desde el sofá"*.
+  El tamaño del QR queda cerrado: no hay que agrandarlo.
   ✅ Rama `feature/qr-landing` fusionada en `main` (bdfa1c3) ese mismo día.
 
 - **2026-09-27 · versionCode 11** en Prueba interna: el recordatorio del café es ahora un botón (OK con el mando o
