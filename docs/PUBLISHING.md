@@ -582,12 +582,12 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   limita al 40 % de la altura; la **leyenda pasa a fichas**, troceando la cadena existente por el
   separador `·` y pintando el gesto en verde (sin cadenas nuevas que traducir en los 24 idiomas); el
   mensaje de error también lleva caja. **La tele no cambia.** Verificado por el usuario en el Xiaomi.
-  ✅ **Verificado también en el Chromecast (2026-09-28)** con la build `.debug` instalada al lado de la
+  ✅ **Verificado también en el Chromecast (2026-09-27)** con la build `.debug` instalada al lado de la
   de Play: ficha del canal abajo a la izquierda, tarjeta del menú con el encabezado nuevo, leyenda de
   mando abajo a la derecha y la radio centrada, sin solapes. De paso se arregló un solape que **ya
   existía antes** en la tele: con la sección Café abierta, la tarjeta del QR se dibuja sobre la ayuda
   de navegación y la dejaba medio tapada; ahora esa ayuda se oculta mientras el QR está en pantalla.
-  ✅ **Segunda tanda del 2026-09-28**, con el usuario mirando móvil y tele a la vez:
+  ✅ **Segunda tanda del 2026-09-27**, con el usuario mirando móvil y tele a la vez:
   1. **La ayuda en fichas también en la tele y en el menú.** El componente pasa a ser genérico
      (`HintChips`) y lo usan la leyenda táctil, la de mando y la ayuda de navegación.
   2. **El icono de la radio dejaba de medir 168 dp** cuando subía la hoja: el área centrada se
@@ -601,7 +601,7 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
      ficha del canal 8 dp / 60 % / 10-5 / labelSmall. Ahora la ayuda copia la de la ficha y cada
      fragmento es su propia pastilla, sin tarjeta alrededor. **Si se toca `StatsOverlay`, tocar
      también `HintChips`: van emparejados a propósito.**
-- ✅ **2026-09-28 · versionCode 14 (0.1.10) PUBLICADA EN PRUEBA INTERNA (19:28)**. AAB firmado en
+- ✅ **2026-09-27 · versionCode 14 (0.1.10) PUBLICADA EN PRUEBA INTERNA (19:28)**. AAB firmado en
   `~/Downloads/easy-xtream-0.1.10-vc14/`. Lleva todo el rediseño del reproductor en móvil y los
   ajustes de la tele. Única advertencia: la de siempre, símbolos de depuración nativos (opcional).
   **Decisión de estrategia, acordada con el usuario:** no elegir todavía entre 0.1.9 y 0.1.10. La
@@ -610,13 +610,13 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   Producción y se salta la 0.1.9**: una revisión en vez de dos. Si algo falla, se publica la vc13,
   que está probada de punta a punta con una compra real. En cualquier caso, **lanzamiento por fases
   al 20 %**, por ser la primera versión en producción con pagos.
-  ✅ **Verificada en el móvil el 2026-09-28** con la build firmada por Google, instalada desde el
+  ✅ **Verificada en el móvil el 2026-09-27** con la build firmada por Google, instalada desde el
   enlace de la prueba interna (el usuario: *"en móvil funciona como espero"*). Instalarla por USB no
   se pudo: HyperOS bloquea instalar un paquete **nuevo** por `adb` (actualizar uno ya instalado sí),
   y además tocando el APK el instalador quedaría como la app de Archivos y la facturación podría no
   encontrar los productos; **desde la Play Store queda `installerPackageName=com.android.vending`**,
   que es lo que hace falta. Ojo: Play tardó unos minutos en servir la 14, primero seguía dando la 13.
-  ✅ **Verificada también en el Chromecast el 2026-09-28** (*"en la tele también la probé y de momento
+  ✅ **Verificada también en el Chromecast el 2026-09-27** (*"en la tele también la probé y de momento
   funciona como espero"*). **Las dos plataformas están validadas con la build firmada por Google, así
   que la 0.1.10 es la candidata a Producción y se salta la 0.1.9.**
   ⏳ Único apartado sin ejercitar a fondo: **completar una compra** en la 0.1.10 (en la 0.1.9 sí se
