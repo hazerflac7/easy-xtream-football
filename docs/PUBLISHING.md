@@ -579,9 +579,17 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   cuenta: sin problemas. No requiere ninguna acción.
 - ✅ **Cuenta bancaria VERIFICADA el 2026-09-28**: el microingreso "GOOGLE" llegó ese día (segundo día hábil)
   y el usuario tecleó el importe en Perfil de pagos
-  (`https://play.google.com/console/u/1/developers/7549371768525842906/payments-profile`) → *Cómo recibes los
-  pagos* → *Gestionar métodos de pago* → **Verificar**. La cuenta acabada en 6844 ya no está "Pendiente de
-  verificar". Del perfil de pagos solo queda la cuota del 15 %. El banner de la cuota del 15 %
+  (`https://play.google.com/console/u/1/developers/7549371768525842906/paymentssettings`; ojo, la ruta es
+  `paymentssettings`, `payments-profile` redirige a la lista de apps) → *Cómo recibes los pagos* → *Gestionar
+  métodos de pago* → **Verificar**. Comprobado en la consola esa misma tarde: la cuenta acabada en 6844 ya
+  sale sin el aviso "Pendiente de verificar". Del perfil de pagos solo queda la cuota del 15 %.
+  **Cuota del 15 %, revisado el 2026-09-28 por la tarde:** el banner del Perfil de pagos sigue listando los dos
+  requisitos y en *Cuentas de desarrollador asociadas* **sigue sin aparecer "Revisar y registrarme"**; el
+  menú *Gestionar* solo tiene lo de siempre. En el DOM de esa página existe, oculto, el diálogo de registro
+  ("Grupo de cuentas que se registrará (Jorge Mtnez)", botones *Cancelar* / **Confirmar y ver términos**),
+  que dice *"Cuando termines de configurar tu grupo de cuentas, podrás registrarte"*: parece que se dispara
+  al terminar el flujo de **Empezar** (declarar cuentas asociadas), no desde un botón suelto. Pendiente de
+  probar ese flujo con el usuario delante. El banner de la cuota del 15 %
   sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
   cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
   gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
