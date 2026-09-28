@@ -379,7 +379,7 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   </en-US>
   ```
 - **Ficha**: ✅ Play es-ES cambiada el 2026-09-26 (párrafo IMPORTANTE + "24 idiomas"). Play no tiene ficha en-US
-  (pendiente crearla). Amazon (ES/EN): cambiar el párrafo al subir la 0.1.8 allí.
+  (pendiente crearla). ✅ Amazon (ES/EN): párrafo cambiado el 2026-09-29 al enviar la 0.1.8.
 
 ## 0.1.9 — Play Billing para el café (código listo el 2026-09-25, rama `feature/play-billing-coffee`)
 - **2026-09-27 · versionCode 12** en Prueba interna: vuelve el **QR**, ahora hacia la landing
@@ -506,9 +506,21 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
 - ✅ **PUBLICADA (LIVE) en la Amazon Appstore el 2026-09-26** 🎉: correo "Your recent submission, Easy Xtream
   Football version 0.1.7, was successfully published and is now LIVE" con Primary / Content Policy / Functionality
   Validation en PASS. Enviada el 2026-09-23 (13:10) desde la máquina Linux con el navegador guiado por Claude.
-  Cuenta de desarrollador de Amazon aprobada ese mismo día. ⏳ Pendiente: **subir la 0.1.8** (APK universal vc9,
-  `~/Downloads/easy-xtream-0.1.8/`) como *Add upcoming version* y cambiar el párrafo IMPORTANTE (ES/EN) de la ficha;
-  ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
+  Cuenta de desarrollador de Amazon aprobada ese mismo día.
+  ✅ **0.1.8 ENVIADA A AMAZON el 2026-09-29 (00:25 hora española, 28 sept 15:25 PDT)** como *upcoming version*.
+  Estado SUBMITTED, Amazon estima publicación **antes del 2026-10-03**. Lo que se hizo (máquina Linux, navegador
+  guiado por Claude): el APK universal vc9 se recompiló desde el commit `0f25b16` en un worktree temporal
+  (`gradlew :app:assembleFullRelease`, misma firma `CN=Jorge Mtnez`, md5 `4690c1b0…`, copia en
+  `~/Downloads/easy-xtream-0.1.8/`) y lo subió el usuario a mano; DRM No; se **borró el APK1 (vc8)** de la
+  versión (Amazon avisa de que se pierde la selección de dispositivos, se rehízo); notas de versión EN/ES;
+  dispositivos **Fire TV 91 / Fire tablets 12 / Automotive 0** (los 7 Fire TV excluidos son Vega OS —Stick 4K
+  Select, Stick HD 2ª gen— o Fire OS 5 —Fire TV gen 1/2, Stick gen 1/2, Element 4K 2017—); pregunta nueva de
+  Amazon *"Any significant changes to report?"* (ley de EE. UU. de consentimiento parental) → **None**; las
+  preguntas de táctil/offline solo aparecen con Automotive marcado; párrafo IMPORTANTE nuevo en la descripción
+  larga EN y ES (textareas React: se cambió el valor por el setter nativo + evento `input`, autoguardó). El
+  resto (gratuita, países, público 16-17/18+, clasificación, privacidad, instrucciones de prueba, export
+  compliance) se heredó de la 0.1.7. ⏳ Esperar el correo de Amazon y anotar aquí el resultado.
+  Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
   - App ID `amzn1.devportal.mobileapp.07ea2808a33b46da999e14dfd0bf5184` · SKU `com.footballxtream` ·
