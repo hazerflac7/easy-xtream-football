@@ -1,7 +1,7 @@
 # Publicación en Google Play — estado y pasos
 
 Checklist vivo del proceso de publicación de **Easy Xtream Football**.
-Última actualización: 2026-09-26.
+Última actualización: 2026-09-28.
 
 ## Datos clave
 - **Nombre de la app:** Easy Xtream Football
@@ -566,6 +566,23 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     código: crear el **perfil de pagos** en Play Console (datos fiscales y cuenta bancaria) y los productos in-app;
     probar con compradores de prueba. Motivo: Ko-fi resulta engorroso y el enlace externo está en zona gris de la
     política de pagos de Play.
+
+## Revisión del estado a 2026-09-28 (lunes, máquina Linux)
+- ⏳ **0.1.8 sigue "En revisión"**: Actividad de envíos → envío nº 8 (2026-09-26), Producción 9 (0.1.8) +
+  ficha es-ES ("Cambiar descripción completa"), estado *En revisión*. Todos los envíos anteriores (1-7)
+  figuran como *Publicada*. Última publicación: 2026-09-25. Van 2 días de los 7 que avisa Google.
+- ℹ️ En notificaciones hay un aviso del 2026-09-26 (23:12): *"Se ha solucionado una infracción reciente
+  de las políticas"* → detalle: **"La aplicación debe estar orientada a Android 16 (nivel 36 de la API)"**,
+  estado *Infracción corregida*. Era la política de target API; la 0.1.8 ya va con `targetSdk = 36`, así
+  que Google la dio por corregida al procesar el envío nº 8. *Estado según las políticas* de la app y de la
+  cuenta: sin problemas. No requiere ninguna acción.
+- ⏳ **Perfil de pagos sin cambios**: cuenta acabada en 6844 sigue *Pendiente de verificar* (el usuario debe
+  teclear el importe del microingreso "GOOGLE" cuando le llegue al extracto). El banner de la cuota del 15 %
+  sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
+  cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
+  gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
+- ➡️ Siguiente paso en cuanto Google apruebe la 0.1.8: mandar la **0.1.10 (vc14) a Producción por fases al
+  20 %**, crear la ficha en-US y subir la 0.1.8 a Amazon como upcoming version.
 
 ## Otros TODO de calidad (no bloquean la publicación)
 - ✅ **Móvil: menú y mensajes rediseñados (2026-09-27).** Lo que fallaba: la capa de gestos a pantalla
