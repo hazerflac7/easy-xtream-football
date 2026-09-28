@@ -588,8 +588,12 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   menú *Gestionar* solo tiene lo de siempre. En el DOM de esa página existe, oculto, el diálogo de registro
   ("Grupo de cuentas que se registrará (Jorge Mtnez)", botones *Cancelar* / **Confirmar y ver términos**),
   que dice *"Cuando termines de configurar tu grupo de cuentas, podrás registrarte"*: parece que se dispara
-  al terminar el flujo de **Empezar** (declarar cuentas asociadas), no desde un botón suelto. Pendiente de
-  probar ese flujo con el usuario delante. El banner de la cuota del 15 %
+  al terminar el flujo de **Empezar** (declarar cuentas asociadas), no desde un botón suelto.
+  **Confirmado con la ayuda de Google** (answer/10632485 y answer/10627869): el grupo no está "terminado"
+  hasta responder a *"Cuentas de desarrollador propiedad de tu entidad legal"* → **No** (aunque solo haya
+  una cuenta). El 27 solo se creó el grupo con nombre; falta ese paso. **Qué hacer:** *Cuentas de desarrollador
+  asociadas* → **Empezar** → responder **No** → guardar → debería aparecer el diálogo de registro →
+  **Confirmar y ver términos** → **Aceptar y registrarme**. Sin esto Google aplica el 30 %. El banner de la cuota del 15 %
   sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
   cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
   gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
