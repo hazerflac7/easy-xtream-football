@@ -424,8 +424,9 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
   no existen todavía → **todo sigue igual que hoy con el QR de Ko-fi**. Cancelar la hoja no muestra error.
 - **Lo que tiene que hacer el usuario en Play Console** (cuenta contact@nezor.es, `/console/u/1/`):
   1. ✅ **Perfil de pagos creado el 2026-09-25** (Ajustes → Perfil de pagos; perfil "JORGE MARTINEZ ORTIZ",
-     Google Play Apps, 1 usuario). La **cuenta bancaria está "Pendiente de verificar"**: Google hace un
-     microingreso y hay que confirmar el importe en "Gestionar métodos de pago".
+     Google Play Apps, 1 usuario). La cuenta bancaria estuvo "Pendiente de verificar" hasta que Google hizo
+     un microingreso y se confirmó el importe en "Gestionar métodos de pago" (✅ **verificada el 2026-09-28**,
+     ver más abajo).
      **2026-09-27:** el diálogo *Verificar* dice que el ingreso con concepto **"GOOGLE"** se hizo **en torno al
      viernes 25 de septiembre** en la cuenta acabada en **6844**, y pide teclear el importe exacto. El usuario
      dice que **todavía no le ha llegado** (normal: el 25 fue viernes y el 27 es domingo, así que solo ha pasado
@@ -576,12 +577,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   estado *Infracción corregida*. Era la política de target API; la 0.1.8 ya va con `targetSdk = 36`, así
   que Google la dio por corregida al procesar el envío nº 8. *Estado según las políticas* de la app y de la
   cuenta: sin problemas. No requiere ninguna acción.
-- ⏳ **Perfil de pagos sin cambios**: cuenta acabada en 6844 sigue *Pendiente de verificar* (el usuario debe
-  teclear el importe del microingreso "GOOGLE" cuando le llegue al extracto; **el 28 todavía no había llegado**,
-  segundo día hábil; si el viernes 2026-10-02 sigue sin aparecer, pedir otro ingreso o revisar el IBAN).
-  ✅ **2026-09-28 (tarde): el microingreso YA HA LLEGADO al banco.** Falta teclearlo en
-  `https://play.google.com/console/u/1/developers/7549371768525842906/payments-profile` → *Gestionar métodos
-  de pago* (Centro de pagos) → **Verificar** (lo hace el usuario con el extracto delante). El banner de la cuota del 15 %
+- ✅ **Cuenta bancaria VERIFICADA el 2026-09-28**: el microingreso "GOOGLE" llegó ese día (segundo día hábil)
+  y el usuario tecleó el importe en Perfil de pagos
+  (`https://play.google.com/console/u/1/developers/7549371768525842906/payments-profile`) → *Cómo recibes los
+  pagos* → *Gestionar métodos de pago* → **Verificar**. La cuenta acabada en 6844 ya no está "Pendiente de
+  verificar". Del perfil de pagos solo queda la cuota del 15 %. El banner de la cuota del 15 %
   sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
   cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
   gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
