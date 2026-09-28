@@ -593,10 +593,19 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   hasta responder a *"Cuentas de desarrollador propiedad de tu entidad legal"* → **No** (aunque solo haya
   una cuenta). El 27 solo se creó el grupo con nombre; falta ese paso. **Qué hacer:** *Cuentas de desarrollador
   asociadas* → **Empezar** → responder **No** → guardar → debería aparecer el diálogo de registro →
-  **Confirmar y ver términos** → **Aceptar y registrarme**. Sin esto Google aplica el 30 %. El banner de la cuota del 15 %
-  sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
-  cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
-  gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
+  **Confirmar y ver términos** → **Aceptar y registrarme**. Sin esto Google aplica el 30 %.
+- ✅ **CUOTA DEL 15 % REGISTRADA el 2026-09-29.** El usuario rellenó el formulario de *Empezar* (las dos
+  preguntas, "¿tu entidad legal es propietaria de otra cuenta?" y "¿otras cuentas con recursos de marca
+  similares?", ambas **No**) y guardó; al momento apareció el aviso "Revisar y registrarme", aceptó los
+  términos y la consola muestra *"Tu grupo de cuentas se ha registrado para obtener una cuota de servicio
+  del 15 %"* y, al pie de *Cuentas de desarrollador asociadas*, "Programas y servicios en los que te has
+  registrado: Cuota de servicio del 15 %". El banner del Perfil de pagos ha desaparecido y no queda ningún
+  aviso en rojo (el "problema urgente con tu cuenta de pagos" del 28 era la verificación del banco).
+  **El perfil de pagos está completo: banco verificado + cuota del 15 %.** Ya no queda nada pendiente de
+  pagos para publicar la 0.1.10 en Producción.
+- ⏳ **0.1.8 (vc9) sigue "en revisión" el 2026-09-29** (Resumen de publicación: última publicación el 25 de
+  septiembre; en revisión la versión 9 y el cambio de descripción de la ficha es-ES). La 0.1.6 sigue siendo la
+  disponible en Play.
 - ➡️ Siguiente paso en cuanto Google apruebe la 0.1.8: mandar la **0.1.10 (vc14) a Producción por fases al
   20 %**, crear la ficha en-US y subir la 0.1.8 a Amazon como upcoming version.
 
