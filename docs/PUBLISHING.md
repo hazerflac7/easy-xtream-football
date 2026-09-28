@@ -578,7 +578,10 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   cuenta: sin problemas. No requiere ninguna acción.
 - ⏳ **Perfil de pagos sin cambios**: cuenta acabada en 6844 sigue *Pendiente de verificar* (el usuario debe
   teclear el importe del microingreso "GOOGLE" cuando le llegue al extracto; **el 28 todavía no había llegado**,
-  segundo día hábil; si el viernes 2026-10-02 sigue sin aparecer, pedir otro ingreso o revisar el IBAN). El banner de la cuota del 15 %
+  segundo día hábil; si el viernes 2026-10-02 sigue sin aparecer, pedir otro ingreso o revisar el IBAN).
+  ✅ **2026-09-28 (tarde): el microingreso YA HA LLEGADO al banco.** Falta teclearlo en
+  `https://play.google.com/console/u/1/developers/7549371768525842906/payments-profile` → *Gestionar métodos
+  de pago* (Centro de pagos) → **Verificar** (lo hace el usuario con el extracto delante). El banner de la cuota del 15 %
   sigue pidiendo los dos requisitos y en *Cuentas de desarrollador asociadas* (grupo creado el 27, solo la
   cuenta principal) **todavía no aparece el botón "Revisar y registrarme"**; el menú *Gestionar* solo ofrece
   gestionar/renombrar/eliminar el grupo. Volver a mirar en unos días.
