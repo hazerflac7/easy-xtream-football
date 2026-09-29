@@ -483,7 +483,7 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Versión**: al mezclar, `versionCode 10` · `0.1.9`. Notas de versión: "Ahora puedes invitar a un café desde la
   propia app, con Google Play" / "You can now buy me a coffee right from the app, through Google Play".
 
-## 0.1.11 — lista de ejemplo solo de radios (código listo el 2026-09-29, rama `fix/sample-list-radio-only`)
+## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, MEZCLADA en `main`, firmada y lista para subir)
 Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `versionCode` **15** · `versionName`
 **0.1.11**. Es la 0.1.10 (vc14) con un único cambio:
 - El botón del primer arranque y de la pantalla de perfiles vacía pasa a ser **"Probar con una lista de radios
@@ -497,9 +497,19 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
 - ✅ Comprobado el 2026-09-29: compila, tests unitarios en verde, el APK debug no contiene la URL de la lista
   de iptv-org y **las 14 emisoras responden** (200/206 con audio). Lint sigue con los 2 errores de siempre
   (`app_name` y `settings_licenses_body` sin traducir), ninguno de este cambio.
-- ⏳ **Falta probarla en pantalla** (Chromecast y móvil): el 29 no había ningún dispositivo alcanzable por adb.
-- ⏳ **Falta**: mezclar la rama en `main`, generar AAB + APK universal firmados
-  (`./gradlew :app:bundleFullRelease :app:assembleFullRelease`) y subirlos.
+- ✅ **Probada en el Chromecast el 2026-09-29 (17:50)** con la build debug (`0.1.11-debug`, instalada al lado
+  de la de Play, datos vacíos): en el primer arranque sale el botón **"Probar con una lista de radios de
+  ejemplo"** con su texto debajo; al pulsarlo crea **un solo perfil**, "Demo · Radios deportivas" (comprobado
+  también en la base de datos: una fila), la parrilla carga **14 canales** y **Cadena SER suena** (pantalla de
+  radio, "Solo audio"). Falta verla en el móvil, donde el cambio es solo de texto.
+  Para conectar hizo falta el `IP:puerto` de la pantalla de Depuración inalámbrica (`adb connect`); el mDNS
+  anunciaba un puerto viejo que rechazaba la conexión. No hubo que re-emparejar.
+- ✅ **Mezclada en `main`** (`869929a`) y **firmada** con la clave de subida (`CN=Jorge Mtnez`, SHA-256
+  `E9:9B:9E:F2:…`). Copias en `~/Downloads/easy-xtream-0.1.11-vc15/`:
+  - Play: `easy-xtream-football-0.1.11-vc15.aab` (17,0 MB, md5 `478dab84…`)
+  - Amazon: `easy-xtream-football-0.1.11-vc15-universal.apk` (27,2 MB, md5 `94aab177…`)
+  - Comprobado en el APK de release: `versionCode 15`, sin la URL de la lista de iptv-org.
+- ⏳ **Falta subirla**: Amazon (reenvío) y Play.
 - ⏳ **Play, pendiente de decidir por el usuario**: la 0.1.8 (vc9) sigue en revisión con el botón antiguo.
   Recomendación: no esperar a que Google se pronuncie y mandar la 0.1.11 a Producción (sustituye a la vc9 en
   la revisión) junto con el párrafo IMPORTANTE nuevo de la ficha es-ES; en Prueba interna sustituye a la vc14.
