@@ -530,6 +530,12 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     "Última versión: 15 (0.1.11)". Se publica al momento y **no toca la revisión de Producción**, que sigue
     igual. Ya no queda ningún canal de Play sirviendo el botón de iptv-org.
   - ⏳ Pendiente: esperar el veredicto de Google; crear la ficha en-US cuando se apruebe.
+- ⚠️ **Capturas de la ficha, por si hay otro rechazo** (visto el 2026-09-29, **aplazado por decisión del
+  usuario** hasta tener los veredictos): `docs/store-assets/screenshots/02-profiles.png`, publicada en Amazon y
+  en Play, enseña perfiles llamados **"iptv-org ES"** y **"Sports iptv-org"**. `01-channels.png` muestra
+  "Live sports of TDTChannels" (Teledeporte, Esport 3, Sportitalia: emisiones en abierto, menos preocupante).
+  Si Amazon o Google vuelven a rechazar por contenido, es lo siguiente a cambiar: rehacerlas con nombres
+  neutros ("Demo · Radios deportivas", "Mi proveedor"). No tocar la ficha mientras haya revisión en curso.
   - Notas de versión usadas en Play (viene de la 0.1.6, por eso son más largas que las de Amazon):
     ```
     <es-ES>
