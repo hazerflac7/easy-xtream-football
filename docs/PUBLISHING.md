@@ -483,7 +483,7 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Versión**: al mezclar, `versionCode 10` · `0.1.9`. Notas de versión: "Ahora puedes invitar a un café desde la
   propia app, con Google Play" / "You can now buy me a coffee right from the app, through Google Play".
 
-## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, MEZCLADA en `main`, firmada y lista para subir)
+## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, ENVIADA A REVISIÓN en Amazon y en Play)
 Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `versionCode` **15** · `versionName`
 **0.1.11**. Es la 0.1.10 (vc14) con un único cambio:
 - El botón del primer arranque y de la pantalla de perfiles vacía pasa a ser **"Probar con una lista de radios
@@ -509,12 +509,43 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
   - Play: `easy-xtream-football-0.1.11-vc15.aab` (17,0 MB, md5 `478dab84…`)
   - Amazon: `easy-xtream-football-0.1.11-vc15-universal.apk` (27,2 MB, md5 `94aab177…`)
   - Comprobado en el APK de release: `versionCode 15`, sin la URL de la lista de iptv-org.
-- ✅ **Amazon: enviada el 2026-09-29 (18:14)**, ver la sección de Amazon. ⏳ **Play: falta subir el AAB y enviar.**
-- ⏳ **Play, pendiente de decidir por el usuario**: la 0.1.8 (vc9) sigue en revisión con el botón antiguo.
-  Recomendación: no esperar a que Google se pronuncie y mandar la 0.1.11 a Producción (sustituye a la vc9 en
-  la revisión) junto con el párrafo IMPORTANTE nuevo de la ficha es-ES; en Prueba interna sustituye a la vc14.
-  Mantener el lanzamiento por fases al 20 % (primera versión en producción con pagos).
-- **Notas de versión de 0.1.11** (máx. 500 caracteres por idioma; para Amazon, que viene de la 0.1.7):
+- ✅ **Amazon: enviada el 2026-09-29 (18:14)**, ver la sección de Amazon.
+- ✅ **Play: ENVIADA A REVISIÓN el 2026-09-29 (~18:20)**. Producción **15 (0.1.11), lanzamiento completo
+  (100 %)**, más el cambio de la ficha es-ES (párrafo IMPORTANTE de la 0.1.11). El AAB lo subió el usuario a
+  mano; notas en es-ES y en-US (las de abajo, versión Play). Única advertencia: símbolos de depuración nativos.
+  - Enviar **canceló y reinició la revisión** que estaba en curso desde el 26 de septiembre (aviso de Google
+    *"¿Quieres reiniciar tu revisión?"*).
+  - ⚠️ **Por qué al 100 % y no al 20 %**: primero se envió por fases al 20 %, y entonces Google **mantuvo
+    también la 9 (0.1.8) en revisión** ("Iniciar lanzamiento completo") como versión para el 80 % restante.
+    Un lanzamiento por fases no sustituye a la versión anterior del canal; solo uno completo lo hace. Con el
+    botón de iptv-org dentro, esa vc9 no debía publicarse. Decisión del usuario: pasar la 0.1.11 al 100 %
+    (*Producción → Gestionar la versión → Actualizar lanzamiento*), lo que **sacó la vc9 de la revisión** sin
+    tener que reenviar nada. Con 11 instalaciones activas, el 20 % eran 2 dispositivos.
+  - Estado final: *Resumen de publicación → Cambios en revisión*: `15 (0.1.11) · Iniciar lanzamiento
+    completo` y `es-ES · Cambiar descripción completa`. En Producción, "Versión 15 (0.1.11) en revisión". La
+    0.1.6 (vc7) sigue siendo la publicada. **La 0.1.8 (vc9) y la 0.1.10 (vc14) ya no se publicarán.**
+  - ⏳ Pendiente: esperar el veredicto de Google; la vc14 sigue en Prueba interna con el botón antiguo
+    (sustituirla por la vc15 cuando convenga); crear la ficha en-US cuando se apruebe.
+  - Notas de versión usadas en Play (viene de la 0.1.6, por eso son más largas que las de Amazon):
+    ```
+    <es-ES>
+    • Radio: las emisoras de tu lista se ven con su logo, nombre y lo que está sonando.
+    • Pausa: pulsa OK dos veces (o toca dos veces la pantalla). En pausa, un solo OK reanuda.
+    • Lista de ejemplo: si aún no tienes proveedor, prueba la app con una lista de radios deportivas, que puedes borrar cuando quieras.
+    • Móvil: menú del reproductor rediseñado y gestos táctiles.
+    • Favoritos compartidos entre perfiles, más logos y 24 idiomas.
+    • Si te gusta la app, ahora puedes invitar a un café desde Ajustes.
+    </es-ES>
+    <en-US>
+    • Radio: stations in your playlist show their logo, name and what's on air.
+    • Pause: press OK twice (or double-tap the screen). While paused, a single OK resumes.
+    • Sample playlist: no provider yet? Try the app with a playlist of sports radio stations; delete it whenever you like.
+    • Phone: redesigned player menu and touch gestures.
+    • Favorites shared between profiles, more logos and 24 languages.
+    • Like the app? You can now buy me a coffee from Settings.
+    </en-US>
+    ```
+- **Notas de versión de 0.1.11 usadas en Amazon** (viene de la 0.1.7):
   ```
   <es-ES>
   • Radio: las emisoras de tu lista se ven con su logo, nombre y lo que está sonando.

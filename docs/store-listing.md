@@ -19,8 +19,7 @@ deportivas con la emisión pública de las propias emisoras, borrable).
 `Reproductor IPTV sencillo para tu deporte en directo, pensado para la tele.`
 
 ### Descripción completa
-> Texto para la 0.1.11 (2026-09-29). **Aún no está en ninguna consola**: en Play sigue en revisión el
-> párrafo IMPORTANTE anterior (el de las "dos listas de ejemplo de emisiones en abierto"); ver abajo.
+> Texto de la 0.1.11, en revisión en Play desde el 2026-09-29 junto con la versión 15 (0.1.11).
 
 Easy Xtream Football es un reproductor de IPTV sencillo y centrado en el deporte en
 directo, diseñado para Android TV, Fire TV y móvil, y pensado para manejarse cómodamente
@@ -125,8 +124,7 @@ párrafo pasó a hablar de "dos listas de ejemplo de emisiones en abierto manten
 (Sky Sports, ESPN, Movistar Liga de Campeones…). Desde la **0.1.11** el botón solo crea la lista de radios
 y el párrafo es el que figura arriba. Detalles en `docs/PUBLISHING.md`.
 
-- ⏳ **Play es-ES**: párrafo de la 0.1.11 **guardado el 2026-09-29, sin enviar a revisión todavía** (va junto
-  con la versión 0.1.11). En revisión sigue el de la 0.1.8.
+- ✅ **Play es-ES**: párrafo de la 0.1.11 enviado a revisión el 2026-09-29 junto con la versión 15 (0.1.11).
 - ⏳ **Play en-US**: la ficha no existe todavía; crearla ya con el texto de la 0.1.11.
 - ✅ **Amazon (ES y EN)**: párrafo de la 0.1.11 aplicado el 2026-09-29, enviado con la 0.1.11.
 
