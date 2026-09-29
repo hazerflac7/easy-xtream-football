@@ -509,7 +509,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
   - Play: `easy-xtream-football-0.1.11-vc15.aab` (17,0 MB, md5 `478dab84…`)
   - Amazon: `easy-xtream-football-0.1.11-vc15-universal.apk` (27,2 MB, md5 `94aab177…`)
   - Comprobado en el APK de release: `versionCode 15`, sin la URL de la lista de iptv-org.
-- ⏳ **Falta subirla**: Amazon (reenvío) y Play.
+- ✅ **Amazon: enviada el 2026-09-29 (18:14)**, ver la sección de Amazon. ⏳ **Play: falta subir el AAB y enviar.**
 - ⏳ **Play, pendiente de decidir por el usuario**: la 0.1.8 (vc9) sigue en revisión con el botón antiguo.
   Recomendación: no esperar a que Google se pronuncie y mandar la 0.1.11 a Producción (sustituye a la vc9 en
   la revisión) junto con el párrafo IMPORTANTE nuevo de la ficha es-ES; en Prueba interna sustituye a la vc14.
@@ -532,7 +532,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
   </en-US>
   ```
 
-## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26 (0.1.8 RECHAZADA el 2026-09-29)
+## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26 (0.1.8 RECHAZADA y 0.1.11 ENVIADA el 2026-09-29)
 Objetivo: que los Fire TV Stick instalen la app desde su tienda (no tienen Google Play). Cuenta de
 desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la de Google.
 - ✅ **APK universal firmado** con la clave de subida (Amazon no usa Play App Signing; re-firma con su propio
@@ -590,11 +590,17 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     llevan el mismo botón y la misma URL (`SampleLists.SPORTS_TV_URL`).
   - **Decisión del usuario (2026-09-29): quitar la lista de TV y dejar solo las radios, en todas las
     tiendas.** Hecho en la **0.1.11 (vc15)**, ver su sección más arriba.
-  - Al reenviar a Amazon: APK universal de la 0.1.11, **párrafo IMPORTANTE nuevo** en la descripción larga
-    EN y ES (`docs/store-listing.md`), notas de versión de la 0.1.11 y **cambiar las instrucciones de prueba
-    al revisor**, que siguen apuntando a la lista de iptv-org: decirle que pulse *"Try with a sample radio
-    playlist"* en el primer arranque (o que añada como M3U
-    `https://raw.githubusercontent.com/nezor11/easy-xtream-football/main/docs/playlists/sports-radio.m3u`).
+  - ✅ **0.1.11 (vc15) ENVIADA A AMAZON el 2026-09-29 (18:14 hora española, 09:14 PDT).** Estado SUBMITTED,
+    Amazon estima publicación **antes del 2026-10-04 (09:30 PDT)**. Cómo se hizo (máquina Linux, navegador
+    guiado por Claude): la versión rechazada queda en **solo lectura**, así que hay que crear otra con el menú
+    de la lista de apps → **Add Upcoming Version** (release `amzn1.devportal.apprelease.f4bab9bc…`); hereda el
+    APK anterior, la ficha y las instrucciones. El usuario subió a mano el APK universal vc15 (aparece como
+    APK3), se marcó **DRM No**, se **borró el APK2 (vc9)** y se rehízo la selección de dispositivos:
+    **Fire tablets 12 / Fire TV 91 / Automotive 0**. **Párrafo IMPORTANTE nuevo** en la descripción larga EN y
+    ES, **notas de versión** de la 0.1.11 en los dos idiomas e **instrucciones de prueba reescritas**: ya no
+    llevan ninguna URL de iptv-org, explican que esa lista se ha quitado en respuesta al rechazo de la 0.1.8 y
+    guían al revisor por el botón *"Try with a sample radio playlist"*. Esta vez no salió la pregunta de
+    *"significant changes"*. ⏳ Esperar el correo de Amazon y anotar aquí el resultado.
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html

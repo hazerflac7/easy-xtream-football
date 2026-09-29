@@ -125,10 +125,10 @@ párrafo pasó a hablar de "dos listas de ejemplo de emisiones en abierto manten
 (Sky Sports, ESPN, Movistar Liga de Campeones…). Desde la **0.1.11** el botón solo crea la lista de radios
 y el párrafo es el que figura arriba. Detalles en `docs/PUBLISHING.md`.
 
-- ⏳ **Play es-ES**: en revisión desde el 2026-09-26 con el párrafo de la 0.1.8. Cambiarlo al de la 0.1.11
-  cuando se suba esa versión.
+- ⏳ **Play es-ES**: párrafo de la 0.1.11 **guardado el 2026-09-29, sin enviar a revisión todavía** (va junto
+  con la versión 0.1.11). En revisión sigue el de la 0.1.8.
 - ⏳ **Play en-US**: la ficha no existe todavía; crearla ya con el texto de la 0.1.11.
-- ⏳ **Amazon (ES y EN)**: tiene el párrafo de la 0.1.8 desde el 2026-09-29. Cambiarlo al reenviar.
+- ✅ **Amazon (ES y EN)**: párrafo de la 0.1.11 aplicado el 2026-09-29, enviado con la 0.1.11.
 
 ## TODO cuando se publique la 0.1.9
 Añadir a **las dos** descripciones un punto sobre las emisoras de radio (icono y nombre de la
