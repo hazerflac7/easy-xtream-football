@@ -524,8 +524,12 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
   - Estado final: *Resumen de publicación → Cambios en revisión*: `15 (0.1.11) · Iniciar lanzamiento
     completo` y `es-ES · Cambiar descripción completa`. En Producción, "Versión 15 (0.1.11) en revisión". La
     0.1.6 (vc7) sigue siendo la publicada. **La 0.1.8 (vc9) y la 0.1.10 (vc14) ya no se publicarán.**
-  - ⏳ Pendiente: esperar el veredicto de Google; la vc14 sigue en Prueba interna con el botón antiguo
-    (sustituirla por la vc15 cuando convenga); crear la ficha en-US cuando se apruebe.
+  - ✅ **Prueba interna: la vc15 sustituye a la vc14 desde el 2026-09-29 (18:27)**. Versión nueva creada con
+    el bundle 15 **añadido desde la biblioteca** (ya estaba subido por Producción, no hay que volver a
+    subirlo), sin incluir el 14; notas breves en es-ES y en-US; *Guardar y publicar*. El canal muestra
+    "Última versión: 15 (0.1.11)". Se publica al momento y **no toca la revisión de Producción**, que sigue
+    igual. Ya no queda ningún canal de Play sirviendo el botón de iptv-org.
+  - ⏳ Pendiente: esperar el veredicto de Google; crear la ficha en-US cuando se apruebe.
   - Notas de versión usadas en Play (viene de la 0.1.6, por eso son más largas que las de Amazon):
     ```
     <es-ES>
