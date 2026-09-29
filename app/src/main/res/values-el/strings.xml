@@ -105,9 +105,8 @@
     <string name="action_accept">Τέλος</string>
     <string name="action_add">Προσθήκη</string>
     <string name="add_profile">Προσθήκη προφίλ</string>
-    <string name="sample_lists_button">Δοκιμή με λίστες παραδείγματος</string>
-    <string name="sample_lists_hint">Δημόσιες λίστες ελεύθερων καναλιών που συντηρούν τρίτοι: κάποια κανάλια μπορεί να μη λειτουργούν. Μπορείτε να τις διαγράψετε όποτε θέλετε.</string>
-    <string name="sample_profile_sports">Demo · Ελεύθερος αθλητισμός</string>
+    <string name="sample_radio_button">Δοκιμή με λίστα ραδιοφώνων παραδείγματος</string>
+    <string name="sample_radio_hint">Αθλητικά ραδιόφωνα από διάφορες χώρες, με τη δημόσια μετάδοση κάθε σταθμού: κάποια μπορεί να μη λειτουργούν. Μπορείτε να διαγράψετε τη λίστα όποτε θέλετε.</string>
     <string name="sample_profile_radio">Demo · Αθλητικά ραδιόφωνα</string>
 
     <!-- Selección de idioma -->

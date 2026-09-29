@@ -106,9 +106,8 @@
     <string name="action_accept">Gata</string>
     <string name="action_add">Adaugă</string>
     <string name="add_profile">Adaugă profil</string>
-    <string name="sample_lists_button">Încearcă cu liste de exemplu</string>
-    <string name="sample_lists_hint">Liste publice de posturi în clar întreținute de terți: unele canale pot fi indisponibile. Le poți șterge oricând.</string>
-    <string name="sample_profile_sports">Demo · Sport în clar</string>
+    <string name="sample_radio_button">Încearcă cu o listă de radiouri de exemplu</string>
+    <string name="sample_radio_hint">Posturi de radio sportive din mai multe țări, redate din fluxul public al fiecărui post: unele pot fi indisponibile. Poți șterge lista oricând.</string>
     <string name="sample_profile_radio">Demo · Radio sport</string>
 
     <!-- Selección de idioma -->

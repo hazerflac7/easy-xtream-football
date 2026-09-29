@@ -104,9 +104,8 @@
     <string name="action_accept">完成</string>
     <string name="action_add">新增</string>
     <string name="add_profile">新增設定檔</string>
-    <string name="sample_lists_button">用範例播放清單試用</string>
-    <string name="sample_lists_hint">由第三方維護的公開免費頻道清單：部分頻道可能離線。您隨時可以刪除。</string>
-    <string name="sample_profile_sports">示範 · 免費體育頻道</string>
+    <string name="sample_radio_button">用範例電台清單試用</string>
+    <string name="sample_radio_hint">來自多個國家的體育廣播電台，播放各電台自己的公開串流：部分電台可能離線。您隨時可以刪除此清單。</string>
     <string name="sample_profile_radio">示範 · 體育廣播</string>
 
     <!-- Selección de idioma -->

@@ -109,9 +109,8 @@
     <string name="action_accept">تم</string>
     <string name="action_add">إضافة</string>
     <string name="add_profile">إضافة ملف شخصي</string>
-    <string name="sample_lists_button">جرّب بقوائم نموذجية</string>
-    <string name="sample_lists_hint">قوائم عامة لقنوات مفتوحة يديرها أطراف خارجية: قد تكون بعض القنوات متوقفة. يمكنك حذفها في أي وقت.</string>
-    <string name="sample_profile_sports">تجريبي · رياضة مفتوحة</string>
+    <string name="sample_radio_button">جرّب بقائمة إذاعات نموذجية</string>
+    <string name="sample_radio_hint">إذاعات رياضية من عدة دول، تُشغَّل من البث العام لكل إذاعة: قد يكون بعضها متوقفًا. يمكنك حذف القائمة في أي وقت.</string>
     <string name="sample_profile_radio">تجريبي · إذاعات رياضية</string>
 
     <!-- Selección de idioma -->

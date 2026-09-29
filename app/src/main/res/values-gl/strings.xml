@@ -101,9 +101,8 @@
     <string name="action_accept">Feito</string>
     <string name="action_add">Engadir</string>
     <string name="add_profile">Engadir perfil</string>
-    <string name="sample_lists_button">Probar con listas de exemplo</string>
-    <string name="sample_lists_hint">Listas públicas de emisións en aberto mantidas por terceiros: pode haber canles caídas. Podes borralas cando queiras.</string>
-    <string name="sample_profile_sports">Demo · Deporte en aberto</string>
+    <string name="sample_radio_button">Probar cunha lista de radios de exemplo</string>
+    <string name="sample_radio_hint">Radios deportivas de varios países, coa emisión pública de cada emisora: pode haber algunha caída. Podes borrar a lista cando queiras.</string>
     <string name="sample_profile_radio">Demo · Radios deportivas</string>
 
     <string name="settings_title">Axustes</string>

@@ -104,9 +104,8 @@
     <string name="action_accept">Xong</string>
     <string name="action_add">Thêm</string>
     <string name="add_profile">Thêm hồ sơ</string>
-    <string name="sample_lists_button">Dùng thử với danh sách mẫu</string>
-    <string name="sample_lists_hint">Danh sách công khai các kênh phát miễn phí do bên thứ ba duy trì: một số kênh có thể ngoại tuyến. Bạn có thể xóa bất cứ lúc nào.</string>
-    <string name="sample_profile_sports">Demo · Thể thao miễn phí</string>
+    <string name="sample_radio_button">Dùng thử với danh sách radio mẫu</string>
+    <string name="sample_radio_hint">Các đài phát thanh thể thao từ nhiều quốc gia, phát từ luồng công khai của chính từng đài: một số đài có thể ngoại tuyến. Bạn có thể xóa danh sách bất cứ lúc nào.</string>
     <string name="sample_profile_radio">Demo · Radio thể thao</string>
 
     <!-- Selección de idioma -->

@@ -202,10 +202,9 @@ fun AddProfileScreen(
             )
         }
 
-        // First run (no profile yet): offer the two sample playlists as a way to see the player
-        // working before typing any provider in. They become ordinary, deletable M3U profiles.
+        // First run (no profile yet): offer the sample radio playlist as a way to see the player
+        // working before typing any provider in. It becomes an ordinary, deletable M3U profile.
         if (state.offerSamples && !state.isEditing) {
-            val sportsName = stringResource(R.string.sample_profile_sports)
             val radioName = stringResource(R.string.sample_profile_radio)
             Column(
                 modifier = Modifier.widthIn(max = 600.dp).fillMaxWidth(),
@@ -213,11 +212,11 @@ fun AddProfileScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 AppButton(
-                    text = "▶  " + stringResource(R.string.sample_lists_button),
-                    onClick = { viewModel.addSampleLists(sportsName, radioName, onSamplesAdded) },
+                    text = "▶  " + stringResource(R.string.sample_radio_button),
+                    onClick = { viewModel.addSampleList(radioName, onSamplesAdded) },
                 )
                 Text(
-                    text = stringResource(R.string.sample_lists_hint),
+                    text = stringResource(R.string.sample_radio_hint),
                     style = MaterialTheme.typography.bodySmall,
                     color = colors.onSurfaceVariant,
                     textAlign = TextAlign.Center,

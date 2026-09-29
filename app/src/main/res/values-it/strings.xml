@@ -101,9 +101,8 @@
     <string name="action_accept">Fatto</string>
     <string name="action_add">Aggiungi</string>
     <string name="add_profile">Aggiungi profilo</string>
-    <string name="sample_lists_button">Prova con liste di esempio</string>
-    <string name="sample_lists_hint">Liste pubbliche di canali in chiaro gestite da terzi: alcuni canali potrebbero non funzionare. Puoi eliminarle quando vuoi.</string>
-    <string name="sample_profile_sports">Demo · Sport in chiaro</string>
+    <string name="sample_radio_button">Prova con una lista di radio di esempio</string>
+    <string name="sample_radio_hint">Radio sportive di vari paesi, con lo streaming pubblico di ogni emittente: alcune potrebbero non funzionare. Puoi eliminare la lista quando vuoi.</string>
     <string name="sample_profile_radio">Demo · Radio sportive</string>
 
     <string name="settings_title">Impostazioni</string>

@@ -18,10 +18,10 @@ It supports both the **Xtream Codes** protocol and **M3U / M3U-plus playlists**.
 - **Two ways to connect**: an **Xtream** profile (server + username + password) or an **M3U
   playlist** (paste the URL). Multiple saved profiles picked from a selector; they can be
   **renamed and edited** (long-press a profile → *Edit* / *Delete*).
-- **Try it without a provider**: on a fresh install a *"Try with sample playlists"* button adds two
-  ordinary M3U profiles — free-to-air sports (the public **iptv-org** list) and sports talk radio
-  (kept in [`docs/playlists`](docs/playlists)). They are optional, and you can delete them like any
-  other profile.
+- **Try it without a provider**: on a fresh install a *"Try with a sample radio playlist"* button
+  adds one ordinary M3U profile — sports talk radio from several countries, using the stations' own
+  public streams (kept in [`docs/playlists`](docs/playlists)). It is optional, and you can delete it
+  like any other profile.
 - **Sports only**: automatically filters sports/football channels (multi-language keywords) and
   **discards everything else, VOD (movies/series) and mis-categorized general channels**.
 - **Radio**: stations flagged by the playlist (`radio="true"`, Xtream `radio_streams`, a *Radio*
@@ -121,8 +121,8 @@ Release builds are signed when a gitignored `keystore.properties` is present (`s
 - [ ] (Optional) VOD / Movies and Series, if scope grows beyond sports.
 
 Done recently: release on **Google Play** and the **Amazon Appstore**, **24 languages** (RTL
-included), **radio** support, **pause** with a double OK, **touch controls** on phones, **sample
-playlists** for a first run without a provider, favorites shared between profiles of the same
+included), **radio** support, **pause** with a double OK, **touch controls** on phones, a **sample radio
+playlist** for a first run without a provider, favorites shared between profiles of the same
 provider, a **Settings** screen (clear cache, in-app open-source licenses), a **"Live now"** row
 with per-country EPG feed prioritisation, credentials encrypted at rest (AES-GCM with an Android
 Keystore key), Room migrations, EPG via XMLTV for M3U playlists, and profile editing/renaming.
@@ -130,9 +130,9 @@ Keystore key), Room migrations, EPG via XMLTV for M3U playlists, and profile edi
 ## Disclaimer
 
 Easy Xtream Football is a **neutral client player** (like VLC): it does not include, host or
-distribute any channel, subscription or content. The only playlists it can add for you are the two
-**optional samples** of publicly available free-to-air streams described above, which you choose to
-add and can delete at any time. The user is solely responsible for the servers and credentials they
+distribute any channel, subscription or content. The only playlist it can add for you is the
+**optional sample** of sports radio stations described above (their own public streams), which you
+choose to add and can delete at any time. The user is solely responsible for the servers and credentials they
 configure, the content they access, and for complying with applicable law.
 
 ## License

@@ -101,9 +101,8 @@
     <string name="action_accept">Concluído</string>
     <string name="action_add">Adicionar</string>
     <string name="add_profile">Adicionar perfil</string>
-    <string name="sample_lists_button">Experimentar com listas de exemplo</string>
-    <string name="sample_lists_hint">Listas públicas de emissões em sinal aberto mantidas por terceiros: alguns canais podem estar em baixo. Pode apagá-las quando quiser.</string>
-    <string name="sample_profile_sports">Demo · Desporto em sinal aberto</string>
+    <string name="sample_radio_button">Experimentar com uma lista de rádios de exemplo</string>
+    <string name="sample_radio_hint">Rádios desportivas de vários países, com a emissão pública de cada estação: algumas podem estar em baixo. Pode apagar a lista quando quiser.</string>
     <string name="sample_profile_radio">Demo · Rádios desportivas</string>
 
     <string name="settings_title">Definições</string>

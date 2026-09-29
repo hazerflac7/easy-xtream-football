@@ -104,9 +104,8 @@
     <string name="action_accept">เสร็จสิ้น</string>
     <string name="action_add">เพิ่ม</string>
     <string name="add_profile">เพิ่มโปรไฟล์</string>
-    <string name="sample_lists_button">ลองใช้เพลย์ลิสต์ตัวอย่าง</string>
-    <string name="sample_lists_hint">เพลย์ลิสต์สาธารณะของช่องฟรีทีวีที่ดูแลโดยบุคคลที่สาม: บางช่องอาจใช้งานไม่ได้ คุณลบได้ทุกเมื่อ</string>
-    <string name="sample_profile_sports">เดโม · กีฬาฟรีทีวี</string>
+    <string name="sample_radio_button">ลองใช้เพลย์ลิสต์วิทยุตัวอย่าง</string>
+    <string name="sample_radio_hint">สถานีวิทยุกีฬาจากหลายประเทศ เล่นจากสตรีมสาธารณะของแต่ละสถานีเอง: บางสถานีอาจใช้งานไม่ได้ คุณลบเพลย์ลิสต์ได้ทุกเมื่อ</string>
     <string name="sample_profile_radio">เดโม · วิทยุกีฬา</string>
 
     <!-- Selección de idioma -->

@@ -105,9 +105,8 @@
     <string name="action_accept">हो गया</string>
     <string name="action_add">जोड़ें</string>
     <string name="add_profile">प्रोफ़ाइल जोड़ें</string>
-    <string name="sample_lists_button">नमूना सूचियों से आज़माएँ</string>
-    <string name="sample_lists_hint">तीसरे पक्ष द्वारा बनाए रखी गई फ्री-टू-एयर चैनलों की सार्वजनिक सूचियाँ: कुछ चैनल बंद हो सकते हैं। आप इन्हें कभी भी हटा सकते हैं।</string>
-    <string name="sample_profile_sports">डेमो · फ्री-टू-एयर खेल</string>
+    <string name="sample_radio_button">नमूना रेडियो सूची से आज़माएँ</string>
+    <string name="sample_radio_hint">कई देशों के खेल रेडियो स्टेशन, हर स्टेशन की अपनी सार्वजनिक स्ट्रीम से: कुछ बंद हो सकते हैं। आप सूची को कभी भी हटा सकते हैं।</string>
     <string name="sample_profile_radio">डेमो · खेल रेडियो</string>
 
     <!-- Selección de idioma -->

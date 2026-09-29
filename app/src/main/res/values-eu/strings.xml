@@ -101,9 +101,8 @@
     <string name="action_accept">Eginda</string>
     <string name="action_add">Gehitu</string>
     <string name="add_profile">Gehitu profila</string>
-    <string name="sample_lists_button">Probatu adibide-zerrendekin</string>
-    <string name="sample_lists_hint">Hirugarrenek mantendutako zerrenda publikoak, seinale irekiko kanalekin: kanal batzuk erorita egon daitezke. Nahi duzunean ezaba ditzakezu.</string>
-    <string name="sample_profile_sports">Demo · Kirola seinale irekian</string>
+    <string name="sample_radio_button">Probatu irratien adibide-zerrenda batekin</string>
+    <string name="sample_radio_hint">Hainbat herrialdetako kirol-irratiak, irrati bakoitzaren emisio publikoarekin: baliteke batzuk erorita egotea. Zerrenda nahi duzunean ezaba dezakezu.</string>
     <string name="sample_profile_radio">Demo · Kirol irratiak</string>
 
     <string name="settings_title">Ezarpenak</string>
