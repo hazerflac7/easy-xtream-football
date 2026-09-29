@@ -153,20 +153,18 @@ fun ProfilesScreen(
                     onClick = onAddProfile,
                     modifier = Modifier.focusRequester(addFocus),
                 )
-                // Nothing configured yet: offer two sample playlists (free-to-air sports TV and sports
-                // radio) so the player can be tried before adding one's own provider. They become
-                // ordinary M3U profiles, editable and deletable. Only shown once the DB has answered,
-                // so it doesn't flash while loading.
+                // Nothing configured yet: offer the sample radio playlist so the player can be tried
+                // before adding one's own provider. It becomes an ordinary M3U profile, editable and
+                // deletable. Only shown once the DB has answered, so it doesn't flash while loading.
                 if (loaded && profiles.isEmpty()) {
-                    val sportsName = stringResource(R.string.sample_profile_sports)
                     val radioName = stringResource(R.string.sample_profile_radio)
                     AddProfileButton(
                         focusable = !menuOpen,
-                        onClick = { viewModel.addSampleLists(sportsName, radioName) },
-                        label = "▶  " + stringResource(R.string.sample_lists_button),
+                        onClick = { viewModel.addSampleList(radioName) },
+                        label = "▶  " + stringResource(R.string.sample_radio_button),
                     )
                     Text(
-                        text = stringResource(R.string.sample_lists_hint),
+                        text = stringResource(R.string.sample_radio_hint),
                         style = MaterialTheme.typography.bodySmall,
                         color = colors.onSurfaceVariant,
                         textAlign = TextAlign.Center,

@@ -105,9 +105,8 @@
     <string name="action_accept">Tamam</string>
     <string name="action_add">Ekle</string>
     <string name="add_profile">Profil ekle</string>
-    <string name="sample_lists_button">Örnek listelerle dene</string>
-    <string name="sample_lists_hint">Üçüncü taraflarca tutulan, şifresiz yayınların herkese açık listeleri: bazı kanallar çevrimdışı olabilir. İstediğiniz zaman silebilirsiniz.</string>
-    <string name="sample_profile_sports">Demo · Şifresiz spor</string>
+    <string name="sample_radio_button">Örnek radyo listesiyle dene</string>
+    <string name="sample_radio_hint">Birkaç ülkeden spor radyoları, her istasyonun kendi açık yayınından çalınır: bazıları çevrimdışı olabilir. Listeyi istediğiniz zaman silebilirsiniz.</string>
     <string name="sample_profile_radio">Demo · Spor radyoları</string>
 
     <!-- Selección de idioma -->

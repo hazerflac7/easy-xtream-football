@@ -107,9 +107,8 @@
     <string name="action_accept">Готово</string>
     <string name="action_add">Добавить</string>
     <string name="add_profile">Добавить профиль</string>
-    <string name="sample_lists_button">Попробовать с примерами списков</string>
-    <string name="sample_lists_hint">Публичные списки бесплатных эфирных каналов, поддерживаемые третьими лицами: часть каналов может не работать. Их можно удалить в любой момент.</string>
-    <string name="sample_profile_sports">Демо · Бесплатный спорт</string>
+    <string name="sample_radio_button">Попробовать с примером списка радиостанций</string>
+    <string name="sample_radio_hint">Спортивные радиостанции из нескольких стран, с публичных потоков самих станций: часть может не работать. Список можно удалить в любой момент.</string>
     <string name="sample_profile_radio">Демо · Спортивное радио</string>
 
     <!-- Selección de idioma -->

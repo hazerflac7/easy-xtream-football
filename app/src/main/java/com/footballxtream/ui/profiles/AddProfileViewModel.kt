@@ -43,7 +43,7 @@ data class AddProfileUiState(
     val isConnecting: Boolean = false,
     val error: String? = null,
     val isEditing: Boolean = false,
-    /** No profile exists yet (first run): also offer the sample playlists below the form. */
+    /** No profile exists yet (first run): also offer the sample playlist below the form. */
     val offerSamples: Boolean = false,
 ) {
     val isM3u: Boolean get() = mode == ProfileType.M3U
@@ -82,10 +82,10 @@ class AddProfileViewModel(
         }
     }
 
-    /** Creates the two sample M3U profiles (free-to-air sports TV and sports radio). */
-    fun addSampleLists(sportsName: String, radioName: String, onDone: () -> Unit) {
+    /** Creates the sample M3U profile (sports radio). */
+    fun addSampleList(radioName: String, onDone: () -> Unit) {
         viewModelScope.launch {
-            SampleLists.add(profileDao, sportsName, radioName)
+            SampleLists.add(profileDao, radioName)
             onDone()
         }
     }

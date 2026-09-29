@@ -106,9 +106,8 @@
     <string name="action_accept">Done</string>
     <string name="action_add">Add</string>
     <string name="add_profile">Add profile</string>
-    <string name="sample_lists_button">Try with sample playlists</string>
-    <string name="sample_lists_hint">Public free-to-air playlists maintained by third parties: some channels may be offline. You can delete them at any time.</string>
-    <string name="sample_profile_sports">Demo · Free-to-air sports</string>
+    <string name="sample_radio_button">Try with a sample radio playlist</string>
+    <string name="sample_radio_hint">Sports radio stations from several countries, played from each station\'s own public stream: some may be offline. You can delete the playlist at any time.</string>
     <string name="sample_profile_radio">Demo · Sports radio</string>
 
     <!-- Language selection -->

@@ -105,9 +105,8 @@
     <string name="action_accept">Fertig</string>
     <string name="action_add">Hinzufügen</string>
     <string name="add_profile">Profil hinzufügen</string>
-    <string name="sample_lists_button">Mit Beispiellisten ausprobieren</string>
-    <string name="sample_lists_hint">Öffentliche Listen frei empfangbarer Sender, von Dritten gepflegt: einzelne Sender können offline sein. Du kannst sie jederzeit löschen.</string>
-    <string name="sample_profile_sports">Demo · Frei empfangbarer Sport</string>
+    <string name="sample_radio_button">Mit einer Beispielliste mit Radiosendern ausprobieren</string>
+    <string name="sample_radio_hint">Sportradios aus mehreren Ländern, über den öffentlichen Stream des jeweiligen Senders: einzelne können offline sein. Du kannst die Liste jederzeit löschen.</string>
     <string name="sample_profile_radio">Demo · Sportradio</string>
 
     <!-- Selección de idioma -->

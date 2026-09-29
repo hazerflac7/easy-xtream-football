@@ -45,9 +45,9 @@ class ProfilesViewModel(
         viewModelScope.launch { profileDao.delete(profile) }
     }
 
-    /** Adds the two sample M3U profiles (free-to-air sports TV and sports radio). */
-    fun addSampleLists(sportsName: String, radioName: String) {
-        viewModelScope.launch { SampleLists.add(profileDao, sportsName, radioName) }
+    /** Adds the sample M3U profile (sports radio). */
+    fun addSampleList(radioName: String) {
+        viewModelScope.launch { SampleLists.add(profileDao, radioName) }
     }
 
     companion object {

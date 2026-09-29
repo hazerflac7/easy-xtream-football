@@ -106,9 +106,8 @@
     <string name="action_accept">Gotovo</string>
     <string name="action_add">Dodaj</string>
     <string name="add_profile">Dodaj profil</string>
-    <string name="sample_lists_button">Isprobaj sa primerima lista</string>
-    <string name="sample_lists_hint">Javne liste nekodiranih kanala koje održavaju treće strane: neki kanali možda ne rade. Možete ih obrisati u bilo kom trenutku.</string>
-    <string name="sample_profile_sports">Demo · Nekodirani sport</string>
+    <string name="sample_radio_button">Isprobaj sa primerom liste radio-stanica</string>
+    <string name="sample_radio_hint">Sportske radio-stanice iz više zemalja, sa javnog strima same stanice: neke možda ne rade. Listu možete obrisati u bilo kom trenutku.</string>
     <string name="sample_profile_radio">Demo · Sportski radio</string>
 
     <!-- Selección de idioma -->
