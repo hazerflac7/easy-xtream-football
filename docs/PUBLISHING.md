@@ -1,7 +1,7 @@
 # Publicación en Google Play — estado y pasos
 
 Checklist vivo del proceso de publicación de **Easy Xtream Football**.
-Última actualización: 2026-09-28.
+Última actualización: 2026-09-29.
 
 ## Datos clave
 - **Nombre de la app:** Easy Xtream Football
@@ -483,7 +483,46 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Versión**: al mezclar, `versionCode 10` · `0.1.9`. Notas de versión: "Ahora puedes invitar a un café desde la
   propia app, con Google Play" / "You can now buy me a coffee right from the app, through Google Play".
 
-## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26
+## 0.1.11 — lista de ejemplo solo de radios (código listo el 2026-09-29, rama `fix/sample-list-radio-only`)
+Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `versionCode` **15** · `versionName`
+**0.1.11**. Es la 0.1.10 (vc14) con un único cambio:
+- El botón del primer arranque y de la pantalla de perfiles vacía pasa a ser **"Probar con una lista de radios
+  de ejemplo"** y crea **un solo perfil**, "Demo · Radios deportivas" (`docs/playlists/sports-radio.m3u`, 14
+  emisoras, streams oficiales). **Desaparece "Demo · Deporte en abierto"** y la URL de iptv-org del código
+  (`SampleLists.SPORTS_TV_URL`). Los logos siguen saliendo de la base de datos de iptv-org (`api/*.json`), que
+  son solo metadatos.
+- Textos nuevos en los 24 idiomas (`sample_radio_button`, `sample_radio_hint`); se borra `sample_profile_sports`.
+- Quien ya tenga el perfil "Demo · Deporte en abierto" creado (solo testers: la 0.1.8 no llegó a publicarse en
+  ninguna tienda) lo conserva hasta que lo borre; la app no toca los perfiles existentes.
+- ✅ Comprobado el 2026-09-29: compila, tests unitarios en verde, el APK debug no contiene la URL de la lista
+  de iptv-org y **las 14 emisoras responden** (200/206 con audio). Lint sigue con los 2 errores de siempre
+  (`app_name` y `settings_licenses_body` sin traducir), ninguno de este cambio.
+- ⏳ **Falta probarla en pantalla** (Chromecast y móvil): el 29 no había ningún dispositivo alcanzable por adb.
+- ⏳ **Falta**: mezclar la rama en `main`, generar AAB + APK universal firmados
+  (`./gradlew :app:bundleFullRelease :app:assembleFullRelease`) y subirlos.
+- ⏳ **Play, pendiente de decidir por el usuario**: la 0.1.8 (vc9) sigue en revisión con el botón antiguo.
+  Recomendación: no esperar a que Google se pronuncie y mandar la 0.1.11 a Producción (sustituye a la vc9 en
+  la revisión) junto con el párrafo IMPORTANTE nuevo de la ficha es-ES; en Prueba interna sustituye a la vc14.
+  Mantener el lanzamiento por fases al 20 % (primera versión en producción con pagos).
+- **Notas de versión de 0.1.11** (máx. 500 caracteres por idioma; para Amazon, que viene de la 0.1.7):
+  ```
+  <es-ES>
+  • Radio: las emisoras de tu lista se ven con su logo, nombre y lo que está sonando.
+  • Pausa: pulsa OK dos veces (o toca dos veces la pantalla). En pausa, un solo OK reanuda.
+  • Lista de ejemplo: si aún no tienes proveedor, prueba la app con una lista de radios deportivas (la emisión pública de cada emisora), que puedes borrar cuando quieras.
+  • Menú del reproductor rediseñado en pantallas táctiles.
+  </es-ES>
+  ```
+  ```
+  <en-US>
+  • Radio: stations in your playlist show their logo, name and what's on air.
+  • Pause: press OK twice (or double-tap the screen). While paused, a single OK resumes.
+  • Sample playlist: no provider yet? Try the app with a playlist of sports radio stations (each station's own public stream); delete it whenever you like.
+  • Player menu redesigned for touch screens.
+  </en-US>
+  ```
+
+## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26 (0.1.8 RECHAZADA el 2026-09-29)
 Objetivo: que los Fire TV Stick instalen la app desde su tienda (no tienen Google Play). Cuenta de
 desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la de Google.
 - ✅ **APK universal firmado** con la clave de subida (Amazon no usa Play App Signing; re-firma con su propio
@@ -519,7 +558,33 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   preguntas de táctil/offline solo aparecen con Automotive marcado; párrafo IMPORTANTE nuevo en la descripción
   larga EN y ES (textareas React: se cambió el valor por el setter nativo + evento `input`, autoguardó). El
   resto (gratuita, países, público 16-17/18+, clasificación, privacidad, instrucciones de prueba, export
-  compliance) se heredó de la 0.1.7. ⏳ Esperar el correo de Amazon y anotar aquí el resultado.
+  compliance) se heredó de la 0.1.7.
+  ❌ **0.1.8 RECHAZADA POR AMAZON el 2026-09-29 (06:55 PDT, 15:55 hora española)**, a las 15 horas de
+  enviarla. Primary Validation: sin problemas · Functionality Validation: 104/104 dispositivos ·
+  **Amazon Content Policy: Not compliant**: *"Your app offers pirated content within the app, promotes links
+  to websites that stream pirated content, or promotes downloading via torrents"* (política *Deceptive and
+  Malicious Behavior*). El informe de la consola (*Upcoming version → App status → Details*, envío
+  `44345790`) dice lo mismo que el correo: ni capturas ni pasos. **La 0.1.7 sigue LIVE**: el rechazo solo
+  bloquea la actualización (consola: Current version *Live*, Upcoming version *Rejected*).
+  - **Causa más probable: el botón "Probar con listas de ejemplo"**, la única novedad de la 0.1.8 que toca
+    contenido (la 0.1.7 pasó esta misma revisión sin él). Crea el perfil "Demo · Deporte en abierto" con
+    `iptv-org categories/sports.m3u`, y esa lista, descargada el 2026-09-29, trae **440 canales de los que
+    unos 89 llevan marca de televisión de pago** (Sky Sports Football y F1, ESPN, Liga de Campeones por
+    Movistar Plus+, DAZN, Sony Sports Ten, Setanta, Arena Sport, Digi Sport, Match!…) y 85 se sirven desde
+    una IP pelada, sin dominio del emisor. No es "deporte en abierto", que es lo que dicen la ficha y el
+    texto del botón. Con la 0.1.7 esa lista solo figuraba en las instrucciones de prueba al revisor; en la
+    0.1.8 la ofrece la propia app, que es justo lo que describe el motivo del rechazo.
+  - **Apelar no tiene recorrido** mientras el botón apunte a esa lista: el argumento de "solo reproductor"
+    ya no se sostiene si la app enlaza ella misma esos canales.
+  - ⚠️ **Mismo riesgo en Play**: la 0.1.8 (vc9) que está en revisión y la 0.1.10 (vc14) de Prueba interna
+    llevan el mismo botón y la misma URL (`SampleLists.SPORTS_TV_URL`).
+  - **Decisión del usuario (2026-09-29): quitar la lista de TV y dejar solo las radios, en todas las
+    tiendas.** Hecho en la **0.1.11 (vc15)**, ver su sección más arriba.
+  - Al reenviar a Amazon: APK universal de la 0.1.11, **párrafo IMPORTANTE nuevo** en la descripción larga
+    EN y ES (`docs/store-listing.md`), notas de versión de la 0.1.11 y **cambiar las instrucciones de prueba
+    al revisor**, que siguen apuntando a la lista de iptv-org: decirle que pulse *"Try with a sample radio
+    playlist"* en el primer arranque (o que añada como M3U
+    `https://raw.githubusercontent.com/nezor11/easy-xtream-football/main/docs/playlists/sports-radio.m3u`).
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
