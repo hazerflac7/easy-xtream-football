@@ -38,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import com.footballxtream.BuildConfig
 import com.footballxtream.R
 import com.footballxtream.data.local.ProfileType
 import com.footballxtream.ui.components.AppButton
@@ -204,7 +205,7 @@ fun AddProfileScreen(
 
         // First run (no profile yet): offer the sample radio playlist as a way to see the player
         // working before typing any provider in. It becomes an ordinary, deletable M3U profile.
-        if (state.offerSamples && !state.isEditing) {
+        if (BuildConfig.SAMPLE_LIST && state.offerSamples && !state.isEditing) {
             val radioName = stringResource(R.string.sample_profile_radio)
             Column(
                 modifier = Modifier.widthIn(max = 600.dp).fillMaxWidth(),

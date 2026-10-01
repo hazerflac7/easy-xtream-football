@@ -21,7 +21,8 @@ It supports both the **Xtream Codes** protocol and **M3U / M3U-plus playlists**.
 - **Try it without a provider**: on a fresh install a *"Try with a sample radio playlist"* button
   adds one ordinary M3U profile — sports talk radio from several countries, using the stations' own
   public streams (kept in [`docs/playlists`](docs/playlists)). It is optional, and you can delete it
-  like any other profile.
+  like any other profile. (Google Play builds only; the Amazon Appstore build, `-Pstore=amazon`,
+  is the bare player.)
 - **Sports only**: automatically filters sports/football channels (multi-language keywords) and
   **discards everything else, VOD (movies/series) and mis-categorized general channels**.
 - **Radio**: stations flagged by the playlist (`radio="true"`, Xtream `radio_streams`, a *Radio*
@@ -98,7 +99,7 @@ From the command line (requires a JDK 17+ and the Android SDK with `local.proper
 ```bash
 ./gradlew assembleFullDebug        # full build; use assembleLiteDebug for the small one
 ./gradlew bundleFullRelease        # the AAB uploaded to Google Play
-./gradlew assembleFullRelease      # per-ABI APKs + the universal one used for the Amazon Appstore
+./gradlew assembleFullRelease -Pstore=amazon   # per-ABI APKs + the universal one for the Amazon Appstore
 ```
 
 Two **flavors**: `full` bundles the FFmpeg software decoders (~7.5 MB) for the AC-3/E-AC-3/DTS/MP2
