@@ -1,24 +1,25 @@
 #EXTM3U
 # Easy Xtream Football — playlist used ONLY to take the store screenshots. Not offered by the app.
 # Made-up channel names over openly licensed test videos (Blender Foundation films, CC BY 3.0, and
-# Apple's HLS test pattern), so the screenshots show no real broadcaster.
-#EXTINF:-1 group-title="Football",Demo Football 1
+# Apple's HLS test pattern), so the screenshots show no real broadcaster. Each name starts with a
+# different word because the app groups channels that share their first word into one card.
+#EXTINF:-1 group-title="Football",Kickoff Demo
 https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8?demo=1
-#EXTINF:-1 group-title="Football",Demo Football 2
+#EXTINF:-1 group-title="Football",Matchday Demo
 https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8?demo=2
-#EXTINF:-1 group-title="Football",Demo Football 3
+#EXTINF:-1 group-title="Football",Offside Demo
 https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8?demo=3
-#EXTINF:-1 group-title="Tennis",Demo Tennis
+#EXTINF:-1 group-title="Tennis",Topspin Demo
 https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8?demo=4
-#EXTINF:-1 group-title="Motor",Demo Motor
+#EXTINF:-1 group-title="Motor",Paddock Demo
 https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8?demo=5
-#EXTINF:-1 group-title="Basketball",Demo Basketball
+#EXTINF:-1 group-title="Basketball",Hoops Demo
 https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8?demo=6
-#EXTINF:-1 group-title="Cycling",Demo Cycling
+#EXTINF:-1 group-title="Cycling",Peloton Demo
 https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8?demo=7
-#EXTINF:-1 group-title="Golf",Demo Golf
+#EXTINF:-1 group-title="Golf",Fairway Demo
 https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8?demo=8
-#EXTINF:-1 group-title="Sports",Demo Sports News
+#EXTINF:-1 group-title="Rugby",Scrum Demo
 https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8?demo=9
-#EXTINF:-1 group-title="Sports",Demo Sports Extra
+#EXTINF:-1 group-title="Sports",Touchline Demo
 https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8?demo=10
