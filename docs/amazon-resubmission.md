@@ -45,8 +45,8 @@ Thank you for your help.
 Jorge Mtnez
 ```
 
-> Antes de enviarlo: la frase de las capturas ("have been redone") solo es cierta cuando se hayan
-> rehecho (ver el punto 5). Si se envía antes, cambiarla por "will be redone".
+> **Enviado el 2026-10-01 (11:48), caso `22369540491`**, con "will be redone" en la frase de las capturas
+> y encajado en la plantilla del campo Descripción.
 
 ## 2. Párrafo IMPORTANTE de la ficha de Amazon (vuelve al de la 0.1.7)
 ```
@@ -76,7 +76,7 @@ La ficha de Play **no cambia**: allí la 0.1.11 sigue ofreciendo la lista de rad
 ## 4. Instrucciones de prueba para el revisor
 La lista `docs/playlists/review-test.m3u` trae tres vídeos de prueba de licencia libre (Big Buck Bunny
 y Tears of Steel, de la Blender Foundation, CC BY; y la carta de ajuste HLS de Apple). **La app no la
-ofrece**: solo figura aquí. La URL funciona cuando la rama esté mezclada en `main`.
+ofrece**: solo figura aquí.
 
 ```
 Easy Xtream Football is a media player only. It includes no channels, playlists or content, and
@@ -98,14 +98,22 @@ https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
 ```
 
 ## 5. Antes de enviar (lista de comprobación)
-- [ ] Probar la build de Amazon en un dispositivo: en el primer arranque y en la pantalla de perfiles
-      vacía **no** debe salir el botón de la lista de ejemplo; la lista de prueba carga 3 canales y
-      reproduce.
-- [ ] Rehacer `02-profiles.png` (perfiles "iptv-org ES", "Sports iptv-org", "TDTChannels") y
-      `01-channels.png` ("Live sports of TDTChannels") con nombres neutros, y subirlas a Amazon
-      (tablet y Fire TV, sin canal alfa en TV).
-- [ ] Mezclar la rama en `main` (la URL de la lista de prueba apunta a `main`).
-- [ ] Respuesta de Amazon al mensaje del punto 1, o decisión del usuario de enviar sin esperarla.
+- [x] **Probada en el Chromecast el 2026-10-01** (build debug `0.1.12-debug` con `-Pstore=amazon`, datos
+      vacíos): en el primer arranque y al final de "Connect your list" **no** sale el botón de la lista
+      de ejemplo; la lista de prueba carga y **Big Buck Bunny reproduce** (848x480, con audio).
+- [x] **Capturas rehechas el 2026-10-01** en el Chromecast, en inglés: `01-channels.png` ("Live sports of
+      My provider", canales inventados de `docs/playlists/screenshot-demo.m3u`, 5 favoritos) y
+      `02-profiles.png` (perfiles "Backup list", "Home", "My provider", "Sports bar", "Test streams").
+      Copias RGB sin canal alfa para Fire TV en `~/Downloads/easy-xtream-0.1.12-vc16-amazon/screenshots/`.
+      **Falta subirlas** a Amazon (tablet y Fire TV) y, si se quiere, a Play.
+- [x] Rama mezclada en `main` (la URL de la lista de prueba apunta a `main`).
+- [ ] Respuesta de Amazon al caso `22369540491`, o decisión del usuario de enviar sin esperarla.
 - [ ] En la consola: *Add Upcoming Version*, subir el APK universal vc16, DRM No, borrar el APK
-      anterior, rehacer dispositivos (Fire TV 91 / tablets 12 / Automotive 0), párrafo, notas e
-      instrucciones de arriba.
+      anterior, rehacer dispositivos (Fire TV 91 / tablets 12 / Automotive 0), párrafo, notas,
+      instrucciones de arriba y las dos capturas nuevas.
+
+Cómo se hicieron las capturas (por si hay que repetirlas): `adb shell cmd locale set-app-locales
+com.footballxtream.debug --locales en-US`; perfiles M3U creados con el mando por adb (`input keyevent` +
+`input text` **en trozos cortos**: una URL larga de golpe se corta); los nombres de los canales de la lista
+empiezan cada uno por una palabra distinta porque la app agrupa en una tarjeta los que comparten la
+primera palabra; favoritos con `input keyevent --longpress 23`.
