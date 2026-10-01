@@ -847,6 +847,15 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   20 %**, crear la ficha en-US y subir la 0.1.8 a Amazon como upcoming version.
 
 ## Otros TODO de calidad (no bloquean la publicación)
+- ✅ **Lint sin errores (2026-10-01, rama `chore/lint-translatable`, sin mezclar).** Los dos errores de
+  siempre (`app_name` y `settings_licenses_body` "sin traducir" en 23 idiomas) se arreglan marcando ambas
+  cadenas `translatable="false"`: el nombre de la app no se traduce y el texto de licencias es una lista
+  de nombres propios. `lintFullRelease`: 0 errores, 66 avisos; 75 tests en verde.
+- ❌ **Símbolos de depuración nativos: no se puede quitar el aviso de Play.** Probado el 2026-10-01 con
+  `ndk { debugSymbolLevel = "SYMBOL_TABLE" }` en release: el AAB sale **sin**
+  `BUNDLE-METADATA/…debugsymbols`, porque las `.so` de FFmpeg (NextLib) y de Media3 llegan ya recortadas
+  en sus AAR (sin `.symtab`) y no hay de dónde extraer símbolos. Solo se resolvería compilando FFmpeg
+  desde el código. Ajuste revertido; el aviso es inofensivo.
 - ✅ **Móvil: menú y mensajes rediseñados (2026-09-27).** Lo que fallaba: la capa de gestos a pantalla
   completa está por debajo de los overlays y Compose para el hit-test en el hermano de arriba, así que
   un deslizamiento que empezaba sobre la tarjeta del menú no llegaba nunca a esa capa; en vertical esa
