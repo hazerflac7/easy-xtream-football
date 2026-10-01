@@ -691,9 +691,17 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
         a `main`: **no funciona hasta mezclar la rama**.
       - `docs/amazon-resubmission.md`: mensaje para Amazon (Contact Us), párrafo IMPORTANTE de la ficha
         (vuelve al de la 0.1.7), notas de versión, instrucciones de prueba y lista de comprobación.
+      - ✅ **Consulta ENVIADA a Amazon el 2026-10-01 (11:48)**: caso **`22369540491`**
+        (https://developer.amazon.com/support/cases/22369540491), estado *In Process: pending Amazon
+        action*. Formulario *Contact Us* → Appstore → App Submission and Certification → App Content Policy
+        Review Results; OS Type **FOS**, app `com.footballxtream`, dispositivos Fire TV + Fire Tablets,
+        estado *Rejected*. Lo rellenó Claude en el navegador y lo envió el usuario. El texto es el de
+        `docs/amazon-resubmission.md` encajado en la plantilla del campo Descripción (versión, descripción,
+        documentos, capturas, notas), más la frase de que Google publicó la misma 0.1.11 ese día. La
+        respuesta llega al correo de la cuenta y a *My Appstore Cases*.
       - ⏳ **Falta** (no había Chromecast ni móvil por adb el 2026-10-01): probar la build en un
         dispositivo, **rehacer las capturas** `01-channels.png` y `02-profiles.png` con nombres neutros,
-        mezclar en `main`, que el usuario envíe el mensaje a Amazon y, con su visto bueno, reenviar.
+        mezclar en `main`, **esperar la respuesta de Amazon** y, con el visto bueno del usuario, reenviar.
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
