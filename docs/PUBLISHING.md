@@ -847,7 +847,7 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
   20 %**, crear la ficha en-US y subir la 0.1.8 a Amazon como upcoming version.
 
 ## Otros TODO de calidad (no bloquean la publicación)
-- ✅ **Lint sin errores (2026-10-01, rama `chore/lint-translatable`, sin mezclar).** Los dos errores de
+- ✅ **Lint sin errores (2026-10-01, mezclado en `main`).** Los dos errores de
   siempre (`app_name` y `settings_licenses_body` "sin traducir" en 23 idiomas) se arreglan marcando ambas
   cadenas `translatable="false"`: el nombre de la app no se traduce y el texto de licencias es una lista
   de nombres propios. `lintFullRelease`: 0 errores, 66 avisos; 75 tests en verde.
