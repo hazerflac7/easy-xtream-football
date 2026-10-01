@@ -125,7 +125,7 @@ párrafo pasó a hablar de "dos listas de ejemplo de emisiones en abierto manten
 y el párrafo es el que figura arriba. Detalles en `docs/PUBLISHING.md`.
 
 - ✅ **Play es-ES**: párrafo de la 0.1.11 publicado el 2026-10-01 junto con la versión 15 (0.1.11).
-- ⏳ **Play en-US**: ficha creada y guardada el 2026-10-01 con el texto de la 0.1.11; **pendiente de enviar a revisión** (hace falta el visto bueno del usuario).
+- ⏳ **Play en-US**: ficha creada con el texto de la 0.1.11 y **enviada a revisión el 2026-10-01** junto con las capturas nuevas.
 - ✅ **Amazon (ES y EN)**: párrafo de la 0.1.11 aplicado el 2026-09-29, enviado con la 0.1.11.
 
 ## TODO cuando se publique la 0.1.9

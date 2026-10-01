@@ -544,7 +544,19 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     `docs/store-listing.md`; **Guardar**. *Resumen de publicación* muestra *"Cambios que aún no se han
     enviado a revisión → Enviar 1 cambio a revisión"*. Los gráficos se heredan de es-ES. ⏳ **Falta el
     visto bueno del usuario para enviarla.** Si se quieren subir a Play las capturas nuevas (01 y 02, ver
-    la sección de Amazon), mejor meterlas en ese mismo envío.
+    la sección de Amazon), mejor meterlas en ese mismo envío (hecho, ver abajo).
+  - ✅ **ENVIADO A REVISIÓN el 2026-10-01 (~18:55), con el visto bueno del usuario: 5 cambios de ficha**
+    (ningún cambio de versión): `en-US · Añadir idioma` y `es-ES · Cambiar capturas` de **teléfonos, tablets
+    de 7", tablets de 10" y Android TV**. En las cuatro secciones quedan, en este orden,
+    `02-profiles-neutral.png`, `01-channels-neutral.png`, `03-languages.png` y `04-add-profile.png` (las dos
+    primeras son las capturas nuevas sin "iptv-org" ni "TDTChannels"; la ficha en-US hereda los gráficos).
+    *Resumen de publicación* muestra *Cambios en revisión*; Google avisa de hasta 7 días. La app publicada
+    (vc15) no cambia. ⏳ Esperar el correo de Google.
+    Cómo se cambian las capturas en la consola: *Añadir recursos* de la sección abre la biblioteca lateral;
+    **Subir** admite `file_upload`; cada recurso se añade a la sección activa (la azul) con la flecha de su
+    fila → **Añadir**; para quitar, el botón "Quitar …" de cada miniatura (responde a `click()` por JS; las
+    filas de la biblioteca no). La flecha de arriba a la izquierda del panel vuelve atrás en la vista de
+    detalle, pero en la lista **cierra el panel**.
     Ojo con el navegador: la consola exige tener iniciada la sesión de contact@nezor.es en el Chrome que
     controla Claude (queda como `/u/1/`); id de la app en las URL: `4973475173609165901`.
   - Amazon rechazó la 0.1.11 ese mismo día (ver su sección).
@@ -715,8 +727,8 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
         de `docs/playlists/screenshot-demo.m3u`, sin logos ni marcas) y `02-profiles.png` (perfiles "Backup
         list", "Home", "My provider", "Sports bar", "Test streams"). Ya no aparece "iptv-org" ni
         "TDTChannels". Copias RGB sin alfa para Fire TV en
-        `~/Downloads/easy-xtream-0.1.12-vc16-amazon/screenshots/`. **No subidas todavía** a ninguna tienda:
-        en Amazon y en Play siguen las antiguas.
+        `~/Downloads/easy-xtream-0.1.12-vc16-amazon/screenshots/`. Subidas a Play el 2026-10-01 (en revisión); **en Amazon siguen las
+        antiguas** hasta el reenvío.
       - ✅ **Rama mezclada en `main`** (`33e742e`), 75 tests en verde, y APK universal de Amazon recompilado
         desde `main`: vc16, `CN=Jorge Mtnez`, sin la URL de radios en el binario, md5 `1bfaba5d…`.
       - ⏳ **Falta**: la respuesta de Amazon al caso y, con el visto bueno del usuario, reenviar la 0.1.12
