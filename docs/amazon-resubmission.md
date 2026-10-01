@@ -90,7 +90,7 @@ an HLS test pattern). It is not offered inside the app.
 2. Select the "M3U list" tab.
 3. In "M3U playlist URL" enter:
    https://raw.githubusercontent.com/nezor11/easy-xtream-football/main/docs/playlists/review-test.m3u
-4. Select "Save and enter". Three test streams appear in a group.
+4. Select "Save and enter". Three test streams appear: Big Buck Bunny, Tears of Steel and BipBop test pattern.
 5. Select any of them to play. Back returns to the list.
 
 Alternative with a single stream: choose the "Direct link" tab and enter
