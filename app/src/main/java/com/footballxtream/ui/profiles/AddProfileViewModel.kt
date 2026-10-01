@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.footballxtream.BuildConfig
 import com.footballxtream.FootballXtreamApp
 import com.footballxtream.R
 import com.footballxtream.data.ContentRepository
@@ -78,7 +79,7 @@ class AddProfileViewModel(
 
     init {
         viewModelScope.launch {
-            if (profileDao.count() == 0) _state.update { it.copy(offerSamples = true) }
+            if (BuildConfig.SAMPLE_LIST && profileDao.count() == 0) _state.update { it.copy(offerSamples = true) }
         }
     }
 

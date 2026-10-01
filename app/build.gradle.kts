@@ -14,6 +14,10 @@ val keystoreProperties = Properties().apply {
     if (keystorePropertiesFile.exists()) keystorePropertiesFile.inputStream().use { load(it) }
 }
 
+// `-Pstore=amazon` builds the Amazon Appstore APK: a pure player, without the sample radio playlist
+// (Amazon rejected 0.1.8 and 0.1.11 over content the app offered by itself). Play builds keep it.
+val amazonStore = providers.gradleProperty("store").orNull == "amazon"
+
 android {
     namespace = "com.footballxtream"
     compileSdk = 36
@@ -22,8 +26,9 @@ android {
         applicationId = "com.footballxtream"
         minSdk = 24
         targetSdk = 36
-        versionCode = 15
-        versionName = "0.1.11"
+        versionCode = 16
+        versionName = "0.1.12"
+        buildConfigField("boolean", "SAMPLE_LIST", (!amazonStore).toString())
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -106,7 +111,7 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true // expose VERSION_NAME to the in-app "About" screen
+        buildConfig = true // VERSION_NAME for the in-app "About" screen, SAMPLE_LIST per store
     }
 }
 

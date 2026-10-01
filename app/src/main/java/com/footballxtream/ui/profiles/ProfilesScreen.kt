@@ -57,6 +57,7 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import android.widget.Toast
+import com.footballxtream.BuildConfig
 import com.footballxtream.R
 import com.footballxtream.data.local.ProfileEntity
 import com.footballxtream.ui.components.remoteCombinedClickable
@@ -156,7 +157,7 @@ fun ProfilesScreen(
                 // Nothing configured yet: offer the sample radio playlist so the player can be tried
                 // before adding one's own provider. It becomes an ordinary M3U profile, editable and
                 // deletable. Only shown once the DB has answered, so it doesn't flash while loading.
-                if (loaded && profiles.isEmpty()) {
+                if (BuildConfig.SAMPLE_LIST && loaded && profiles.isEmpty()) {
                     val radioName = stringResource(R.string.sample_profile_radio)
                     AddProfileButton(
                         focusable = !menuOpen,
