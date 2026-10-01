@@ -557,6 +557,12 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     fila → **Añadir**; para quitar, el botón "Quitar …" de cada miniatura (responde a `click()` por JS; las
     filas de la biblioteca no). La flecha de arriba a la izquierda del panel vuelve atrás en la vista de
     detalle, pero en la lista **cierra el panel**.
+  - ⚠️ **2026-10-01 (~19:00): martinezortiz@gmail.com QUITADA de la lista "Internos"** (Ajustes → Licencia
+    para testing → Internos → papelera → Guardar), a petición del usuario, para hacer una **compra real**
+    del café desde su móvil con la 0.1.11 de la tienda. La lista queda con contact@nezor.es y
+    sigfrido.mar@gmail.com. Esa misma lista es la de la **Prueba interna**: mientras no se vuelva a añadir,
+    el móvil no recibe builds internas y sus compras SE COBRAN. ⏳ **Volver a añadirla tras la prueba** y
+    anotar aquí el pedido (Gestión de pedidos, sin la etiqueta "Prueba").
     Ojo con el navegador: la consola exige tener iniciada la sesión de contact@nezor.es en el Chrome que
     controla Claude (queda como `/u/1/`); id de la app en las URL: `4973475173609165901`.
   - Amazon rechazó la 0.1.11 ese mismo día (ver su sección).
