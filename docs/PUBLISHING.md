@@ -545,7 +545,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     enviado a revisión → Enviar 1 cambio a revisión"*. Los gráficos se heredan de es-ES. ⏳ **Falta el
     visto bueno del usuario para enviarla.** Si se quieren subir a Play las capturas nuevas (01 y 02, ver
     la sección de Amazon), mejor meterlas en ese mismo envío (hecho, ver abajo).
-  - ✅ **ENVIADO A REVISIÓN el 2026-10-01 (~18:55), con el visto bueno del usuario: 5 cambios de ficha**
+  - ✅ **ENVIADO A REVISIÓN el 2026-10-01 (~18:45), con el visto bueno del usuario: 5 cambios de ficha**
     (ningún cambio de versión): `en-US · Añadir idioma` y `es-ES · Cambiar capturas` de **teléfonos, tablets
     de 7", tablets de 10" y Android TV**. En las cuatro secciones quedan, en este orden,
     `02-profiles-neutral.png`, `01-channels-neutral.png`, `03-languages.png` y `04-add-profile.png` (las dos
