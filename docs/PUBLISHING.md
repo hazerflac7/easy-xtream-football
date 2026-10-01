@@ -557,12 +557,15 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     fila → **Añadir**; para quitar, el botón "Quitar …" de cada miniatura (responde a `click()` por JS; las
     filas de la biblioteca no). La flecha de arriba a la izquierda del panel vuelve atrás en la vista de
     detalle, pero en la lista **cierra el panel**.
-  - ⚠️ **2026-10-01 (~19:00): martinezortiz@gmail.com QUITADA de la lista "Internos"** (Ajustes → Licencia
-    para testing → Internos → papelera → Guardar), a petición del usuario, para hacer una **compra real**
-    del café desde su móvil con la 0.1.11 de la tienda. La lista queda con contact@nezor.es y
-    sigfrido.mar@gmail.com. Esa misma lista es la de la **Prueba interna**: mientras no se vuelva a añadir,
-    el móvil no recibe builds internas y sus compras SE COBRAN. ⏳ **Volver a añadirla tras la prueba** y
-    anotar aquí el pedido (Gestión de pedidos, sin la etiqueta "Prueba").
+  - 🎉 **PRIMERA COMPRA REAL del café: 2026-10-01, 20:17 (18:17 UTC).** Pedido **`GPA.3387-6546-4841-82280`**,
+    *Un café (Easy Xtream Football)* · `coffee_small` · **Procesado · 1,99 EUR**, **sin la etiqueta
+    "Prueba:"** (los cuatro pedidos anteriores, del 26 y 27 de septiembre, sí la llevan). La hizo el usuario
+    desde su móvil con martinezortiz@gmail.com y la 0.1.11 de la tienda. Play Billing queda verificado en
+    Producción de punta a punta. No se ha reembolsado.
+    Para que cobrara hubo que **quitar esa cuenta de la lista "Internos"** (*Ajustes → Licencia para
+    testing → Internos*; es también la lista de la Prueba interna) a las ~19:00; **vuelta a añadir a las
+    ~20:25**, la lista tiene otra vez 3 usuarios. contact@nezor.es no sirve para compras reales (cuenta
+    del desarrollador). Ruta de los pedidos: `/console/u/1/developers/<id>/orders`.
     Ojo con el navegador: la consola exige tener iniciada la sesión de contact@nezor.es en el Chrome que
     controla Claude (queda como `/u/1/`); id de la app en las URL: `4973475173609165901`.
   - Amazon rechazó la 0.1.11 ese mismo día (ver su sección).
