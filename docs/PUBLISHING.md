@@ -676,19 +676,18 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     - ⚠️ **No reenviar a ciegas una tercera vez**: dos rechazos seguidos por piratería; un tercero puede
       poner en riesgo la 0.1.7 publicada o la cuenta.
     - ✅ **Decisión del usuario (2026-10-01): preguntar a Amazon y preparar una versión "solo reproductor".**
-      Preparado ese día en la rama **`fix/amazon-no-sample-list`** (subida a origin, SIN mezclar):
+      Preparado ese día en la rama **`fix/amazon-no-sample-list`** (mezclada en `main` esa tarde):
       - **0.1.12 (vc16)**. Propiedad de Gradle nueva: `./gradlew :app:assembleFullRelease -Pstore=amazon`
         pone `BuildConfig.SAMPLE_LIST = false` y el botón de lista de ejemplo no existe (ni en el primer
         arranque ni en la pantalla de perfiles vacía). Sin la propiedad (builds de Play) todo sigue igual.
         Comprobado en el APK universal: `versionCode 16`, firma `CN=Jorge Mtnez`, y **R8 elimina la URL de
         la lista de radios del binario** (0 apariciones de `sports-radio.m3u`). Sigue estando la URL de
         logos de `iptv-org.github.io/api`, que ya iba en la 0.1.7 aprobada. 75 tests en verde.
-        Copia: `~/Downloads/easy-xtream-0.1.12-vc16-amazon/` (27,2 MB, md5 `728f35fa…`), solo en la
-        máquina Linux.
+        Copia: `~/Downloads/easy-xtream-0.1.12-vc16-amazon/` (27,2 MB), solo en la máquina Linux.
       - `docs/playlists/review-test.m3u`: lista para el revisor con 3 vídeos de licencia libre (Big Buck
         Bunny, Tears of Steel, carta de ajuste de Apple; los tres responden 200 y pasan el filtro de
         deporte de la app). La app no la ofrece; solo va en las instrucciones de prueba. La URL `raw` apunta
-        a `main`: **no funciona hasta mezclar la rama**.
+        a `main` (ya mezclada).
       - `docs/amazon-resubmission.md`: mensaje para Amazon (Contact Us), párrafo IMPORTANTE de la ficha
         (vuelve al de la 0.1.7), notas de versión, instrucciones de prueba y lista de comprobación.
       - ✅ **Consulta ENVIADA a Amazon el 2026-10-01 (11:48)**: caso **`22369540491`**
@@ -699,9 +698,24 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
         `docs/amazon-resubmission.md` encajado en la plantilla del campo Descripción (versión, descripción,
         documentos, capturas, notas), más la frase de que Google publicó la misma 0.1.11 ese día. La
         respuesta llega al correo de la cuenta y a *My Appstore Cases*.
-      - ⏳ **Falta** (no había Chromecast ni móvil por adb el 2026-10-01): probar la build en un
-        dispositivo, **rehacer las capturas** `01-channels.png` y `02-profiles.png` con nombres neutros,
-        mezclar en `main`, **esperar la respuesta de Amazon** y, con el visto bueno del usuario, reenviar.
+      - ✅ **Probada en el Chromecast el 2026-10-01 (17:20-17:50)** con la build debug de Amazon
+        (`0.1.12-debug`, `-Pstore=amazon`, datos vacíos, al lado de la de Play): ni el primer arranque ni el
+        final de "Connect your list" muestran el botón de ejemplo; la lista `review-test.m3u` carga y **Big
+        Buck Bunny reproduce** (848x480, con audio). De paso se renombraron los tres vídeos de esa lista:
+        con el prefijo común "Test N" la app los agrupaba en una sola tarjeta.
+      - ✅ **Capturas rehechas** ese día en el Chromecast, en inglés: `01-channels.png` (canales inventados
+        de `docs/playlists/screenshot-demo.m3u`, sin logos ni marcas) y `02-profiles.png` (perfiles "Backup
+        list", "Home", "My provider", "Sports bar", "Test streams"). Ya no aparece "iptv-org" ni
+        "TDTChannels". Copias RGB sin alfa para Fire TV en
+        `~/Downloads/easy-xtream-0.1.12-vc16-amazon/screenshots/`. **No subidas todavía** a ninguna tienda:
+        en Amazon y en Play siguen las antiguas.
+      - ✅ **Rama mezclada en `main`** (`33e742e`), 75 tests en verde, y APK universal de Amazon recompilado
+        desde `main`: vc16, `CN=Jorge Mtnez`, sin la URL de radios en el binario, md5 `1bfaba5d…`.
+      - ⏳ **Falta**: la respuesta de Amazon al caso y, con el visto bueno del usuario, reenviar la 0.1.12
+        (lista de comprobación en `docs/amazon-resubmission.md`). Opcional: subir las dos capturas nuevas
+        también a la ficha de Play.
+      - ℹ️ El Chromecast se queda con la `0.1.12-debug` de Amazon en inglés y los cinco perfiles de las
+        capturas; la app de Play instalada no se ha tocado.
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
