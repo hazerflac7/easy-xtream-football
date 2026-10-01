@@ -564,7 +564,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     Producción de punta a punta. No se ha reembolsado.
     Para que cobrara hubo que **quitar esa cuenta de la lista "Internos"** (*Ajustes → Licencia para
     testing → Internos*; es también la lista de la Prueba interna) a las ~19:00; **vuelta a añadir a las
-    ~20:25**, la lista tiene otra vez 3 usuarios. contact@nezor.es no sirve para compras reales (cuenta
+    ~20:50**, la lista tiene otra vez 3 usuarios. contact@nezor.es no sirve para compras reales (cuenta
     del desarrollador). Ruta de los pedidos: `/console/u/1/developers/<id>/orders`.
     Ojo con el navegador: la consola exige tener iniciada la sesión de contact@nezor.es en el Chrome que
     controla Claude (queda como `/u/1/`); id de la app en las URL: `4973475173609165901`.
