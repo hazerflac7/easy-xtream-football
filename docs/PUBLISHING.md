@@ -538,8 +538,16 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     valoración media 5,00, sin ingresos todavía. El aviso *"Se ha solucionado una infracción reciente de las
     políticas"* del panel es, salvo que la consola diga otra cosa, el del target API 36 del 2026-09-26 (ver
     la revisión del 28 de septiembre); no pide ninguna acción.
-  - ➡️ Ya sin revisión en curso en Play: toca **crear la ficha en-US** (punto 9 de *Pendiente*) y decidir si
-    se rehacen las capturas de los perfiles (ver abajo). Amazon la rechazó ese mismo día (ver su sección).
+  - ✅ **Ficha en-US de Play CREADA y GUARDADA el 2026-10-01 (tarde), SIN enviar a revisión.** *Fichas de
+    Play Store → Gestionar traducciones → Seleccionar idiomas → Inglés (Estados Unidos) – en-US → Aplicar*;
+    nombre (20/30), descripción breve (77/80) y completa (1334/4000, párrafos sin saltos de línea duros) de
+    `docs/store-listing.md`; **Guardar**. *Resumen de publicación* muestra *"Cambios que aún no se han
+    enviado a revisión → Enviar 1 cambio a revisión"*. Los gráficos se heredan de es-ES. ⏳ **Falta el
+    visto bueno del usuario para enviarla.** Si se quieren subir a Play las capturas nuevas (01 y 02, ver
+    la sección de Amazon), mejor meterlas en ese mismo envío.
+    Ojo con el navegador: la consola exige tener iniciada la sesión de contact@nezor.es en el Chrome que
+    controla Claude (queda como `/u/1/`); id de la app en las URL: `4973475173609165901`.
+  - Amazon rechazó la 0.1.11 ese mismo día (ver su sección).
 - ⚠️ **Capturas de la ficha, por si hay otro rechazo** (visto el 2026-09-29, **aplazado por decisión del
   usuario** hasta tener los veredictos): `docs/store-assets/screenshots/02-profiles.png`, publicada en Amazon y
   en Play, enseña perfiles llamados **"iptv-org ES"** y **"Sports iptv-org"**. `01-channels.png` muestra

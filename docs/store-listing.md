@@ -19,7 +19,7 @@ deportivas con la emisión pública de las propias emisoras, borrable).
 `Reproductor IPTV sencillo para tu deporte en directo, pensado para la tele.`
 
 ### Descripción completa
-> Texto de la 0.1.11, en revisión en Play desde el 2026-09-29 junto con la versión 15 (0.1.11).
+> Texto de la 0.1.11, publicado en Play el 2026-10-01 junto con la versión 15 (0.1.11).
 
 Easy Xtream Football es un reproductor de IPTV sencillo y centrado en el deporte en
 directo, diseñado para Android TV, Fire TV y móvil, y pensado para manejarse cómodamente
@@ -85,8 +85,8 @@ the necessary rights or permissions.
 ---
 
 ## Cómo crear la ficha en-US en Play Console
-Pendiente de que Google apruebe la 0.1.8: **no añadir el idioma mientras haya cambios en revisión**,
-porque la revisión en curso ya incluye el cambio de la ficha es-ES y añadir otro la alargaría.
+Hecho el 2026-10-01 (guardada, sin enviar). Regla general: **no añadir idiomas mientras haya cambios en
+revisión**, porque alarga la revisión en curso. El menú real es *Gestionar traducciones → Seleccionar idiomas*.
 
 1. Play Console → app → **Aumentar usuarios → Fichas de Play Store**.
 2. Arriba, **Traducciones → Gestionar traducciones → Añadir tu propia traducción**.
@@ -124,8 +124,8 @@ párrafo pasó a hablar de "dos listas de ejemplo de emisiones en abierto manten
 (Sky Sports, ESPN, Movistar Liga de Campeones…). Desde la **0.1.11** el botón solo crea la lista de radios
 y el párrafo es el que figura arriba. Detalles en `docs/PUBLISHING.md`.
 
-- ✅ **Play es-ES**: párrafo de la 0.1.11 enviado a revisión el 2026-09-29 junto con la versión 15 (0.1.11).
-- ⏳ **Play en-US**: la ficha no existe todavía; crearla ya con el texto de la 0.1.11.
+- ✅ **Play es-ES**: párrafo de la 0.1.11 publicado el 2026-10-01 junto con la versión 15 (0.1.11).
+- ⏳ **Play en-US**: ficha creada y guardada el 2026-10-01 con el texto de la 0.1.11; **pendiente de enviar a revisión** (hace falta el visto bueno del usuario).
 - ✅ **Amazon (ES y EN)**: párrafo de la 0.1.11 aplicado el 2026-09-29, enviado con la 0.1.11.
 
 ## TODO cuando se publique la 0.1.9
