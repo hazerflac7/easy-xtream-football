@@ -674,7 +674,26 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     - **Apelación:** *Contact Us* → tipo *Appstore* → categoría *App Submission and Certification* → tema
       *App Content Policy Review Results*. Es la única vía para saber qué han visto exactamente.
     - ⚠️ **No reenviar a ciegas una tercera vez**: dos rechazos seguidos por piratería; un tercero puede
-      poner en riesgo la 0.1.7 publicada o la cuenta. ⏳ Decisión del usuario pendiente (2026-10-01).
+      poner en riesgo la 0.1.7 publicada o la cuenta.
+    - ✅ **Decisión del usuario (2026-10-01): preguntar a Amazon y preparar una versión "solo reproductor".**
+      Preparado ese día en la rama **`fix/amazon-no-sample-list`** (subida a origin, SIN mezclar):
+      - **0.1.12 (vc16)**. Propiedad de Gradle nueva: `./gradlew :app:assembleFullRelease -Pstore=amazon`
+        pone `BuildConfig.SAMPLE_LIST = false` y el botón de lista de ejemplo no existe (ni en el primer
+        arranque ni en la pantalla de perfiles vacía). Sin la propiedad (builds de Play) todo sigue igual.
+        Comprobado en el APK universal: `versionCode 16`, firma `CN=Jorge Mtnez`, y **R8 elimina la URL de
+        la lista de radios del binario** (0 apariciones de `sports-radio.m3u`). Sigue estando la URL de
+        logos de `iptv-org.github.io/api`, que ya iba en la 0.1.7 aprobada. 75 tests en verde.
+        Copia: `~/Downloads/easy-xtream-0.1.12-vc16-amazon/` (27,2 MB, md5 `728f35fa…`), solo en la
+        máquina Linux.
+      - `docs/playlists/review-test.m3u`: lista para el revisor con 3 vídeos de licencia libre (Big Buck
+        Bunny, Tears of Steel, carta de ajuste de Apple; los tres responden 200 y pasan el filtro de
+        deporte de la app). La app no la ofrece; solo va en las instrucciones de prueba. La URL `raw` apunta
+        a `main`: **no funciona hasta mezclar la rama**.
+      - `docs/amazon-resubmission.md`: mensaje para Amazon (Contact Us), párrafo IMPORTANTE de la ficha
+        (vuelve al de la 0.1.7), notas de versión, instrucciones de prueba y lista de comprobación.
+      - ⏳ **Falta** (no había Chromecast ni móvil por adb el 2026-10-01): probar la build en un
+        dispositivo, **rehacer las capturas** `01-channels.png` y `02-profiles.png` con nombres neutros,
+        mezclar en `main`, que el usuario envíe el mensaje a Amazon y, con su visto bueno, reenviar.
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
