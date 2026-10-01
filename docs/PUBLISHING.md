@@ -483,7 +483,7 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Versión**: al mezclar, `versionCode 10` · `0.1.9`. Notas de versión: "Ahora puedes invitar a un café desde la
   propia app, con Google Play" / "You can now buy me a coffee right from the app, through Google Play".
 
-## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, ENVIADA A REVISIÓN en Amazon y en Play)
+## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, 🎉 PUBLICADA en Play el 2026-10-01; Amazon en revisión)
 Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `versionCode` **15** · `versionName`
 **0.1.11**. Es la 0.1.10 (vc14) con un único cambio:
 - El botón del primer arranque y de la pantalla de perfiles vacía pasa a ser **"Probar con una lista de radios
@@ -529,7 +529,17 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     subirlo), sin incluir el 14; notas breves en es-ES y en-US; *Guardar y publicar*. El canal muestra
     "Última versión: 15 (0.1.11)". Se publica al momento y **no toca la revisión de Producción**, que sigue
     igual. Ya no queda ningún canal de Play sirviendo el botón de iptv-org.
-  - ⏳ Pendiente: esperar el veredicto de Google; crear la ficha en-US cuando se apruebe.
+  - 🎉 **PUBLICADA EN PRODUCCIÓN el 2026-10-01** (unos 2 días de revisión). Panel de la app, pegado por el
+    usuario ese día: *"No tienes cambios no publicados"*, *Última versión de producción: hace 6 horas · 100 % ·
+    Teléfonos y tablets, y 3 más*, *"Se ha publicado la actualización de la aplicación"*. Comprobado en la
+    ficha pública (`details?id=com.footballxtream`, HTTP 200): **versión 0.1.11**. Con ella llegan a
+    Producción, de golpe, el botón de radios de ejemplo, el rediseño del reproductor en móvil y **Play Billing
+    para el café** (0.1.9/0.1.10). Cifras a 28 días: 16 adquisiciones, 10 dispositivos activos al mes,
+    valoración media 5,00, sin ingresos todavía. El aviso *"Se ha solucionado una infracción reciente de las
+    políticas"* del panel es, salvo que la consola diga otra cosa, el del target API 36 del 2026-09-26 (ver
+    la revisión del 28 de septiembre); no pide ninguna acción.
+  - ➡️ Ya sin revisión en curso en Play: toca **crear la ficha en-US** (punto 9 de *Pendiente*) y decidir si
+    se rehacen las capturas de los perfiles (ver abajo). Falta el veredicto de Amazon.
 - ⚠️ **Capturas de la ficha, por si hay otro rechazo** (visto el 2026-09-29, **aplazado por decisión del
   usuario** hasta tener los veredictos): `docs/store-assets/screenshots/02-profiles.png`, publicada en Amazon y
   en Play, enseña perfiles llamados **"iptv-org ES"** y **"Sports iptv-org"**. `01-channels.png` muestra
