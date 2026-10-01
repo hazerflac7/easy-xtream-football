@@ -483,7 +483,7 @@ Se dio de alta un perfil **Lista M3U** con la lista del proveedor (11 MB, **51.0
 - **Versión**: al mezclar, `versionCode 10` · `0.1.9`. Notas de versión: "Ahora puedes invitar a un café desde la
   propia app, con Google Play" / "You can now buy me a coffee right from the app, through Google Play".
 
-## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, 🎉 PUBLICADA en Play el 2026-10-01; Amazon en revisión)
+## 0.1.11 — lista de ejemplo solo de radios (2026-09-29, 🎉 PUBLICADA en Play el 2026-10-01; ❌ RECHAZADA en Amazon ese mismo día)
 Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `versionCode` **15** · `versionName`
 **0.1.11**. Es la 0.1.10 (vc14) con un único cambio:
 - El botón del primer arranque y de la pantalla de perfiles vacía pasa a ser **"Probar con una lista de radios
@@ -539,7 +539,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
     políticas"* del panel es, salvo que la consola diga otra cosa, el del target API 36 del 2026-09-26 (ver
     la revisión del 28 de septiembre); no pide ninguna acción.
   - ➡️ Ya sin revisión en curso en Play: toca **crear la ficha en-US** (punto 9 de *Pendiente*) y decidir si
-    se rehacen las capturas de los perfiles (ver abajo). Falta el veredicto de Amazon.
+    se rehacen las capturas de los perfiles (ver abajo). Amazon la rechazó ese mismo día (ver su sección).
 - ⚠️ **Capturas de la ficha, por si hay otro rechazo** (visto el 2026-09-29, **aplazado por decisión del
   usuario** hasta tener los veredictos): `docs/store-assets/screenshots/02-profiles.png`, publicada en Amazon y
   en Play, enseña perfiles llamados **"iptv-org ES"** y **"Sports iptv-org"**. `01-channels.png` muestra
@@ -583,7 +583,7 @@ Respuesta al rechazo de Amazon de la 0.1.8 (ver la sección de Amazon). `version
   </en-US>
   ```
 
-## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26 (0.1.8 RECHAZADA y 0.1.11 ENVIADA el 2026-09-29)
+## Amazon Appstore (Fire TV) — preparado el 2026-09-22, enviada el 2026-09-23, PUBLICADA el 2026-09-26 (0.1.8 RECHAZADA el 2026-09-29 y 0.1.11 RECHAZADA el 2026-10-01)
 Objetivo: que los Fire TV Stick instalen la app desde su tienda (no tienen Google Play). Cuenta de
 desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la de Google.
 - ✅ **APK universal firmado** con la clave de subida (Amazon no usa Play App Signing; re-firma con su propio
@@ -651,7 +651,30 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
     ES, **notas de versión** de la 0.1.11 en los dos idiomas e **instrucciones de prueba reescritas**: ya no
     llevan ninguna URL de iptv-org, explican que esa lista se ha quitado en respuesta al rechazo de la 0.1.8 y
     guían al revisor por el botón *"Try with a sample radio playlist"*. Esta vez no salió la pregunta de
-    *"significant changes"*. ⏳ Esperar el correo de Amazon y anotar aquí el resultado.
+    *"significant changes"*.
+  - ❌ **0.1.11 RECHAZADA POR AMAZON el 2026-10-01 (correo a las 8:09 hora española)**, a las ~38 horas de
+    enviarla y **con el mismo motivo literal** que la 0.1.8: Primary Validation PASS · Functionality
+    Validation PASS · **Content Policy Validation FAILED**: *"Your app offers pirated content within the app,
+    promotes links to websites that stream pirated content, or promotes downloading via torrents"* (política
+    *Deceptive and Malicious Behavior*). El correo dice que la decisión combina medios automáticos y revisión
+    humana, y remite a la consola para el informe detallado (pendiente de mirar; con la 0.1.8 no decía más).
+    Ese mismo día Google **aprobó y publicó** la misma vc15 en Play. La 0.1.7 debería seguir LIVE en Amazon
+    (el rechazo solo bloquea la actualización; confirmarlo en la consola).
+    - **Quitar la lista de iptv-org no ha bastado**, así que la causa ya no está clara. Lo que la 0.1.11
+      tiene y la 0.1.7 aprobada no tenía, o que sigue a la vista del revisor:
+      1. **El botón de lista de ejemplo en sí**, aunque ahora sea de radios: la app sigue *ofreciendo
+         contenido ella misma* (14 emisiones de terceros para las que no hay licencia ni permiso escrito;
+         talkSPORT, Fox Sports Radio o RMC narran competiciones con derechos). La 0.1.7 no ofrecía nada.
+      2. **Las instrucciones de prueba** mencionan el rechazo anterior y la lista de iptv-org retirada.
+      3. **Las capturas** (`02-profiles.png` con perfiles "iptv-org ES" y "Sports iptv-org";
+         `01-channels.png` con "Live sports of TDTChannels"). Son las mismas con las que pasó la 0.1.7, pero
+         tras un rechazo la revisión es más estricta.
+      4. Menos probable: la descarga de logos de `iptv-org.github.io/api` y la mención "Channel logos from
+         the iptv-org database" en Licencias.
+    - **Apelación:** *Contact Us* → tipo *Appstore* → categoría *App Submission and Certification* → tema
+      *App Content Policy Review Results*. Es la única vía para saber qué han visto exactamente.
+    - ⚠️ **No reenviar a ciegas una tercera vez**: dos rechazos seguidos por piratería; un tercero puede
+      poner en riesgo la 0.1.7 publicada o la cuenta. ⏳ Decisión del usuario pendiente (2026-10-01).
   Ficha publicada: https://www.amazon.com/dp/B0HKSFXX9Z (el enlace estable para compartir es
   https://www.amazon.com/gp/mas/dl/android?p=com.footballxtream ; la variante amazon.es da 404). Consola:
   https://developer.amazon.com/apps-and-games/console/apps/list.html
