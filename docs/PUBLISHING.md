@@ -727,6 +727,11 @@ desarrollador de Amazon gratuita. La revisión de Amazon es independiente de la 
         `docs/amazon-resubmission.md` encajado en la plantilla del campo Descripción (versión, descripción,
         documentos, capturas, notas), más la frase de que Google publicó la misma 0.1.11 ese día. La
         respuesta llega al correo de la cuenta y a *My Appstore Cases*.
+      - ⏳ **2026-10-03: correo de espera de Amazon Developer Support** sobre el caso: "The issue is taking
+        longer to resolve than expected. We are actively investigating your concern and will respond to you
+        once we have more detailed information". No es un veredicto ni pide nada: el caso sigue abierto y
+        en sus manos. No hay que contestar (y el correo es *no-reply*; para escribirles, el enlace del caso).
+        Se sigue sin reenviar la 0.1.12.
       - ✅ **Probada en el Chromecast el 2026-10-01 (17:20-17:50)** con la build debug de Amazon
         (`0.1.12-debug`, `-Pstore=amazon`, datos vacíos, al lado de la de Play): ni el primer arranque ni el
         final de "Connect your list" muestran el botón de ejemplo; la lista `review-test.m3u` carga y **Big
