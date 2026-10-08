@@ -39,7 +39,7 @@ import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 
 @Composable
-fun GamesRow(modifier: Modifier = Modifier, viewModel: GamesViewModel = viewModel()) {
+fun GamesRow(modifier: Modifier = Modifier, onGameClick: (Game) -> Unit = {}, viewModel: GamesViewModel = viewModel()) {
     val games by viewModel.games.collectAsState()
     if (games.isEmpty()) return
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
@@ -61,7 +61,7 @@ fun GamesRow(modifier: Modifier = Modifier, viewModel: GamesViewModel = viewMode
             contentPadding = PaddingValues(horizontal = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(games, key = { it.id }) { GameCard(it, now) }
+            items(games, key = { it.id }) { g -> GameCard(g, now, onClick = { onGameClick(g) }) }
         }
     }
 }

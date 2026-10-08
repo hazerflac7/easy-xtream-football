@@ -185,6 +185,8 @@ class ChannelsViewModel(
         }.filterNotNull()
     }
 
+    suspend fun channelsForGame(game: com.footballxtream.model.Game): List<ChannelGroup> = GameChannelMatcher.match(repository, (load.value as? Load.Data)?.folders.orEmpty(), game)
+
     fun refresh(forceRefresh: Boolean = false) {
         load.value = Load.Loading
         viewModelScope.launch {
