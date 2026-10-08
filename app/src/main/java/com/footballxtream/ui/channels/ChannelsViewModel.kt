@@ -187,6 +187,13 @@ class ChannelsViewModel(
 
     suspend fun channelsForGame(game: com.footballxtream.model.Game): List<ChannelGroup> = GameChannelMatcher.match(repository, (load.value as? Load.Data)?.folders.orEmpty(), game)
 
+    fun playGame(game: com.footballxtream.model.Game, onPlay: () -> Unit, onNoMatch: () -> Unit) {
+        viewModelScope.launch {
+            val matches = channelsForGame(game)
+            if (matches.isEmpty()) onNoMatch() else playList(matches, 0, false, onPlay)
+        }
+    }
+
     fun refresh(forceRefresh: Boolean = false) {
         load.value = Load.Loading
         viewModelScope.launch {
