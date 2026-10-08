@@ -330,6 +330,9 @@ private fun FolderGrid(
             contentPadding = PaddingValues(bottom = 32.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
+            if (query.isBlank()) {
+                item { GamesRow() }
+            }
             if (content.liveNow.isNotEmpty()) {
                 item {
                     ChannelRowSection(title = stringResource(R.string.now_live), count = content.liveNow.size, modifier = Modifier.alpha(dimAlpha)) {
