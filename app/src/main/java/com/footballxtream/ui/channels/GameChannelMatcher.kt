@@ -69,6 +69,30 @@ object GameChannelMatcher {
             return scored.take(MAX_RESULTS)
         }
 
+        // Tier 2: team-market feeds, then national NFL feeds.
+        val eventListing = Regex("""\bvs\b|\bat\b|@""", RegexOption.IGNORE_CASE)
+        val marketTag = Regex("""\b(cbs|fox|nbc|abc)\b""", RegexOption.IGNORE_CASE)
+        val nationalTag = Regex("""nfl network|nfl redzone|prime video|amazon|netflix""", RegexOption.IGNORE_CASE)
+        if (game.state != GameState.FINAL) {
+            val marketHits = all.filter { ch ->
+                val n = ch.displayName
+                (mentions(n, away) != mentions(n, home)) &&
+                    marketTag.containsMatchIn(n) && !eventListing.containsMatchIn(n)
+            }
+            val nationalHits = if (game.league.contains("nfl", ignoreCase = true)) {
+                all.filter { ch ->
+                    val n = ch.displayName
+                    nationalTag.containsMatchIn(n) && !eventListing.containsMatchIn(n) &&
+                        !mentions(n, away) && !mentions(n, home)
+                }
+            } else emptyList()
+            val tier2 = (marketHits + nationalHits).distinctBy { it.key }
+            if (tier2.isNotEmpty()) {
+                Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: ${marketHits.size} market + ${nationalHits.size} national")
+                return tier2.take(MAX_RESULTS)
+            }
+        }
+
         val winStart = game.startMillis - 30 * 60_000L
         val winEnd = game.startMillis + 4 * 3_600_000L
         val candidates = all
