@@ -69,34 +69,24 @@ object GameChannelMatcher {
             return scored.take(MAX_RESULTS)
         }
 
-        // Tier 2: team-market feeds, then national NFL feeds.
-        val eventListing = Regex("""\bvs\b|\bat\b|@""", RegexOption.IGNORE_CASE)
-        val marketTag = Regex("""\b(cbs|fox|nbc|abc)\b""", RegexOption.IGNORE_CASE)
-        val nationalTag = Regex("""nfl network|nfl redzone|prime video|amazon|netflix""", RegexOption.IGNORE_CASE)
-        if (game.state != GameState.FINAL) {
-            val marketHits = all.filter { ch ->
-                val n = ch.displayName
-                (mentions(n, away) != mentions(n, home)) &&
-                    marketTag.containsMatchIn(n) && !eventListing.containsMatchIn(n)
-            }
-            val nationalHits = if (game.league.contains("nfl", ignoreCase = true)) {
-                all.filter { ch ->
-                    val n = ch.displayName
-                    nationalTag.containsMatchIn(n) && !eventListing.containsMatchIn(n) &&
-                        !mentions(n, away) && !mentions(n, home)
-                }
-            } else emptyList()
-            val tier2 = (marketHits + nationalHits).distinctBy { it.key }
-            if (tier2.isNotEmpty()) {
-                Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: ${marketHits.size} market + ${nationalHits.size} national")
-                return tier2.take(MAX_RESULTS)
+        var slotHits: List<ChannelGroup> = emptyList()
+        // Blank numbered NFL slots ("NFL | 01 -") carry the current prime-time game.
+        val blankSlot = Regex("""^NFL\s*\|\s*\d{1,2}\s*-?\s*$""", RegexOption.IGNORE_CASE)
+        val isFootball = game.league.contains("nfl", ignoreCase = true) ||
+            game.league.contains("football", ignoreCase = true)
+        val startsSoon = game.startMillis - now <= 60 * 60_000L
+        if (isFootball && game.state != GameState.FINAL && (game.state == GameState.LIVE || startsSoon)) {
+            val slots = all.filter { blankSlot.matches(it.displayName.trim()) }
+            if (slots.isNotEmpty()) {
+                Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: ${slots.size} blank slots")
+                slotHits = slots.take(MAX_RESULTS)
             }
         }
 
         val winStart = game.startMillis - 30 * 60_000L
         val winEnd = game.startMillis + 4 * 3_600_000L
         val candidates = all
-            .sortedByDescending { if (hint.containsMatchIn(it.displayName.lowercase())) 1 else 0 }
+            .sortedByDescending { cityScore(it.displayName, game) * 2 + if (hint.containsMatchIn(it.displayName.lowercase())) 1 else 0 }
             .take(MAX_EPG_CANDIDATES)
 
         val byEpg = withTimeoutOrNull(TIMEOUT_MS) {
@@ -117,7 +107,7 @@ object GameChannelMatcher {
         } ?: emptyList()
 
         Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: 0 by name, ${candidates.size} epg candidates, ${byEpg.size} epg hits")
-        return byEpg.take(MAX_RESULTS)
+        return (slotHits + byEpg).distinctBy { it.key }.take(MAX_RESULTS)
     }
 
     /** Parses "@ Oct 8 7:00 PM" from a channel name into epoch millis, or null if absent. */
@@ -138,6 +128,20 @@ object GameChannelMatcher {
         if (t < nowMillis - halfYear) { cal.set(Calendar.YEAR, year + 1); t = cal.timeInMillis }
         else if (t > nowMillis + halfYear) { cal.set(Calendar.YEAR, year - 1); t = cal.timeInMillis }
         return t
+    }
+
+    private fun cityScore(name: String, game: Game): Int {
+        val t = norm(name)
+        var s = 0
+        for (full in listOf(game.awayName, game.homeName)) {
+            val words = full.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+            if (words.size >= 2) {
+                val city = norm(words.dropLast(1).joinToString(" "))
+                val first = norm(words.first())
+                if (t.contains(city) || (first.trim().length >= 5 && t.contains(first))) s += 2
+            }
+        }
+        return s
     }
 
     private fun norm(s: String) = " " + s.lowercase().replace(nonAlnum, " ").trim() + " "
