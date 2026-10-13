@@ -75,6 +75,18 @@ object GameChannelMatcher {
         val isFootball = game.league.contains("nfl", ignoreCase = true) ||
             game.league.contains("football", ignoreCase = true)
         val startsSoon = game.startMillis - now <= 60 * 60_000L
+
+        // NFL on ABC/CBS/NBC/FOX: local-affiliate channels in the home, then away, market.
+        val affiliateHits: List<ChannelGroup> = if (isFootball && game.state != GameState.FINAL) {
+            AffiliateMatcher.match(
+                all, game.homeAbbr, game.awayAbbr, game.broadcasts,
+                nationalGame = isPrimeTime(game.startMillis),
+            )
+        } else {
+            emptyList()
+        }
+        Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: broadcasts=${game.broadcasts} affiliates=${affiliateHits.size}")
+        if (affiliateHits.isNotEmpty()) return affiliateHits.take(MAX_RESULTS)
         if (isFootball && game.state != GameState.FINAL && (game.state == GameState.LIVE || startsSoon)) {
             val slots = all.filter { blankSlot.matches(it.displayName.trim()) }
             if (slots.isNotEmpty()) {
@@ -108,6 +120,13 @@ object GameChannelMatcher {
 
         Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: 0 by name, ${candidates.size} epg candidates, ${byEpg.size} epg hits")
         return (slotHits + byEpg).distinctBy { it.key }.take(MAX_RESULTS)
+    }
+
+    /** True for kickoffs at 7pm Eastern or later: Sunday/Monday/Thursday night games air nationwide. */
+    private fun isPrimeTime(startMillis: Long): Boolean {
+        val cal = Calendar.getInstance(PROVIDER_ZONE)
+        cal.timeInMillis = startMillis
+        return cal.get(Calendar.HOUR_OF_DAY) >= 19
     }
 
     /** Parses "@ Oct 8 7:00 PM" from a channel name into epoch millis, or null if absent. */

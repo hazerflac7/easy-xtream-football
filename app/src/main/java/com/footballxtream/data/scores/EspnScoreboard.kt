@@ -6,6 +6,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.text.SimpleDateFormat
@@ -21,7 +26,21 @@ import java.util.TimeZone
 )
 @Serializable private data class EspnStatus(val type: EspnStatusType)
 @Serializable private data class EspnStatusType(val state: String = "pre", val shortDetail: String? = null)
-@Serializable private data class EspnCompetition(val competitors: List<EspnCompetitor> = emptyList())
+@Serializable private data class EspnCompetition(
+    val competitors: List<EspnCompetitor> = emptyList(),
+    // Kept as raw JSON so an unexpected shape can never fail the whole scoreboard decode.
+    val broadcasts: JsonElement? = null,
+)
+
+/** Network names from ESPN's `broadcasts: [{ names: ["CBS"] }]`; empty on any other shape. */
+private fun broadcastNames(el: JsonElement?): List<String> {
+    val out = mutableListOf<String>()
+    for (b in (el as? JsonArray).orEmpty()) {
+        val names = (b as? JsonObject)?.get("names") as? JsonArray ?: continue
+        for (n in names) (n as? JsonPrimitive)?.contentOrNull?.let { out += it }
+    }
+    return out.distinct()
+}
 @Serializable private data class EspnCompetitor(
     val homeAway: String,
     val score: String? = null,
@@ -72,6 +91,7 @@ class EspnScoreboard(private val client: OkHttpClient = OkHttpClient()) {
             awayLogo = away.team.logo, awayScore = away.score?.toIntOrNull(),
             homeName = home.team.displayName, homeAbbr = home.team.abbreviation,
             homeLogo = home.team.logo, homeScore = home.score?.toIntOrNull(),
+            broadcasts = broadcastNames(comp.broadcasts),
         )
     }
 

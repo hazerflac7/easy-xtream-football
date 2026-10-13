@@ -16,4 +16,6 @@ data class Game(
     val homeAbbr: String,
     val homeLogo: String?,
     val homeScore: Int?,
+    // TV networks ESPN lists for the game (e.g. "ESPN", "ABC"); empty when unknown.
+    val broadcasts: List<String> = emptyList(),
 )
