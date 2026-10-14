@@ -32,7 +32,7 @@ class XtreamAuthException : Exception("Authentication rejected by the server")
  * Single entry point for channel data. Holds the active source (Xtream API or an M3U playlist)
  * and exposes sports-grouped channels regardless of the source.
  */
-class ContentRepository(
+open class ContentRepository(
     private val cacheDir: File,
     private val logoRepository: LogoRepository,
 ) {
@@ -205,7 +205,7 @@ class ContentRepository(
      * "Now / next" EPG for a channel, whatever the source: Xtream via get_short_epg, M3U via the
      * XMLTV guide declared in the playlist (x-tvg-url). Returns empty when no guide is available.
      */
-    suspend fun epgFor(group: ChannelGroup): List<EpgProgram> =
+    open suspend fun epgFor(group: ChannelGroup): List<EpgProgram> =
         when (binding) {
             is Binding.Xtream -> shortEpg(group.bestVariant().channel.streamId)
             is Binding.M3u -> withContext(Dispatchers.IO) { m3uEpg(group) }

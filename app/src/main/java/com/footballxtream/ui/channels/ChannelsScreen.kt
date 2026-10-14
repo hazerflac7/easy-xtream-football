@@ -112,6 +112,7 @@ fun ChannelsScreen(
     val favoriteChannelKeys by viewModel.favoriteChannelKeys.collectAsStateWithLifecycle()
     val openedFolder by viewModel.openedFolder.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val context = androidx.compose.ui.platform.LocalContext.current
 
     Box(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
@@ -153,6 +154,13 @@ fun ChannelsScreen(
                 onQueryChange = viewModel::setQuery,
                 onQualitySelected = viewModel::selectQuality,
                 onReload = viewModel::reload,
+                onGameClick = { game ->
+                    val label = "${game.awayAbbr} @ ${game.homeAbbr}"
+                    android.widget.Toast.makeText(context, "Finding a channel for $label...", android.widget.Toast.LENGTH_SHORT).show()
+                    viewModel.playGame(game, onPlay) {
+                        android.widget.Toast.makeText(context, "No channel found for $label", android.widget.Toast.LENGTH_LONG).show()
+                    }
+                },
                 onPlayList = { channels, index, isFavorites -> viewModel.playList(channels, index, isFavorites, onPlay) },
                 onFolderClick = { f ->
                     if (f.isSingle) viewModel.play(f, 0, onPlay) else viewModel.openFolder(f)
@@ -176,6 +184,7 @@ private fun FolderGrid(
     onQueryChange: (String) -> Unit,
     onQualitySelected: (QualityMode) -> Unit,
     onReload: () -> Unit,
+    onGameClick: (com.footballxtream.model.Game) -> Unit,
     onPlayList: (List<ChannelGroup>, Int, Boolean) -> Unit,
     onFolderClick: (ChannelFolder) -> Unit,
     onFolderLongClick: (ChannelFolder) -> Unit,
@@ -330,6 +339,9 @@ private fun FolderGrid(
             contentPadding = PaddingValues(bottom = 32.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
+            if (query.isBlank()) {
+                item { GamesRow(onGameClick = onGameClick) }
+            }
             if (content.liveNow.isNotEmpty()) {
                 item {
                     ChannelRowSection(title = stringResource(R.string.now_live), count = content.liveNow.size, modifier = Modifier.alpha(dimAlpha)) {
