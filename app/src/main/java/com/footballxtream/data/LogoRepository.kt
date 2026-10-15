@@ -15,7 +15,7 @@ import java.io.File
  * cross-referenced into a normalized name -> logo URL map and cached compactly on disk. Used to give
  * channels a logo when the playlist itself provides none. Coil handles caching the actual images.
  */
-class LogoRepository(private val cacheDir: File) {
+open class LogoRepository(private val cacheDir: File) {
 
     @Volatile
     private var nameToLogo: Map<String, String>? = null

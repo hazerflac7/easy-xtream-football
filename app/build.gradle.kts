@@ -32,6 +32,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
     // Split the FFmpeg native libs per ABI. Real Android TV / Fire TV / phone devices are ARM, so a
     // single-ABI APK is far smaller than the universal one (which bundles all four architectures).
     splits {
