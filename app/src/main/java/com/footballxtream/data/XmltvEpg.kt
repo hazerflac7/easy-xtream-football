@@ -127,7 +127,8 @@ object XmltvEpg {
                         if (capture && channel != null) {
                             val text = title.toString().trim()
                             // Keep what is still airing or yet to come; drop already-finished shows.
-                            if (text.isNotEmpty() && (stop == 0L || stop >= now)) {
+                            val actualStop = if (stop == 0L && start > 0L) start + 2 * 3_600_000L else stop
+                            if (text.isNotEmpty() && (actualStop == 0L || actualStop >= now)) {
                                 out.getOrPut(channel!!) { mutableListOf() }
                                     .add(EpgProgram(text, start, stop, nowFlag = false))
                             }
@@ -153,7 +154,9 @@ object XmltvEpg {
         val offset = v.drop(digits.length).replace(" ", "")
         return runCatching {
             if (offset.isNotEmpty()) {
-                SimpleDateFormat("yyyyMMddHHmmssZ", Locale.US).parse(digits + offset)?.time ?: 0L
+                SimpleDateFormat("yyyyMMddHHmmssZ", Locale.US)
+                    .apply { timeZone = TimeZone.getTimeZone("UTC") }
+                    .parse(digits + offset)?.time ?: 0L
             } else {
                 SimpleDateFormat("yyyyMMddHHmmss", Locale.US)
                     .apply { timeZone = TimeZone.getTimeZone("UTC") }

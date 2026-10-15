@@ -45,11 +45,12 @@ object GameChannelMatcher {
         repository: ContentRepository,
         folders: List<ChannelFolder>,
         game: Game,
+        clock: () -> Long = { System.currentTimeMillis() }
     ): List<ChannelGroup> {
         val all = folders.flatMap { it.channels }.distinctBy { it.key }
         val away = teamTerms(game.awayName)
         val home = teamTerms(game.homeName)
-        val now = System.currentTimeMillis()
+        val now = clock()
 
         val nameHits = all.filter { mentions(it.displayName, away) && mentions(it.displayName, home) }
         val scored = nameHits.mapNotNull { ch ->
@@ -105,10 +106,12 @@ object GameChannelMatcher {
             candidates.chunked(CONCURRENCY).flatMap { chunk ->
                 coroutineScope {
                     chunk.map { g ->
-                        async(Dispatchers.IO) {
+                        async(Dispatchers.Default) {
                             val hit = runCatching { repository.epgFor(g) }.getOrDefault(emptyList())
                                 .any { p ->
-                                    p.end > winStart && p.start < winEnd &&
+                                    val stop = if (p.end == 0L && p.start > 0L) p.start + 2 * 3_600_000L else p.end
+                                    val isActive = p.start <= now && now <= stop
+                                    isActive && stop > winStart && p.start < winEnd &&
                                         mentions(p.title, away) && mentions(p.title, home)
                                 }
                             if (hit) g else null
