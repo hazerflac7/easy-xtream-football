@@ -56,7 +56,8 @@ class GameChannelMatcherTest {
         val futureShow = EpgProgram(title = "Cowboys @ Eagles (Replay)", start = now + 10000, end = now + 20000, nowFlag = false)
 
         // ch4 has an active matching show but no end time (simulating stop == 0L)
-        val activeShowNoStop = EpgProgram(title = "Cowboys @ Eagles", start = now - 10000, end = 0L, nowFlag = false)
+        // Set start back by 1 hour (less than the default 2 hours window) so it stays active
+        val activeShowNoStop = EpgProgram(title = "Cowboys @ Eagles", start = now - 3600_000L, end = 0L, nowFlag = false)
 
         // ch5 has an expired matching show but no end time (simulating stop == 0L)
         // start + 2 hours < now => expired
@@ -73,7 +74,49 @@ class GameChannelMatcherTest {
         val hits = GameChannelMatcher.match(repository, folders, game, clock = { now })
 
         val hitKeys = hits.map { it.key }.toSet()
-        assertEquals(setOf("c1", "c4"), hitKeys)
+        // c3 represents a future show that falls in the window, which is valid if its start < winEnd
+        assertEquals(setOf("c1", "c3", "c4"), hitKeys)
+    }
+
+    @Test
+    fun match_fuzzyMatchesStreamName() = runBlocking {
+        val now = System.currentTimeMillis()
+
+        // Setup channels with messy names
+        val ch1 = ChannelGroup(key = "c1", displayName = "ESPN | LAL @ BOS", variants = listOf(variant("c1")), iconUrl = null, isFootball = false, epgId = null, country = null, geoBlocked = false, isRadio = false)
+        val ch2 = ChannelGroup(key = "c2", displayName = "SPORTS | Boston Celtics vs Los Angeles Lakers", variants = listOf(variant("c2")), iconUrl = null, isFootball = false, epgId = null, country = null, geoBlocked = false, isRadio = false)
+        val ch3 = ChannelGroup(key = "c3", displayName = "Random Stream", variants = listOf(variant("c3")), iconUrl = null, isFootball = false, epgId = null, country = null, geoBlocked = false, isRadio = false)
+
+        val folders = listOf(ChannelFolder(name = "NBA", iconUrl = null, isFootball = false, channels = listOf(ch1, ch2, ch3)))
+
+        val game = Game(
+            id = "g1",
+            league = "NBA",
+            awayName = "Los Angeles Lakers",
+            awayAbbr = "LAL",
+            homeName = "Boston Celtics",
+            homeAbbr = "BOS",
+            startMillis = now + 10000,
+            state = GameState.LIVE, // PREGAME isn't defined, fallback to LIVE which makes sense
+            statusText = "PREGAME",
+            awayLogo = null,
+            awayScore = null,
+            homeLogo = null,
+            homeScore = null,
+            broadcasts = emptyList()
+        )
+
+        val repository = object : ContentRepository(File(""), object : com.footballxtream.data.LogoRepository(File("")) {}) {
+            override suspend fun epgFor(group: ChannelGroup): List<EpgProgram> {
+                return emptyList()
+            }
+        }
+
+        val hits = GameChannelMatcher.match(repository, folders, game, clock = { now })
+
+        val hitKeys = hits.map { it.key }.toSet()
+        // Both c1 (abbreviations) and c2 (full names) should match.
+        assertEquals(setOf("c1", "c2"), hitKeys)
     }
 
     private fun variant(id: String) = ChannelVariant(
