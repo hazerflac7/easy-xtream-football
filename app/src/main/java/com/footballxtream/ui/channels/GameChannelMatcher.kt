@@ -27,6 +27,7 @@ object GameChannelMatcher {
     private const val CONCURRENCY = 10
     private const val MAX_RESULTS = 8
     private const val TIMEOUT_MS = 15_000L
+    private const val MIN_SCORE = 20
 
     // Provider writes times like "@ Oct 8 7:00 PM". Assumed US Eastern; check the GameMatch log.
     private val PROVIDER_ZONE = TimeZone.getTimeZone("America/New_York")
@@ -40,33 +41,35 @@ object GameChannelMatcher {
     private val hint = Regex(
         "nfl|nba|espn|fox|cbs|nbc|abc|tnt|tbs|prime|peacock|sportsnet|fanduel|altitude|msg|yes|network|tsn|bally|spectrum|sports",
     )
+    private val whitespaceRegex = Regex("\\s+")
 
     suspend fun match(
         repository: ContentRepository,
         folders: List<ChannelFolder>,
         game: Game,
+        clock: () -> Long = { System.currentTimeMillis() },
     ): List<ChannelGroup> {
         val all = folders.flatMap { it.channels }.distinctBy { it.key }
-        val away = teamTerms(game.awayName)
-        val home = teamTerms(game.homeName)
-        val now = System.currentTimeMillis()
+        val now = clock()
 
-        val nameHits = all.filter { mentions(it.displayName, away) && mentions(it.displayName, home) }
-        val scored = nameHits.mapNotNull { ch ->
-            val t = eventStartMillis(ch.displayName, now)
-            if (t != null) {
-                val diff = abs(t - game.startMillis)
-                Log.d(TAG, "${ch.displayName}: name time=$t game=${game.startMillis} diffMin=${diff / 60_000}")
-                if (diff <= TIME_TOLERANCE_MS) ch to diff else null
+        val scoredByName = all.mapNotNull { ch ->
+            val score = scoreMatch(ch.displayName, game)
+            if (score >= MIN_SCORE) {
+                val t = eventStartMillis(ch.displayName, now)
+                if (t != null) {
+                    val diff = abs(t - game.startMillis)
+                    if (diff <= TIME_TOLERANCE_MS) Triple(ch, score, diff) else null
+                } else {
+                    if (game.state == GameState.FINAL) null else Triple(ch, score, Long.MAX_VALUE)
+                }
             } else {
-                // No time in the name: can't verify, so skip it for finished games, rank it last otherwise.
-                if (game.state == GameState.FINAL) null else ch to Long.MAX_VALUE
+                null
             }
-        }.sortedBy { it.second }.map { it.first }
+        }.sortedWith(compareBy<Triple<ChannelGroup, Int, Long>> { it.third }.thenByDescending { it.second }).map { it.first }
 
-        if (scored.isNotEmpty()) {
-            Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: ${scored.size} by name (${nameHits.size} before time check)")
-            return scored.take(MAX_RESULTS)
+        if (scoredByName.isNotEmpty()) {
+            Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: ${scoredByName.size} by name")
+            return scoredByName.take(MAX_RESULTS)
         }
 
         var slotHits: List<ChannelGroup> = emptyList()
@@ -106,12 +109,21 @@ object GameChannelMatcher {
                 coroutineScope {
                     chunk.map { g ->
                         async(Dispatchers.IO) {
-                            val hit = runCatching { repository.epgFor(g) }.getOrDefault(emptyList())
-                                .any { p ->
-                                    p.end > winStart && p.start < winEnd &&
-                                        mentions(p.title, away) && mentions(p.title, home)
-                                }
-                            if (hit) g else null
+                            val programs = runCatching { repository.epgFor(g) }.getOrDefault(emptyList())
+                            val activePrograms = programs.filter { p ->
+                                val actualEnd = if (p.end == 0L) p.start + 2 * 3_600_000L else p.end
+                                // allow matches that end after now (not expired), and fall within the game window
+                                // we shouldn't enforce actualEnd > winStart since actualEnd > now already ensures it hasn't expired.
+                                // the start condition just ensures it doesn't start way too late (after the game ends).
+                                actualEnd > now && p.start < winEnd
+                            }
+
+                            val bestScore = activePrograms.maxOfOrNull { p -> scoreMatch(p.title, game) } ?: 0
+                            if (bestScore >= MIN_SCORE) {
+                                Pair(g, bestScore)
+                            } else {
+                                null
+                            }
                         }
                     }.awaitAll()
                 }
@@ -119,7 +131,47 @@ object GameChannelMatcher {
         } ?: emptyList()
 
         Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: 0 by name, ${candidates.size} epg candidates, ${byEpg.size} epg hits")
-        return (slotHits + byEpg).distinctBy { it.key }.take(MAX_RESULTS)
+        val epgHits = byEpg.sortedByDescending { it.second }.map { it.first }
+        return (slotHits + epgHits).distinctBy { it.key }.take(MAX_RESULTS)
+    }
+
+    private fun scoreMatch(text: String, game: Game): Int {
+        val normText = norm(text)
+        val textTokens = text.lowercase().replace(nonAlnum, " ").trim().split(whitespaceRegex).filter { it.isNotEmpty() }
+        val awayScore = scoreTeam(normText, textTokens, game.awayName, game.awayAbbr)
+        val homeScore = scoreTeam(normText, textTokens, game.homeName, game.homeAbbr)
+
+        if (awayScore > 0 && homeScore > 0) {
+            return awayScore + homeScore
+        }
+        return 0
+    }
+
+    private fun scoreTeam(normText: String, tokens: List<String>, name: String, abbr: String): Int {
+        val nameTokens = name.lowercase().replace(nonAlnum, " ").trim().split(whitespaceRegex).filter { it.isNotEmpty() }
+        var score = 0
+
+        // Exact full name match
+        if (normText.contains(norm(name))) {
+            score += 20
+        }
+
+        // Parts of name match (like city or mascot)
+        for (token in nameTokens) {
+            if (token.length >= 4 && normText.contains(norm(token))) {
+                score += 10
+            }
+        }
+
+        // Abbreviation match (as isolated token)
+        if (abbr.isNotEmpty()) {
+            val lowerAbbr = abbr.lowercase()
+            if (tokens.contains(lowerAbbr)) {
+                score += 15
+            }
+        }
+
+        return score
     }
 
     /** True for kickoffs at 7pm Eastern or later: Sunday/Monday/Thursday night games air nationwide. */
@@ -165,19 +217,5 @@ object GameChannelMatcher {
 
     private fun norm(s: String) = " " + s.lowercase().replace(nonAlnum, " ").trim() + " "
 
-    private fun teamTerms(displayName: String): List<String> {
-        val words = displayName.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
-        if (words.isEmpty()) return emptyList()
-        val terms = linkedSetOf(words.joinToString(" "), words.last())
-        if (words.size >= 3) {
-            terms += words.takeLast(2).joinToString(" ")
-            terms += words.takeLast(2).joinToString("")
-        }
-        return terms.map { norm(it) }.filter { it.length >= 6 }.distinct()
-    }
 
-    private fun mentions(text: String, terms: List<String>): Boolean {
-        val t = norm(text)
-        return terms.any { t.contains(it) }
-    }
 }
