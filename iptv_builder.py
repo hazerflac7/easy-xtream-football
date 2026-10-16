@@ -51,7 +51,7 @@ def download_and_extract_epg(url, temp_xml_path="temp_epg.xml"):
     response = requests.get(url, stream=True)
     response.raise_for_status()
     
-    if url.endswith('.gz'):
+    if url.endswith('.gz') or 'gzip=' in url.lower():
         with open(temp_xml_path, 'wb') as f_out:
             f_out.write(gzip.decompress(response.content))
     else:
