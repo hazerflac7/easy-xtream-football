@@ -1,0 +1,39 @@
+name: Update IPTV Guide & Scores
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+    - cron: '*/15 23,0,1,2,3,4,5 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-epg:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: pip install requests
+        
+      - name: Run Script (Forced Daily / Manual)
+        if: github.event.schedule == '0 10 * * *' || github.event_name == 'workflow_dispatch'
+        run: python iptv_builder.py --force
+        
+      - name: Run Script (15-Min Live Check)
+        if: github.event.schedule != '0 10 * * *' && github.event_name != 'workflow_dispatch'
+        run: python iptv_builder.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add clean_playlist.m3u clean_epg.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update EPG & M3U with live scores" && git push)
