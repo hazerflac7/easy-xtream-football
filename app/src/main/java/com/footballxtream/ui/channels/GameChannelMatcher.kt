@@ -53,7 +53,8 @@ object GameChannelMatcher {
         val now = clock()
 
         val scoredByName = all.mapNotNull { ch ->
-            val score = scoreMatch(ch.displayName, game)
+            val baseScore = scoreMatch(ch.displayName, game)
+            val score = maxOf(baseScore, scoreAffiliate(ch, game))
             if (score >= MIN_SCORE) {
                 val t = eventStartMillis(ch.displayName, now)
                 if (t != null) {
@@ -133,6 +134,26 @@ object GameChannelMatcher {
         Log.d(TAG, "${game.awayAbbr}@${game.homeAbbr}: 0 by name, ${candidates.size} epg candidates, ${byEpg.size} epg hits")
         val epgHits = byEpg.sortedByDescending { it.second }.map { it.first }
         return (slotHits + epgHits).distinctBy { it.key }.take(MAX_RESULTS)
+    }
+
+    private fun scoreAffiliate(channel: ChannelGroup, game: Game): Int {
+        val majorNetworks = listOf("FOX", "ABC", "CBS", "NBC")
+        val displayName = norm(channel.displayName)
+        val categories = channel.variants.map { norm(it.channel.categoryName ?: "") }.joinToString(" ")
+        val combinedText = "$displayName $categories"
+
+        if (majorNetworks.none { combinedText.contains(norm(it)) }) {
+            return 0
+        }
+
+        for (full in listOf(game.awayName, game.homeName)) {
+            val words = full.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+            if (words.size >= 2) {
+                val city = norm(words.dropLast(1).joinToString(" "))
+                if (city.trim().isNotEmpty() && combinedText.contains(city)) return 50
+            }
+        }
+        return 0
     }
 
     private fun scoreMatch(text: String, game: Game): Int {

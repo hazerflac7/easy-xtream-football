@@ -119,6 +119,47 @@ class GameChannelMatcherTest {
         assertEquals(setOf("c1", "c2"), hitKeys)
     }
 
+    @Test
+    fun match_localAffiliate_nationalGame() = runBlocking {
+        val now = System.currentTimeMillis()
+
+        // Setup local affiliate channels
+        val ch1 = ChannelGroup(key = "c1", displayName = "USA - FOX 13 SEATTLE", variants = listOf(variant("c1")), iconUrl = null, isFootball = true, epgId = null, country = null, geoBlocked = false, isRadio = false)
+        val ch2 = ChannelGroup(key = "c2", displayName = "USA - ABC 7 DENVER", variants = listOf(variant("c2")), iconUrl = null, isFootball = true, epgId = null, country = null, geoBlocked = false, isRadio = false)
+        val ch3 = ChannelGroup(key = "c3", displayName = "USA - NBC 4 NEW YORK", variants = listOf(variant("c3")), iconUrl = null, isFootball = true, epgId = null, country = null, geoBlocked = false, isRadio = false)
+
+        val folders = listOf(ChannelFolder(name = "USA", iconUrl = null, isFootball = true, channels = listOf(ch1, ch2, ch3)))
+
+        val game = Game(
+            id = "g1",
+            league = "NFL",
+            awayName = "Seattle Seahawks",
+            awayAbbr = "SEA",
+            homeName = "Denver Broncos",
+            homeAbbr = "DEN",
+            startMillis = now + 10000,
+            state = GameState.LIVE,
+            statusText = "LIVE",
+            awayLogo = null,
+            awayScore = null,
+            homeLogo = null,
+            homeScore = null,
+            broadcasts = listOf("FOX", "ABC")
+        )
+
+        val repository = object : ContentRepository(File(""), object : com.footballxtream.data.LogoRepository(File("")) {}) {
+            override suspend fun epgFor(group: ChannelGroup): List<EpgProgram> {
+                return emptyList()
+            }
+        }
+
+        val hits = GameChannelMatcher.match(repository, folders, game, clock = { now })
+
+        val hitKeys = hits.map { it.key }.toSet()
+        // c1 and c2 should match based on city and network
+        assertEquals(setOf("c1", "c2"), hitKeys)
+    }
+
     private fun variant(id: String) = ChannelVariant(
         channel = LiveChannel(streamId = 1, name = id, categoryName = "Cats", streamUrl = "http://url", iconUrl = null, epgId = id, geoBlocked = false, isRadio = false, country = null),
         quality = com.footballxtream.model.Quality.UNKNOWN
