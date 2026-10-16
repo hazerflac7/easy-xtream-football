@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 # 1. YOUR CONFIGURATION
 # ==========================================
 M3U_SOURCE = "2ndStrong8k_edit.txt" # Change to your actual .m3u file path or URL
-EPG_URL = "https://example.com/epg.xml.gz" # Replace with your EPG source
+EPG_URL = "https://opop.pro/XNawShQyV2ofdW/?gzip=1" # Replace with your EPG source
 
 # Add any keywords here. The script checks inside the group-title="" tag.
 # Using lower case is required here.
