@@ -107,7 +107,7 @@ def fetch_dynamic_events(sport_path, prefix, stream_url, default_duration_hours=
             display_name = f"[{away_score}-{home_score} | {status_detail}] {base_name}"
 
         if date_str:
-            start_time = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            start_time = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ") if len(date_str) > 17 else datetime.strptime(date_str, "%Y-%m-%dT%H:%MZ"); start_time = start_time.replace(tzinfo=timezone.utc)
             end_time = start_time + timedelta(hours=default_duration_hours)
             
             start_xmltv = start_time.strftime("%Y%m%d%H%M%S +0000")
