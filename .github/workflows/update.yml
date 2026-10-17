@@ -1,40 +1,30 @@
-name: Update IPTV Guide & Scores
+name: Automated EPG Update
 
 on:
   schedule:
-    - cron: '0 10 * * *'
-    - cron: '*/15 23,0,1,2,3,4,5 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
-  push:
 
 jobs:
   update-epg:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        
+      - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-          
+          python-version: '3.11'
       - name: Install dependencies
-        run: pip install requests
-        
-      - name: Run Script (Forced Daily / Manual)
-        if: github.event.schedule == '0 10 * * *' || github.event_name == 'workflow_dispatch'
+        run: pip install requests pytz
+      - name: Download Source Playlist
+        env:
+          IPTV_URL: ${{ secrets.IPTV_URL }}
+        run: curl -s "$IPTV_URL" -o 2ndStrong8k.m3u
+      - name: Run IPTV Script
         run: python iptv_builder.py --force
-        
-      - name: Run Script (15-Min Live Check)
-        if: github.event.schedule != '0 10 * * *' && github.event_name != 'workflow_dispatch'
-        run: python iptv_builder.py
-
-      - name: Commit and Push changes
+      - name: Commit and Push Clean Files
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f clean_playlist.m3u ] && git add clean_playlist.m3u clean_epg.xml || exit 0
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update EPG & M3U with live scores" && git push)
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add clean_playlist.m3u clean_epg.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update EPG and filtered playlist" && git push)
