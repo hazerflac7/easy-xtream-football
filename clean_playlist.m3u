@@ -7356,29 +7356,11 @@ http://line.glawoqa.com/series/password/username/1418539.mp4
 #EXTINF:0 CUID="20" tvg-name="EN - Blood Legacy (2024) (ZA) S01 E20 The Harvest" tvg-logo="https://image.tmdb.org/t/p/w600_and_h900_bestv2/59jB3ECurFN3iz61Bs9zhq5p6ad.jpg" group-title="SRS - NEW ADDED [EN]",EN - Blood Legacy (2024) (ZA) S01 E20 The Harvest
 http://line.glawoqa.com/series/password/username/1418540.mp4
 
-#EXTINF:0 tvg-id="nba-401898406" tvg-name="[115-136 | Final] Miami Heat at Orlando Magic" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/orl.png" group-title="|NA| NBA LIVE",[115-136 | Final] Miami Heat at Orlando Magic
+#EXTINF:0 tvg-id="nba-401909088" tvg-name="Boston Celtics at Detroit Pistons" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png" group-title="|NA| NBA LIVE",Boston Celtics at Detroit Pistons
 http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401898407" tvg-name="[125-120 | Final/OT] Boston Celtics at Philadelphia 76ers" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phi.png" group-title="|NA| NBA LIVE",[125-120 | Final/OT] Boston Celtics at Philadelphia 76ers
+#EXTINF:0 tvg-id="nba-401909089" tvg-name="Philadelphia 76ers at New York Knicks" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ny.png" group-title="|NA| NBA LIVE",Philadelphia 76ers at New York Knicks
 http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401908946" tvg-name="[125-129 | Final] Toronto Raptors at Detroit Pistons" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/det.png" group-title="|NA| NBA LIVE",[125-129 | Final] Toronto Raptors at Detroit Pistons
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401914126" tvg-name="[128-127 | Final/OT] Milwaukee Bucks at Indiana Pacers" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/ind.png" group-title="|NA| NBA LIVE",[128-127 | Final/OT] Milwaukee Bucks at Indiana Pacers
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401898408" tvg-name="[135-111 | Final] Atlanta Hawks at Dallas Mavericks" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/dal.png" group-title="|NA| NBA LIVE",[135-111 | Final] Atlanta Hawks at Dallas Mavericks
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401898843" tvg-name="[97-126 | Final] Sacramento Kings at San Antonio Spurs" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png" group-title="|NA| NBA LIVE",[97-126 | Final] Sacramento Kings at San Antonio Spurs
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401901822" tvg-name="[98-117 | Final] Charlotte Hornets at Memphis Grizzlies" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mem.png" group-title="|NA| NBA LIVE",[98-117 | Final] Charlotte Hornets at Memphis Grizzlies
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401906509" tvg-name="[106-107 | Final] Washington Wizards at New Orleans Pelicans" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/no.png" group-title="|NA| NBA LIVE",[106-107 | Final] Washington Wizards at New Orleans Pelicans
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401908943" tvg-name="[116-133 | Final] Minnesota Timberwolves at Chicago Bulls" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/chi.png" group-title="|NA| NBA LIVE",[116-133 | Final] Minnesota Timberwolves at Chicago Bulls
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401898409" tvg-name="[118-128 | Final] Portland Trail Blazers at Golden State Warriors" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/gs.png" group-title="|NA| NBA LIVE",[118-128 | Final] Portland Trail Blazers at Golden State Warriors
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401908948" tvg-name="[119-116 | Final] Utah Jazz at Phoenix Suns" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/phx.png" group-title="|NA| NBA LIVE",[119-116 | Final] Utah Jazz at Phoenix Suns
-http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
-#EXTINF:0 tvg-id="nba-401898719" tvg-name="[121-106 | Final] Denver Nuggets at Los Angeles Lakers" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/lal.png" group-title="|NA| NBA LIVE",[121-106 | Final] Denver Nuggets at Los Angeles Lakers
+#EXTINF:0 tvg-id="nba-401909090" tvg-name="Oklahoma City Thunder at San Antonio Spurs" tvg-logo="https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/sa.png" group-title="|NA| NBA LIVE",Oklahoma City Thunder at San Antonio Spurs
 http://line.glawoqa.com/live/xxxxx/xxxxx/nba-live.ts
 
 #EXTINF:0 tvg-id="nfl-401872995" tvg-name="[14-17 | Final/OT] Seattle Seahawks at Denver Broncos" tvg-logo="https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png" group-title="|NA| NFL LIVE",[14-17 | Final/OT] Seattle Seahawks at Denver Broncos
